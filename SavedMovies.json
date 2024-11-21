@@ -1,0 +1,16 @@
+//
+//  SavedMovies.json
+//  MovieSearch
+//
+//  Created by Anna Filin on 20/11/2024.
+//
+
+{
+    "results": [
+        {
+            "id": 1,
+            "title": "Inception",
+            "overview": "A mind-bending thriller."
+        }
+    ]
+}

@@ -21,7 +21,6 @@ struct MovieDetailsView: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-//                    .frame(maxWidth: .infinity)
                     .cornerRadius(5)
                     .padding()
                 
@@ -36,10 +35,8 @@ struct MovieDetailsView: View {
                     Text("Rating \(String(movie.vote_average))/\(String(movie.vote_count))")
                         .font(.title.bold())
                         
-  
                     Text(movie.release_date)
                         .font(.title)
-                    
                 }
                 .padding(.horizontal)
             }
@@ -49,9 +46,6 @@ struct MovieDetailsView: View {
         .navigationTitle(movie.title)
         .navigationBarTitleDisplayMode(.inline)
         .background(Color(red: 0.15, green: 0.16, blue: 0.12))
-//        .navigationDestination(for: CrewMember.self) { crewMember in
-//            AstronautView(astronaut: crewMember.astronaut)
-//        }
     }
 }
 

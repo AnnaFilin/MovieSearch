@@ -45,7 +45,6 @@ struct MovieView: View {
                     ProgressView()
                 }
 
-                           
                 VStack(alignment: .leading) {
                     Text(movie.title)
                         .font(.title)
@@ -62,8 +61,6 @@ struct MovieView: View {
             }
             .padding()
         }
-       
-        
     }
 }
 

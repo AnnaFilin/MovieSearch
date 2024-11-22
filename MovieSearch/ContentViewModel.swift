@@ -93,5 +93,41 @@ class ViewModel: ObservableObject {
             print("Error deleting saved file: \(error.localizedDescription)")
         }
     }
+    
+    func searchMovies(query: String) async {
+        isLoading = true
+        errorMessage = nil
+
+        guard var components = URLComponents(string: "https://api.themoviedb.org/3/search/movie") else {
+               errorMessage = "Invalid URL."
+               isLoading = false
+               return
+           }
+
+       components.queryItems = [
+           URLQueryItem(name: "query", value: query),
+           URLQueryItem(name: "include_adult", value: "false"),
+           URLQueryItem(name: "language", value: "en-US"),
+           URLQueryItem(name: "page", value: "1"),
+           URLQueryItem(name: "api_key", value: Config.apiKey)
+       ]
+
+       guard let url = components.url else {
+           errorMessage = "Failed to construct URL."
+           isLoading = false
+           return
+       }
+
+       do {
+           let (data, _) = try await URLSession.shared.data(from: url)
+
+           let decodedMovies = try JSONDecoder().decode(MovieResponse.self, from: data)
+           self.movies = decodedMovies.results // Update the movie list
+       } catch {
+               errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
+       }
+
+       isLoading = false
+    }
 }
 

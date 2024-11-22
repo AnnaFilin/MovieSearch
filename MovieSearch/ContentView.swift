@@ -30,11 +30,11 @@ struct ContentView: View {
                 MovieDetailsView(movie: selection)
             }
             .searchable(text: $viewModel.searchText, prompt: "Search movie")
-//            .onChange(of: viewModel.searchText) {
-//                Task {
-//                    await viewModel.fetchMovies(query: viewModel.searchText)
-//                }
-//            }
+            .onChange(of: viewModel.searchText) {
+                Task {
+                    await viewModel.searchMovies(query: viewModel.searchText)
+                }
+            }
             .onAppear {
                 Task {
                     await viewModel.loadSavedMovies()

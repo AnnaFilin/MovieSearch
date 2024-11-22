@@ -19,6 +19,7 @@
 		5A7531F22CEF5FD000489705 /* SavedMovies.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A7531F12CEE44F900489705 /* SavedMovies.json */; };
 		5A7531F52CEF935D00489705 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5A7531F42CEF907E00489705 /* Config.xcconfig */; };
 		5A7531F92CF06E2600489705 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7531F82CF06E2600489705 /* Config.swift */; };
+		5A7531FB2CF0C0BB00489705 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5A7531FA2CF0C0B500489705 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		5A7531F12CEE44F900489705 /* SavedMovies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SavedMovies.json; sourceTree = "<group>"; };
 		5A7531F42CEF907E00489705 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5A7531F82CF06E2600489705 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		5A7531FA2CF0C0B500489705 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 		5A7531D22CEE440200489705 /* MovieSearch */ = {
 			isa = PBXGroup;
 			children = (
+				5A7531FA2CF0C0B500489705 /* .gitignore */,
 				5A7531DC2CEE444200489705 /* Assets.xcassets */,
 				5A7531DD2CEE444200489705 /* Bundle-Decodable.swift */,
 				5A7531DE2CEE444200489705 /* ContentView.swift */,
@@ -152,6 +155,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A7531FB2CF0C0BB00489705 /* .gitignore in Resources */,
 				5A7531F22CEF5FD000489705 /* SavedMovies.json in Resources */,
 				5A7531F52CEF935D00489705 /* Config.xcconfig in Resources */,
 				5A7531EF2CEE444200489705 /* Assets.xcassets in Resources */,

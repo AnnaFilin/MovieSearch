@@ -1,0 +1,10 @@
+# Ignore Xcode configurations
+config.xcconfig
+
+# Ignore build files
+build/
+
+# Ignore Xcode-specific settings
+*.xcuserdata
+*.xcworkspace
+

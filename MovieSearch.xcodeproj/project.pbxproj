@@ -16,6 +16,9 @@
 		5A7531ED2CEE444200489705 /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7531E42CEE444200489705 /* MovieView.swift */; };
 		5A7531EE2CEE444200489705 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7531DD2CEE444200489705 /* Bundle-Decodable.swift */; };
 		5A7531EF2CEE444200489705 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A7531DC2CEE444200489705 /* Assets.xcassets */; };
+		5A7531F22CEF5FD000489705 /* SavedMovies.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A7531F12CEE44F900489705 /* SavedMovies.json */; };
+		5A7531F52CEF935D00489705 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5A7531F42CEF907E00489705 /* Config.xcconfig */; };
+		5A7531F92CF06E2600489705 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7531F82CF06E2600489705 /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,8 @@
 		5A7531E32CEE444200489705 /* MovieSearchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchApp.swift; sourceTree = "<group>"; };
 		5A7531E42CEE444200489705 /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
 		5A7531F12CEE44F900489705 /* SavedMovies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SavedMovies.json; sourceTree = "<group>"; };
+		5A7531F42CEF907E00489705 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		5A7531F82CF06E2600489705 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +70,7 @@
 				5A7531DC2CEE444200489705 /* Assets.xcassets */,
 				5A7531DD2CEE444200489705 /* Bundle-Decodable.swift */,
 				5A7531DE2CEE444200489705 /* ContentView.swift */,
+				5A7531F42CEF907E00489705 /* Config.xcconfig */,
 				5A7531F12CEE44F900489705 /* SavedMovies.json */,
 				5A7531DF2CEE444200489705 /* ContentViewModel.swift */,
 				5A7531E02CEE444200489705 /* Movie.swift */,
@@ -73,6 +79,7 @@
 				5A7531E32CEE444200489705 /* MovieSearchApp.swift */,
 				5A7531E42CEE444200489705 /* MovieView.swift */,
 				5A7531E62CEE444200489705 /* Preview Content */,
+				5A7531F82CF06E2600489705 /* Config.swift */,
 			);
 			path = MovieSearch;
 			sourceTree = "<group>";
@@ -145,6 +152,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A7531F22CEF5FD000489705 /* SavedMovies.json in Resources */,
+				5A7531F52CEF935D00489705 /* Config.xcconfig in Resources */,
 				5A7531EF2CEE444200489705 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -158,6 +167,7 @@
 			files = (
 				5A7531E72CEE444200489705 /* ContentViewModel.swift in Sources */,
 				5A7531E82CEE444200489705 /* MoviesAPIService.swift in Sources */,
+				5A7531F92CF06E2600489705 /* Config.swift in Sources */,
 				5A7531E92CEE444200489705 /* Movie.swift in Sources */,
 				5A7531EA2CEE444200489705 /* ContentView.swift in Sources */,
 				5A7531EB2CEE444200489705 /* MovieDetailsView.swift in Sources */,
@@ -172,6 +182,7 @@
 /* Begin XCBuildConfiguration section */
 		5A752E5E2CEB4A4800489705 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A7531F42CEF907E00489705 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

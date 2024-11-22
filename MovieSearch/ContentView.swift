@@ -11,6 +11,7 @@ struct ContentView: View {
     @StateObject private var viewModel = ViewModel()
     
     var body: some View {
+
         NavigationStack {
             ZStack {
                 Color(red: 0.15, green: 0.16, blue: 0.12)
@@ -29,11 +30,11 @@ struct ContentView: View {
                 MovieDetailsView(movie: selection)
             }
             .searchable(text: $viewModel.searchText, prompt: "Search movie")
-            .onChange(of: viewModel.searchText) {
-                Task {
-                    await viewModel.fetchMovies(query: viewModel.searchText)
-                }
-            }
+//            .onChange(of: viewModel.searchText) {
+//                Task {
+//                    await viewModel.fetchMovies(query: viewModel.searchText)
+//                }
+//            }
             .onAppear {
                 Task {
                     await viewModel.loadSavedMovies()

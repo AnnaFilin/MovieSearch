@@ -9,12 +9,13 @@ import Foundation
 
 struct MovieResponse: Codable {
     let results: [Movie]
+    let page: Int?
+    let totalPages: Int?
+    let totalResults: Int?
 }
 
 @MainActor
 class ViewModel: ObservableObject {
-    private let apiKey = "e73ba60c89msh843aae1bedebf94p1f6d27jsn18419874edcd"
-    private let baseURL = "https://advanced-movie-search.p.rapidapi.com"
 
     @Published var movies: [Movie] = []
     @Published var searchText: String = ""
@@ -22,141 +23,75 @@ class ViewModel: ObservableObject {
     @Published var errorMessage: String?
 
     let savePath = URL.documentsDirectory.appending(path: "SavedMovies")
-//    let savePath = URL.documentsDirectory.appendingPathComponent("SavedMovies.json")
-
     
-    init() {
-        Task {
-           await loadSavedMovies()
-        }
-    }
-
-    func loadSavedMovies() async {
-        // Try loading saved data from UserDefaults
-//         if let savedData = UserDefaults.standard.data(forKey: "SavedMovies") {
-//             if let decodedMovies = try? JSONDecoder().decode([Movie].self, from: savedData) {
-//                 movies = decodedMovies
-//                 return
-//             }
-//         }
-//         
-//         // Fallback to loading bundled JSON
-//         if let bundledMovies: MovieResponse = Bundle.main.decode("SavedMovies.json") {
-//             movies = bundledMovies.results
-//         } else {
-//             movies = [] // Default to an empty array if all else fails
-//         }
-        // Check if saved file exists in the documents directory
-               if FileManager.default.fileExists(atPath: savePath.path) {
-                   do {
-                       let data = try Data(contentsOf: savePath)
-                       let decodedMovies = try JSONDecoder().decode([Movie].self, from: data)
-                       movies = decodedMovies
-                       return
-                   } catch {
-                       print("Failed to load saved movies: \(error.localizedDescription)")
-                   }
-               }
-
-               // Fallback to bundled JSON
-               if let bundledMovies: MovieResponse = Bundle.main.decode("SavedMovies.json") {
-                   movies = bundledMovies.results
-               } else {
-                   movies = [] // Default to an empty array if all else fails
-               }
-    }
-
-    func saveMovies() async {
-//        do {
-//            let data = try JSONEncoder().encode(movies)
-//            try data.write(to: savePath, options: [.atomic, .completeFileProtection])
-//        } catch {
-//            print("Unable to save data.")
-//        }
-        do {
-                   let data = try JSONEncoder().encode(movies)
-                   try data.write(to: savePath, options: [.atomic, .completeFileProtection])
-               } catch {
-                   print("Unable to save movies: \(error.localizedDescription)")
-               }
-    }
-
-    func fetchMovies(query: String? = nil) async {
+    init() { }
+    
+    func fetchMovies() async {
         isLoading = true
         errorMessage = nil
-        
-        let endpoint: String
-        if let query = query, !query.isEmpty {
-            endpoint = "\(baseURL)/search/movie?query=\(query)&page=1"
-        } else {
-            endpoint = "\(baseURL)/discover/movie?with_genres=80&page=1"
-        }
-        
-        guard let url = URL(string: endpoint) else {
+
+        guard let url = URL(string: "https://api.themoviedb.org/3/trending/movie/day?api_key=\(Config.apiKey)") else {
             errorMessage = "Invalid URL."
             isLoading = false
             return
         }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue(apiKey, forHTTPHeaderField: "x-rapidapi-key")
-        request.setValue("advanced-movie-search.p.rapidapi.com", forHTTPHeaderField: "x-rapidapi-host")
-        
+
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            if let jsonString = String(data: data, encoding: .utf8) {
-                    print("Raw JSON: \(jsonString)")
-                }
-            
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            decoder.dateDecodingStrategy = .iso8601
-            
-            if let decodedMovies = try? decoder.decode([Movie].self, from: data) {
-                
-                if let query = query, !query.isEmpty {
-                    movies = decodedMovies
-                }
-                else {
-                    movies = decodedMovies
-                    await saveMovies()
-                }
-                
-            } else {
-                print("Failed to decode JSON")
-            }
+
+            let movieResponse = try JSONDecoder().decode(MovieResponse.self, from: data)
+
+            self.movies = movieResponse.results
+
+            await saveMovies()
         } catch {
             errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
+            print(errorMessage ?? "Unknown error")
         }
+
         isLoading = false
     }
-  
+
+    func loadSavedMovies() async {
+        if FileManager.default.fileExists(atPath: savePath.path) {
+            do {
+                let data = try Data(contentsOf: savePath)
+                self.movies = try JSONDecoder().decode([Movie].self, from: data)
+                print("Movies loaded from save path.")
+            } catch {
+                print("Failed to decode saved movies: \(error.localizedDescription)")
+            }
+            } else if let bundleURL = Bundle.main.url(forResource: "SavedMovies", withExtension: "json") {
+                do {
+                    let data = try Data(contentsOf: bundleURL)
+                    self.movies = try JSONDecoder().decode([Movie].self, from: data)
+                    print("Movies loaded from bundle.")
+                } catch {
+                    print("Error loading bundled movies: \(error.localizedDescription)")
+                }
+            } else {
+                print("No saved movies found.")
+                self.movies = []
+            }
+    }
+
+    func saveMovies() async {
+        do {
+            let data = try JSONEncoder().encode(movies)
+            try data.write(to: savePath, options: [.atomic, .completeFileProtection])
+            print("Movies saved successfully.")
+        } catch {
+            print("Failed to save movies: \(error.localizedDescription)")
+        }
+    }
     
-//        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-//            DispatchQueue.main.async {
-//                self?.isLoading = false
-//                
-//                if let error = error {
-//                    self?.errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
-//                    return
-//                }
-//
-//                guard let data = data else {
-//                    self?.errorMessage = "No data received from server."
-//                    return
-//                }
-//
-//                do {
-//                    let decodedResponse = try JSONDecoder().decode(MovieResponse.self, from: data)
-//                    self?.movies = decodedResponse.results
-//                } catch {
-//                    self?.errorMessage = "Failed to decode movies: \(error.localizedDescription)"
-//                }
-//            }
-//        }
-//        .resume()
-   
+    func resetSavedMovies() async {
+        do {
+            try FileManager.default.removeItem(at: savePath)
+            movies = []
+        } catch {
+            print("Error deleting saved file: \(error.localizedDescription)")
+        }
+    }
 }
 

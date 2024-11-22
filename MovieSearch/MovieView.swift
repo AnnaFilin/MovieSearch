@@ -18,40 +18,86 @@ struct MovieView: View {
                 .cornerRadius(5)
                 .padding()
                 .shadow(color: .orange, radius: 10)
+   
             
-                AsyncImage(url: URL(string: movie.poster_path), scale: 2) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(maxWidth: .infinity, maxHeight: 140)
-                        .opacity(0.5)
-                        .cornerRadius(5)
-                        .padding()
-                    
-                } placeholder: {
-                    ProgressView()
-                }
+            if let posterPath = movie.poster_path {
+            let url = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
 
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                            .frame(width: 100, height: 150)
+                    case .success(let image):
+                        image
+                            .resizable()
+                           .aspectRatio(contentMode: .fill)
+                           .frame(maxWidth: .infinity, maxHeight: 140)
+                           .opacity(0.5)
+                           .cornerRadius(5)
+                           .padding()
+                    case .failure:
+                        Text("Failed to load image")
+                            .frame(width: 100, height: 150)
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(10)
+                    @unknown default:
+                        Text("Unknown error")
+                            .frame(width: 100, height: 150)
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(10)
+                    }
+                }
+            } else {
+                Text("No Image Available")
+                    .frame(width: 100, height: 150)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
+            }
             
             HStack(alignment: .top) {
-                AsyncImage(url: URL(string: movie.poster_path), scale: 2) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 90)
-                        .cornerRadius(5)
-                    
-                } placeholder: {
-                    ProgressView()
+          
+                if let posterPath = movie.poster_path {
+                    let url = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
+
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                                .frame(width: 100, height: 150)
+                        case .success(let image):
+                            image
+                                .resizable()
+                                   .aspectRatio(contentMode: .fit)
+                                   .frame(width: 90)
+                                   .cornerRadius(5)
+                        case .failure:
+                            Text("Failed to load image")
+                                .frame(width: 100, height: 150)
+                                .background(Color.gray.opacity(0.2))
+                                .cornerRadius(10)
+                        @unknown default:
+                            Text("Unknown error")
+                                .frame(width: 100, height: 150)
+                                .background(Color.gray.opacity(0.2))
+                                .cornerRadius(10)
+                        }
+                    }
+                } else {
+                    Text("No Image Available")
+                        .frame(width: 100, height: 150)
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(10)
                 }
 
                 VStack(alignment: .leading) {
                     Text(movie.title)
                         .font(.title)
                         .fontWeight(.heavy)
-                    Text("Rating \(String(movie.vote_average))/\(String(movie.vote_count))")
+                    Text("Rating \(String(movie.vote_average ?? 0))/\(String(movie.vote_count ?? 0))")
                         .font(.headline)
-                    Text(movie.release_date)
+                    
+                    Text(movie.release_date  ?? "Unknown Release Date")
                         .font(.subheadline)
                 }
                 .foregroundStyle(.white)
@@ -65,7 +111,29 @@ struct MovieView: View {
 }
 
 #Preview {
-    let movie = Movie(adult: false, backdrop_path: "https://image.tmdb.org/t/p/original/5IIFJxwRzmkhczQidIhpoaolpZY.jpg", genre_ids: [28, 53, 80], id: 976734, original_language: "en", original_title: "Canary Black", overview: "Top level CIA agent Avery Graves is blackmailed by terrorists into betraying her own country to save her kidnapped husband. Cut off from her team, she turns to her underworld contacts to survive and help locate the coveted intelligence that the kidnappers want.", popularity: 631.691, poster_path: "https://image.tmdb.org/t/p/original/hhiR6uUbTYYvKoACkdAIQPS5c6f.jpg", release_date: "2024-10-10", title: "Canary Black", video: false, vote_average: 6.3, vote_count: 241)
-    MovieView(movie: movie)
+    let wickedMovie = Movie(
+        id: 402431,
+           title: "Wicked",
+           original_title: "Wicked",
+           original_language: "en",
+           overview: """
+               Elphaba, an ostracized but defiant girl born with green skin, and Galinda, 
+               a privileged aristocrat born popular, become extremely unlikely friends 
+               in the magical Land of Oz. As the two girls struggle with their opposing 
+               personalities, their friendship is tested as both begin to fulfil their destinies 
+               as Glinda the Good and The Wicked Witch of the West.
+               """,
+           poster_path: "/c5Tqxeo1UpBvnAc3csUm7j3hlQl.jpg",
+           backdrop_path: "/uVlUu174iiKhsUGqnOSy46eIIMU.jpg",
+           genre_ids: [18, 14, 10749],
+           release_date: "2024-11-20",
+           popularity: 927.236,
+           vote_average: 7.5,
+           vote_count: 30,
+           adult: false,
+           video: false
+    )
+  
+    MovieView(movie: wickedMovie)
 }
 

@@ -13,8 +13,7 @@ struct MovieResponse: Codable {
 
 @MainActor
 class ViewModel: ObservableObject {
-    private let apiKey = "e73ba60c89msh843aae1bedebf94p1f6d27jsn18419874edcd"
-    private let baseURL = "https://advanced-movie-search.p.rapidapi.com"
+   
 
     @Published var movies: [Movie] = []
     @Published var searchText: String = ""

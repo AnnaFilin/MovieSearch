@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel = ViewModel()
-    
+    @StateObject private var favorites = Favorites()
+
     var body: some View {
 
         NavigationStack {
@@ -42,9 +43,12 @@ struct ContentView: View {
             }
             .preferredColorScheme(.dark)
         }
-    }    
+        .environmentObject(favorites)
+    }
 }
 
 #Preview {
+    
+    
     ContentView()
 }

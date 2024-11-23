@@ -122,12 +122,13 @@ class ViewModel: ObservableObject {
            let (data, _) = try await URLSession.shared.data(from: url)
 
            let decodedMovies = try JSONDecoder().decode(MovieResponse.self, from: data)
-           self.movies = decodedMovies.results // Update the movie list
+           self.movies = decodedMovies.results
        } catch {
                errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
        }
 
        isLoading = false
     }
+    
 }
 

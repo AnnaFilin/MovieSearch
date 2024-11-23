@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MovieDetailsView: View {
+    @EnvironmentObject var favorites: Favorites
+
     var movie: Movie
     
     var body: some View {
@@ -55,9 +57,33 @@ struct MovieDetailsView: View {
  
                     Text("Rating \(String(movie.vote_average ?? 0))/\(String(movie.vote_count ?? 0))")
                         .font(.title.bold())
-                        
+                    
+                    if let rating = movie.vote_average {
+                        RatingView(rating: .constant(rating))
+                            .font(.headline)
+                    }
+                    
                     Text(movie.release_date  ?? "Unknown Release Date")
                         .font(.title)
+                    
+                    HStack {
+                        Button(favorites.contains(movie) ? "Remove from Favorites" : "Add to Favorites") {
+                            if favorites.contains(movie) {
+                                favorites.remove(movie)
+                            } else {
+                                favorites.add(movie)
+                            }
+                        }
+                        
+                        if favorites.contains(movie) {
+                            Spacer()
+                            Image(systemName: "heart.fill")
+                            .accessibilityLabel("This is a favorite resort")
+                                .foregroundStyle(.red)
+                                .padding(.horizontal)
+                        }
+                    }
+                    .padding(.vertical)
                 }
                 .padding(.horizontal)
             }
@@ -95,4 +121,5 @@ struct MovieDetailsView: View {
     )
     
     MovieDetailsView(movie: wickedMovie)
+        .environmentObject(Favorites())
 }

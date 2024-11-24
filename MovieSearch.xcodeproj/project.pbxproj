@@ -23,6 +23,7 @@
 		5A7532232CF1D75800489705 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7532222CF1D75800489705 /* RatingView.swift */; };
 		5A7532402CF1E04700489705 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A75323F2CF1E04700489705 /* Favorites.swift */; };
 		5A7532A12CF32B4A00489705 /* LayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7532A02CF32B4A00489705 /* LayoutView.swift */; };
+		5A7532A52CF34CC000489705 /* TabContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7532A42CF34CC000489705 /* TabContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		5A7532222CF1D75800489705 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		5A75323F2CF1E04700489705 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		5A7532A02CF32B4A00489705 /* LayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutView.swift; sourceTree = "<group>"; };
+		5A7532A42CF34CC000489705 /* TabContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -88,6 +90,7 @@
 				5A7531DC2CEE444200489705 /* Assets.xcassets */,
 				5A7531DD2CEE444200489705 /* Bundle-Decodable.swift */,
 				5A7531DE2CEE444200489705 /* ContentView.swift */,
+				5A7532A42CF34CC000489705 /* TabContentView.swift */,
 				5A7531F42CEF907E00489705 /* Config.xcconfig */,
 				5A7531F12CEE44F900489705 /* SavedMovies.json */,
 				5A7531DF2CEE444200489705 /* ContentViewModel.swift */,
@@ -197,6 +200,7 @@
 				5A7531E92CEE444200489705 /* Movie.swift in Sources */,
 				5A7532402CF1E04700489705 /* Favorites.swift in Sources */,
 				5A7531EA2CEE444200489705 /* ContentView.swift in Sources */,
+				5A7532A52CF34CC000489705 /* TabContentView.swift in Sources */,
 				5A7532A12CF32B4A00489705 /* LayoutView.swift in Sources */,
 				5A7531EB2CEE444200489705 /* MovieDetailsView.swift in Sources */,
 				5A7531EC2CEE444200489705 /* MovieSearchApp.swift in Sources */,

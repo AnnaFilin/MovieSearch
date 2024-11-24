@@ -14,20 +14,7 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            NavigationStack {
-                LayoutView(title: "Trending", showSearch: true) {
-                        ScrollView {
-                            ForEach(viewModel.movies, id: \.self.id) { movie in
-                                NavigationLink(value: movie) {
-                                    MovieView(movie: movie)
-                                }
-                            }
-                        }
-                    }
-                    .navigationDestination(for: Movie.self) { selection in
-                        MovieDetailsView(movie: selection)
-                    }
-                }
+            TabContentView(movies: viewModel.movies, title: "Trending")
                 .searchable(text: $viewModel.searchText, prompt: "Search movie")
                 .onAppear {
                     if viewModel.movies.isEmpty {
@@ -41,53 +28,26 @@ struct ContentView: View {
                 }
                 .tag(0)
             
-                NavigationStack {
-                    LayoutView(title: "Favorites", showSearch: false) {
-                        ScrollView {
-                            ForEach(viewModel.movies, id: \.self.id) { movie in
-                                NavigationLink(value: movie) {
-                                    MovieView(movie: movie)
-                                }
-                            }
-                        }
+                TabContentView(movies: viewModel.movies, title: "Favorites")
+                    .tabItem {
+                        Label("Favorites", systemImage: "checkmark.circle")
                     }
-                    .navigationDestination(for: Movie.self) { selection in
-                        MovieDetailsView(movie: selection)
-                    }
-                }
-                .tabItem {
-                    Label("Favorites", systemImage: "checkmark.circle")
-                }
-                .tag(1)
+                    .tag(1)
                 
-                NavigationStack {
-                    LayoutView(title: "Search", showSearch: true) {
-                            ScrollView {
-                                ForEach(viewModel.searchMovies, id: \.self.id) { movie in
-                                    NavigationLink(value: movie) {
-                                        MovieView(movie: movie)
-                                    }
-                                }
-                            }
-                        }
-                    .navigationDestination(for: Movie.self) { selection in
-                        MovieDetailsView(movie: selection)
+                TabContentView(movies: viewModel.searchMovies, title: "Search")
+                   .searchable(text: $viewModel.searchText, prompt: "Search movie")
+                   .onChange(of: viewModel.searchText) {
+                       Task {
+                           await viewModel.searchMovies(query: viewModel.searchText)
+                       }
                     }
-                }
-               .searchable(text: $viewModel.searchText, prompt: "Search movie")
-               .onChange(of: viewModel.searchText) {
-                   Task {
-                       await viewModel.searchMovies(query: viewModel.searchText)
+                   .tabItem {
+                       Label("Search", systemImage: "questionmark.diamond")
                    }
-                }
-               .tabItem {
-                   Label("Search", systemImage: "questionmark.diamond")
-               }
-               .tag(2)
-        }
+                   .tag(2)
+            }
         .preferredColorScheme(.dark)
         .environmentObject(favorites)
-
     }
 }
 

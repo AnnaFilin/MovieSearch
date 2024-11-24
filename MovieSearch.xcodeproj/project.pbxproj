@@ -22,6 +22,7 @@
 		5A7531FB2CF0C0BB00489705 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5A7531FA2CF0C0B500489705 /* .gitignore */; };
 		5A7532232CF1D75800489705 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7532222CF1D75800489705 /* RatingView.swift */; };
 		5A7532402CF1E04700489705 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A75323F2CF1E04700489705 /* Favorites.swift */; };
+		5A7532A12CF32B4A00489705 /* LayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7532A02CF32B4A00489705 /* LayoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +42,16 @@
 		5A7531FA2CF0C0B500489705 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5A7532222CF1D75800489705 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		5A75323F2CF1E04700489705 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
+		5A7532A02CF32B4A00489705 /* LayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		5A75329D2CF314EC00489705 /* Preview Content */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		5A752E4F2CEB4A4800489705 /* Frameworks */ = {
@@ -73,6 +83,7 @@
 		5A7531D22CEE440200489705 /* MovieSearch */ = {
 			isa = PBXGroup;
 			children = (
+				5A75329D2CF314EC00489705 /* Preview Content */,
 				5A7531FA2CF0C0B500489705 /* .gitignore */,
 				5A7531DC2CEE444200489705 /* Assets.xcassets */,
 				5A7531DD2CEE444200489705 /* Bundle-Decodable.swift */,
@@ -80,6 +91,7 @@
 				5A7531F42CEF907E00489705 /* Config.xcconfig */,
 				5A7531F12CEE44F900489705 /* SavedMovies.json */,
 				5A7531DF2CEE444200489705 /* ContentViewModel.swift */,
+				5A7532A02CF32B4A00489705 /* LayoutView.swift */,
 				5A7531E02CEE444200489705 /* Movie.swift */,
 				5A7531E12CEE444200489705 /* MovieDetailsView.swift */,
 				5A75323F2CF1E04700489705 /* Favorites.swift */,
@@ -114,6 +126,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5A75329D2CF314EC00489705 /* Preview Content */,
 			);
 			name = MovieSearch;
 			packageProductDependencies = (
@@ -182,6 +197,7 @@
 				5A7531E92CEE444200489705 /* Movie.swift in Sources */,
 				5A7532402CF1E04700489705 /* Favorites.swift in Sources */,
 				5A7531EA2CEE444200489705 /* ContentView.swift in Sources */,
+				5A7532A12CF32B4A00489705 /* LayoutView.swift in Sources */,
 				5A7531EB2CEE444200489705 /* MovieDetailsView.swift in Sources */,
 				5A7531EC2CEE444200489705 /* MovieSearchApp.swift in Sources */,
 				5A7531ED2CEE444200489705 /* MovieView.swift in Sources */,

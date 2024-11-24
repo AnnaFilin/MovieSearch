@@ -18,8 +18,12 @@ struct MovieResponse: Codable {
 class ViewModel: ObservableObject {
 
     @Published var movies: [Movie] = []
+    @Published var searchMovies: [Movie] = []
+    @Published var trendingMovies: [Movie] = []
+    
     @Published var searchText: String = ""
     @Published var isLoading: Bool = false
+    @Published var isSearching: Bool = false
     @Published var errorMessage: String?
 
     let savePath = URL.documentsDirectory.appending(path: "SavedMovies")
@@ -32,7 +36,7 @@ class ViewModel: ObservableObject {
 
         guard let url = URL(string: "https://api.themoviedb.org/3/trending/movie/day?api_key=\(Config.apiKey)") else {
             errorMessage = "Invalid URL."
-            isLoading = false
+//            isLoading = false
             return
         }
 
@@ -41,8 +45,8 @@ class ViewModel: ObservableObject {
 
             let movieResponse = try JSONDecoder().decode(MovieResponse.self, from: data)
 
-            self.movies = movieResponse.results
-
+            self.trendingMovies = movieResponse.results
+            self.movies = trendingMovies
             await saveMovies()
         } catch {
             errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
@@ -96,6 +100,7 @@ class ViewModel: ObservableObject {
     
     func searchMovies(query: String) async {
         isLoading = true
+        isSearching = true
         errorMessage = nil
 
         guard var components = URLComponents(string: "https://api.themoviedb.org/3/search/movie") else {
@@ -114,7 +119,7 @@ class ViewModel: ObservableObject {
 
        guard let url = components.url else {
            errorMessage = "Failed to construct URL."
-           isLoading = false
+//           isLoading = false
            return
        }
 
@@ -122,7 +127,8 @@ class ViewModel: ObservableObject {
            let (data, _) = try await URLSession.shared.data(from: url)
 
            let decodedMovies = try JSONDecoder().decode(MovieResponse.self, from: data)
-           self.movies = decodedMovies.results
+           self.searchMovies = decodedMovies.results
+           self.movies = searchMovies
        } catch {
                errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
        }

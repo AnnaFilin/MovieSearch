@@ -14,119 +14,66 @@ struct MovieView: View {
     
     var body: some View {
         ZStack {
-            Rectangle()
-                .frame(maxWidth: .infinity, maxHeight: 140)
-                .opacity(0.1)
-                .cornerRadius(5)
-                .padding()
-                .shadow(color: .orange, radius: 10)
-   
-            
-            if let posterPath = movie.poster_path {
-            let url = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
 
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .frame(width: 100, height: 150)
-                    case .success(let image):
-                        image
-                            .resizable()
-                           .aspectRatio(contentMode: .fill)
-                           .frame(maxWidth: .infinity, maxHeight: 140)
-                           .opacity(0.5)
-                           .cornerRadius(5)
-                           .padding()
-                    case .failure:
-                        Text("Failed to load image")
-                            .frame(width: 100, height: 150)
-                            .background(Color.gray.opacity(0.2))
-                            .cornerRadius(10)
-                    @unknown default:
-                        Text("Unknown error")
-                            .frame(width: 100, height: 150)
-                            .background(Color.gray.opacity(0.2))
-                            .cornerRadius(10)
-                    }
+            if let posterPath = movie.poster_path {
+                GeometryReader { geometry in
+                    ImageView(url: posterPath, width: geometry.size.width , height: 150, opacity: 0.5, fillContentMode: true)
+                        .frame(width: geometry.size.width - 10)
+                        .position(x: geometry.size.width / 2, y: 75)
                 }
-            } else {
-                Text("No Image Available")
-                    .frame(width: 100, height: 150)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(10)
             }
             
-            HStack(alignment: .top) {
-          
+            HStack(alignment: .top, spacing: 0) {
+                
                 if let posterPath = movie.poster_path {
-                    let url = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
-
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView()
-                                .frame(width: 100, height: 150)
-                        case .success(let image):
-                            image
-                                .resizable()
-                                   .aspectRatio(contentMode: .fit)
-                                   .frame(width: 90)
-                                   .cornerRadius(5)
-                        case .failure:
-                            Text("Failed to load image")
-                                .frame(width: 100, height: 150)
-                                .background(Color.gray.opacity(0.2))
-                                .cornerRadius(10)
-                        @unknown default:
-                            Text("Unknown error")
-                                .frame(width: 100, height: 150)
-                                .background(Color.gray.opacity(0.2))
-                                .cornerRadius(10)
-                        }
-                    }
-                } else {
-                    Text("No Image Available")
-                        .frame(width: 100, height: 150)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(10)
+                    ImageView(url: posterPath, width: 90, height: 150, opacity: 1.0, fillContentMode: true)
+                        .frame(width: 90, height: 150)
+                        .clipped()
+                        .cornerRadius(5)
                 }
-
-                VStack(alignment: .leading) {
+                
+                VStack(alignment: .leading, spacing: 8) {
                     Text(movie.title)
                         .font(.title)
                         .fontWeight(.heavy)
+                        .lineLimit(2)
+                    
                     Text("Rating \(String(movie.vote_average ?? 0))/\(String(movie.vote_count ?? 0))")
-                        .font(.headline)
+                        .font(.subheadline)
                     
                     Text(movie.release_date  ?? "Unknown Release Date")
                         .font(.subheadline)
-                    
-                    Button(favorites.contains(movie) ? "Remove from Favorites" : "Add to Favorites") {
-                        if favorites.contains(movie) {
-                            favorites.remove(movie)
-                        } else {
-                            favorites.add(movie)
-                        }
-                    }
-                    
-                   
                 }
-                .foregroundStyle(.white)
                 .padding(.top)
+                .padding(.leading, 8)
+                .foregroundStyle(.white)
                 
                 Spacer()
                 
-                if favorites.contains(movie) {
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                    .accessibilityLabel("This is a favorite resort")
-                        .foregroundStyle(.red)
-                        .padding()
+                Button(action: {
+                    if favorites.contains(movie) {
+                        favorites.remove(movie)
+                    } else {
+                        favorites.add(movie)
+                    }
+                }) {
+                    Image(systemName: favorites.contains(movie) ? "heart.fill" : "heart")
+                        .foregroundColor(.orange)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .accessibilityLabel(favorites.contains(movie) ? "Remove from Favorites" : "Add to Favorites")
                 }
+                .padding()
             }
-            .padding()
         }
+        .frame(maxWidth: .infinity, maxHeight: 150)
+        .background(
+            Color(red: 0.15, green: 0.16, blue: 0.12)
+                .cornerRadius(5)
+                .shadow(color: .orange, radius: 3)
+        )
+        .padding(.horizontal)
+        .padding(.bottom)
     }
 }
 

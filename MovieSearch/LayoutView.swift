@@ -9,12 +9,10 @@ import SwiftUI
 
 struct LayoutView<Content: View>: View {
     let title: String
-//    let showSearch: Bool
     let content: Content
     
     init(title: String,  @ViewBuilder content: () -> Content) {
         self.title = title
-//        self.showSearch = showSearch
         self.content = content()
     }
     
@@ -24,14 +22,8 @@ struct LayoutView<Content: View>: View {
                 .ignoresSafeArea()
             
             VStack {
-                
-                
                 content
-                    .padding()
             }
-                
-            
-
         }
         .navigationTitle(title)
     }
@@ -40,9 +32,9 @@ struct LayoutView<Content: View>: View {
 #Preview {
         LayoutView(
             title: "Movies"
-//            showSearch: true
         ) {
             Text("Your Content Goes Here")
                 .foregroundColor(.white)
         }
+        .environmentObject(Favorites())
 }

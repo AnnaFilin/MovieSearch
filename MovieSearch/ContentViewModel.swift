@@ -36,7 +36,6 @@ class ViewModel: ObservableObject {
 
         guard let url = URL(string: "https://api.themoviedb.org/3/trending/movie/day?api_key=\(Config.apiKey)") else {
             errorMessage = "Invalid URL."
-//            isLoading = false
             return
         }
 
@@ -119,7 +118,6 @@ class ViewModel: ObservableObject {
 
        guard let url = components.url else {
            errorMessage = "Failed to construct URL."
-//           isLoading = false
            return
        }
 

@@ -9,36 +9,23 @@ import SwiftUI
 
 struct TabContentView: View {
     let movies: [Movie]
-//    let showSearch: Bool
     let title: String
-//    @Binding var searchText: String
-    
- 
-    
+
     var body: some View {
         NavigationStack {
             LayoutView(title: title) {
-                    ScrollView {
-                        ForEach(movies, id: \.self.id) { movie in
-                            NavigationLink(value: movie) {
-                                MovieView(movie: movie)
-                            }
+                ScrollView {
+                    ForEach(movies, id: \.self.id) { movie in
+                        NavigationLink(value: movie) {
+                            MovieView(movie: movie)
                         }
                     }
                 }
-                .navigationDestination(for: Movie.self) { selection in
-                    MovieDetailsView(movie: selection)
-                }
-            //            .searchable(text: $searchText, prompt: "Search movie")
             }
-        
-//            .onAppear {
-//                if movies.isEmpty {
-//                    Task {
-//                        await loadSavedMovies()
-//                    }
-//                }
-//            }
+            .navigationDestination(for: Movie.self) { selection in
+                MovieDetailsView(movie: selection)
+            }
+        }
     }
 }
 
@@ -67,4 +54,5 @@ struct TabContentView: View {
     )]
     
     TabContentView(movies: movies, title: "Trending")
+//        .environmentObject(favorites)
 }

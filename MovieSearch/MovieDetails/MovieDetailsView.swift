@@ -24,120 +24,87 @@ struct MovieDetailsView: View {
                 ImageView(url: posterPath, width: nil, height: nil, opacity: 0.3, fillContentMode: true)
                     .ignoresSafeArea()
             }
+            
             ScrollView {
-                VStack {
-                    Text(movie.title)
-                        .font(.title.bold())
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    Text( movie.title)
+                        .font(.title2.bold())
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(nil)
                         .padding(.bottom, 5)
+                   
+                    Text(movieDetails?.tagline ?? movie.title)
+                        .font(.title3)
+                        .padding(.bottom, 2)
                     
-                    HStack {
+                    HStack(alignment: .top, spacing: 16) {
                         if let posterPath = movie.poster_path {
-                            ImageView(url: posterPath, width: 300, height: 300, opacity: 0.9, fillContentMode: false)
+                            ImageView(url: posterPath,  width: 150, height: 230, opacity: 0.9, fillContentMode: false)
                         }
                         
-                        VStack(alignment: .leading) {
-                            
-                            Button(action: {
-                                if favorites.contains(movie) {
-                                    favorites.remove(movie)
-                                } else {
-                                    favorites.add(movie)
-                                }
-                            }) {
-                                Image(systemName: favorites.contains(movie) ? "heart.fill" : "heart")
-                                    .foregroundColor(.orange)
-                                    .font(.title2)
-                                    .fontWeight(.semibold)
-                                    .accessibilityLabel(favorites.contains(movie) ? "Remove from Favorites" : "Add to Favorites")
-                            }
-                            .padding()
-                            
-                            Text(String(movie.popularity))
-                            
-                            Text("Rating \(String(movie.vote_average ?? 0))/\(String(movie.vote_count ?? 0))")
-                                .font(.headline.bold())
-                            
-                            Text(movie.release_date  ?? "Unknown Release Date")
-                                .font(.subheadline)
-                            
-                            if let movieDetails = movieDetails {
-                                Text("Budget: \(movieDetails.budget)")
-                            }
+                        if let movieDetails = movieDetails {
+                            DetailsView(movieDetails: movieDetails, movie: movie)
                         }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                    if let genres = movieDetails?.genres {
+                        let genreNames = genres.map { $0.name }
+                        GenresView(movieGenres: genreNames)
                     }
                     
-                    VStack(alignment: .leading) {
-                        
-                        Text(movie.overview)
-                        
-                        HStack {
-                            if let rating = movie.vote_average {
-                                RatingView(rating: .constant(rating))
-                                    .font(.headline)
-                            }
+                    Text(movie.overview)
+
+                    if let productionCountries = movieDetails?.production_countries {
+                        HStack(alignment: .top) {
+                            Text("Production countries:")
+                            let productionCountriesNames = productionCountries.map {$0.name}
+                            let movieCountries = ListFormatter.localizedString(byJoining: productionCountriesNames)
                             
-                            if let voteCount = movie.vote_count {
-                                Text("/ \(String(voteCount))")
-                                    .font(.headline)
-                            }
+                            Text(movieCountries)
+                                .font(.subheadline)
+                                .foregroundColor(.white)
                         }
-                        
-                        if let genres = movieDetails?.genres {
-                            ForEach(genres, id: \.self.id) { genre in
-                                Text(genre.name)
-                            }
-                        }
-                        
-                        if let collection = movieDetails?.belongs_to_collection {
-                            Text(collection.name)
-                        }
-                        
-                        Section {
-                            HStack {
-                                VStack {
-                                    
-                                    Text("Production countries:")
-                                    if let movieDetails = movieDetails {
-                                        
-                                        ForEach(movieDetails.production_countries, id: \.self.name) { country in
-                                            Text(country.name)
-                                        }
-                                    }
-                                }
-                                
-                                VStack {
-                                    
-                                    Text("Production companies:")
-                                    if let movieDetails = movieDetails {
-                                        
-                                        ForEach(movieDetails.production_companies, id: \.self.id) { company in
-                                            Text(company.name)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        
-                        Section {
-                            
-                            Text("Spoken languages:")
-                            if let movieDetails = movieDetails {
-                                
-                                ForEach(movieDetails.spoken_languages, id: \.self.iso_639_1) { language in
-                                    Text(language.name)
-                                }
-                            }
-                        }
+                        .padding(.bottom)
                     }
-                    .padding(.horizontal)
+                            
+                    if let productionCompanies = movieDetails?.production_companies {
+                        HStack(alignment: .top) {
+                        Text("Production companies:")
+                            let productionCompaniesNames = productionCompanies.map {$0.name}
+                            let movieCompanies = ListFormatter.localizedString(byJoining: productionCompaniesNames)
+                            
+                            Text(movieCompanies)
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                        }
+                        .padding(.bottom)
+                    }
+                        
+                    if let spokenLanguages = movieDetails?.spoken_languages {
+                        HStack(alignment: .top) {
+                            Text("Spoken languages:")
+                            let spokenLanguagesNames = spokenLanguages.map {$0.name}
+                            let movieLanguages = ListFormatter.localizedString(byJoining: spokenLanguagesNames)
+                            
+                            Text(movieLanguages)
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                        }
+                        .padding(.bottom)
+                    }
                 }
+                .padding(.horizontal)
                 .padding(.bottom)
                 .foregroundStyle(.white)
             }
+            .safeAreaInset(edge: .top, spacing: 0) { Spacer().frame(height: 44) }      
         }
         .navigationTitle(movie.title)
         .navigationBarTitleDisplayMode(.inline)
         .background(Color(red: 0.15, green: 0.16, blue: 0.12))
+        .ignoresSafeArea(edges: .bottom)
         .onAppear {
             Task {
                 await fetchMovieDetails()

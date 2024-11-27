@@ -16,15 +16,43 @@ struct MovieResponse: Codable {
 
 @MainActor
 class ViewModel: ObservableObject {
-
     @Published var movies: [Movie] = []
     @Published var searchMovies: [Movie] = []
     @Published var trendingMovies: [Movie] = []
-    
-    @Published var searchText: String = ""
+    @Published var searchText: String = "" {
+        didSet {
+            debounceSearch()
+        }
+    }
     @Published var isLoading: Bool = false
     @Published var isSearching: Bool = false
     @Published var errorMessage: String?
+    
+    private var searchTask: Task<Void, Never>? = nil
+    
+    private func debounceSearch() {
+        searchTask?.cancel()
+
+        searchTask = Task {
+            do {
+                guard !searchText.isEmpty else {
+                    print("Search text is empty. Clearing results.")
+                    self.searchMovies = []
+                    return
+                }
+
+                try await Task.sleep(nanoseconds: 500_000_000)
+                if Task.isCancelled { return }
+
+                print("Performing search for: \(searchText)")
+                await searchMovies(query: searchText)
+            } catch {
+                if !(error is CancellationError) {
+                    print("Unexpected error during debounce: \(error)")
+                }
+            }
+        }
+    }
 
     let savePath = URL.documentsDirectory.appending(path: "SavedMovies")
     
@@ -44,8 +72,8 @@ class ViewModel: ObservableObject {
 
             let movieResponse = try JSONDecoder().decode(MovieResponse.self, from: data)
 
-            self.trendingMovies = movieResponse.results
-            self.movies = trendingMovies
+            self.movies = movieResponse.results
+            self.trendingMovies = movies
             await saveMovies()
         } catch {
             errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
@@ -60,6 +88,7 @@ class ViewModel: ObservableObject {
             do {
                 let data = try Data(contentsOf: savePath)
                 self.movies = try JSONDecoder().decode([Movie].self, from: data)
+                self.trendingMovies = movies
                 print("Movies loaded from save path.")
             } catch {
                 print("Failed to decode saved movies: \(error.localizedDescription)")
@@ -68,6 +97,7 @@ class ViewModel: ObservableObject {
                 do {
                     let data = try Data(contentsOf: bundleURL)
                     self.movies = try JSONDecoder().decode([Movie].self, from: data)
+                    self.trendingMovies = movies
                     print("Movies loaded from bundle.")
                 } catch {
                     print("Error loading bundled movies: \(error.localizedDescription)")
@@ -75,6 +105,7 @@ class ViewModel: ObservableObject {
             } else {
                 print("No saved movies found.")
                 self.movies = []
+                self.trendingMovies = movies
             }
     }
 
@@ -126,7 +157,7 @@ class ViewModel: ObservableObject {
 
            let decodedMovies = try JSONDecoder().decode(MovieResponse.self, from: data)
            self.searchMovies = decodedMovies.results
-           self.movies = searchMovies
+//           self.movies = searchMovies
        } catch {
                errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
        }

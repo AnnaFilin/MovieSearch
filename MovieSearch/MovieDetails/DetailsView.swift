@@ -74,13 +74,13 @@ struct DetailsView: View {
             }
             
             HStack {
-                Image(systemName: "flag.fill")
+                Image(systemName: "flag")
                     .foregroundColor(statusColor)
                 Text(movieDetails.status)
                     .font(.callout)
 
                 Image(systemName: "calendar")
-                    .foregroundColor(.blue)
+                    .foregroundColor(.yellow)
                 Text(movieDetails.release_date ?? "Unknown Release Date")
                     .font(.caption)
                     .foregroundColor(.gray)
@@ -92,6 +92,16 @@ struct DetailsView: View {
                 Text(formattedBudget)
                     .font(.callout)
             }
+            
+            HStack {
+                Image(systemName: "map")
+                    .foregroundColor(.orange)
+                Text(ListFormatter.localizedString(byJoining: movieDetails.origin_country))
+                    .font(.callout)
+            }
+            
+            Image(systemName: movieDetails.adult ? "lock" : "smiley")
+                .foregroundColor(movieDetails.adult ? .red : .yellow)
         }
     }
     

@@ -26,6 +26,7 @@ struct TabContentView: View {
                 MovieDetailsView(movie: selection)
             }
         }
+        .tint(.orange)
     }
 }
 

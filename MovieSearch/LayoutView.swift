@@ -26,6 +26,7 @@ struct LayoutView<Content: View>: View {
             }
         }
         .navigationTitle(title)
+        .shadow(color: .orange, radius: 1)
     }
 }
 

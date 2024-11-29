@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LayoutView<Content: View>: View {
+struct BaseView<Content: View>: View {
     let title: String
     let content: Content
     
@@ -18,7 +18,8 @@ struct LayoutView<Content: View>: View {
     
     var body: some View {
         ZStack {
-            Color(red: 0.15, green: 0.16, blue: 0.12)
+            Color.background
+            //Color(red: 0.15, green: 0.16, blue: 0.12)
                 .ignoresSafeArea()
             
             VStack {
@@ -31,7 +32,7 @@ struct LayoutView<Content: View>: View {
 }
 
 #Preview {
-        LayoutView(
+        BaseView(
             title: "Movies"
         ) {
             Text("Your Content Goes Here")

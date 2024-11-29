@@ -53,9 +53,9 @@
 			path = Gallery;
 			sourceTree = "<group>";
 		};
-		5AFEB4AF2CF9E8E200F74906 /* Common */ = {
+		5AFEB4AF2CF9E8E200F74906 /* CommonViews */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Common;
+			path = CommonViews;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -91,12 +91,20 @@
 		5A7531D22CEE440200489705 /* MovieSearch */ = {
 			isa = PBXGroup;
 			children = (
-				5AFEB4AF2CF9E8E200F74906 /* Common */,
-				5AFEB4AE2CF9E87D00F74906 /* Gallery */,
+				5AFEB4B02CF9E9F400F74906 /* Screens */,
 				5AFEB4A72CF9E7E600F74906 /* Models */,
-				5A7532BD2CF5E67A00489705 /* MovieDetails */,
+				5AFEB4AF2CF9E8E200F74906 /* CommonViews */,
 			);
 			path = MovieSearch;
+			sourceTree = "<group>";
+		};
+		5AFEB4B02CF9E9F400F74906 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				5AFEB4AE2CF9E87D00F74906 /* Gallery */,
+				5A7532BD2CF5E67A00489705 /* MovieDetails */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +126,7 @@
 				5A7532BD2CF5E67A00489705 /* MovieDetails */,
 				5AFEB4A72CF9E7E600F74906 /* Models */,
 				5AFEB4AE2CF9E87D00F74906 /* Gallery */,
-				5AFEB4AF2CF9E8E200F74906 /* Common */,
+				5AFEB4AF2CF9E8E200F74906 /* CommonViews */,
 			);
 			name = MovieSearch;
 			packageProductDependencies = (

@@ -19,15 +19,15 @@ struct BaseView<Content: View>: View {
     var body: some View {
         ZStack {
             Color.background
-            //Color(red: 0.15, green: 0.16, blue: 0.12)
                 .ignoresSafeArea()
             
             VStack {
                 content
+                    .foregroundColor(.theme)
             }
         }
         .navigationTitle(title)
-        .shadow(color: .orange, radius: 1)
+        .shadow(color: .shadow, radius: 1)
     }
 }
 
@@ -36,7 +36,7 @@ struct BaseView<Content: View>: View {
             title: "Movies"
         ) {
             Text("Your Content Goes Here")
-                .foregroundColor(.white)
+                .foregroundColor(.theme)
         }
         .environmentObject(Favorites())
 }

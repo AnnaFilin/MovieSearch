@@ -13,7 +13,7 @@ struct TabContentView: View {
 
     var body: some View {
         NavigationStack {
-            LayoutView(title: title) {
+            BaseView(title: title) {
                 ScrollView {
                     ForEach(movies, id: \.self.id) { movie in
                         NavigationLink(value: movie) {

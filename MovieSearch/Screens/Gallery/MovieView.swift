@@ -46,7 +46,7 @@ struct MovieView: View {
                 }
                 .padding(.top)
                 .padding(.leading, 8)
-                .foregroundStyle(.white)
+//                .foregroundStyle(.white)
                 
                 Spacer()
                 

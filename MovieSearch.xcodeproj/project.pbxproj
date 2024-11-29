@@ -87,17 +87,9 @@
 				5A7531E22CEE444200489705 /* MoviesAPIService.swift */,
 				5A7531E32CEE444200489705 /* MovieSearchApp.swift */,
 				5A7531E42CEE444200489705 /* MovieView.swift */,
-				5A7531E62CEE444200489705 /* Preview Content */,
 				5A7531F82CF06E2600489705 /* Config.swift */,
 			);
 			path = MovieSearch;
-			sourceTree = "<group>";
-		};
-		5A7531E62CEE444200489705 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,7 +311,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MovieSearch/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MovieSearch\"";
 				DEVELOPMENT_TEAM = ZUXSFXWRJ3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -348,7 +340,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MovieSearch/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MovieSearch\"";
 				DEVELOPMENT_TEAM = ZUXSFXWRJ3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

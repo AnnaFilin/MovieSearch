@@ -15,9 +15,9 @@ struct ImageView: View {
     let fillContentMode: Bool
     
     var body: some View {
-      
+        
         let fullUrl = URL(string: "https://image.tmdb.org/t/p/w500\(url)")
-
+        
         AsyncImage(url: fullUrl) { phase in
             switch phase {
             case .empty:
@@ -55,5 +55,11 @@ struct ImageView: View {
 }
 
 #Preview {
-    ImageView(url: "/c5Tqxeo1UpBvnAc3csUm7j3hlQl.jpg", width: 100, height: 150, opacity: 0.9, fillContentMode:  true)
+    ImageView(
+        url: "/c5Tqxeo1UpBvnAc3csUm7j3hlQl.jpg",
+        width: 100,
+        height: 150,
+        opacity: 0.9,
+        fillContentMode:  true
+    )
 }

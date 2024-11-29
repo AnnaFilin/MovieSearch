@@ -54,7 +54,7 @@ class ViewModel: ObservableObject {
         }
     }
 
-    let savePath = URL.documentsDirectory.appending(path: "SavedMovies")
+    let savePath = URL.documentsDirectory.appending(path: "MockMovies")
     
     init() { }
     

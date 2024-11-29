@@ -38,5 +38,5 @@ struct BaseView<Content: View>: View {
             Text("Your Content Goes Here")
                 .foregroundColor(.theme)
         }
-        .environmentObject(Favorites())
+        .environmentObject(Persistence())
 }

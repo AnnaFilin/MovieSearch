@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject private var viewModel = ViewModel()
-    @StateObject private var favorites = Favorites()
+    @StateObject private var favorites = Persistence()
     @State private var selectedTab: Int = 0
 
     var body: some View {

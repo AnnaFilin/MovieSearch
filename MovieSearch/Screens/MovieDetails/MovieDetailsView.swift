@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MovieDetailsView: View {
-    @EnvironmentObject var favorites: Favorites
+    @EnvironmentObject var favorites: Persistence
 
     var movie: Movie
     
@@ -240,5 +240,5 @@ struct MovieDetailsView: View {
     )
    
     MovieDetailsView(movie: wickedMovie, movieDetails: details)
-        .environmentObject(Favorites())
+        .environmentObject(Persistence())
 }

@@ -22,4 +22,8 @@ struct Movie: Codable, Identifiable, Hashable {
     let vote_count: Int?
     let adult: Bool
     let video: Bool
+    
+    
+    static let allMovies: [Movie] = Bundle.main.decode("MockMovies.json")
+    static let example = allMovies[0]
 }

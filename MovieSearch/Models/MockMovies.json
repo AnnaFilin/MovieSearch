@@ -1,18 +1,18 @@
 [
     {
-        "id": 1171640,
-        "title": "GTMAX",
-        "original_title": "GTMAX",
-        "original_language": "fr",
-        "overview": "When a notorious gang of bikers recruits her brother for a heist...",
-        "poster_path": "/bx92hl70NUhojjO3eV6LqKllj4L.jpg",
-        "backdrop_path": "/liuBLPXvisMRo5w2JEKHXceWq5u.jpg",
-        "genre_ids": [28, 80, 18],
-        "release_date": "2024-11-19",
-        "popularity": 46.236,
-        "vote_average": 8.1,
-        "vote_count": 5,
-        "adult": false,
-        "video": false
+      "id": 402431,
+      "title": "Wicked",
+      "original_title": "Wicked",
+      "original_language": "en",
+      "overview": "Elphaba, an ostracized but defiant girl born with green skin, and Galinda, a privileged aristocrat born popular, become extremely unlikely friends in the magical Land of Oz. As the two girls struggle with their opposing personalities, their friendship is tested as both begin to fulfill their destinies as Glinda the Good and The Wicked Witch of the West.",
+      "poster_path": "/c5Tqxeo1UpBvnAc3csUm7j3hlQl.jpg",
+      "backdrop_path": "/uVlUu174iiKhsUGqnOSy46eIIMU.jpg",
+      "genre_ids": [18, 14, 10749],
+      "release_date": "2024-11-20",
+      "popularity": 927.236,
+      "vote_average": 7.5,
+      "vote_count": 30,
+      "adult": false,
+      "video": false
     }
 ]

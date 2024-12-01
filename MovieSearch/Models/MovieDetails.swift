@@ -34,6 +34,9 @@ struct MovieDetail: Codable {
     let video: Bool
     let vote_average: Double
     let vote_count: Int
+    
+    static let example: MovieDetail = Bundle.main.decode("MockMovieDetails.json")
+
 }
 
 

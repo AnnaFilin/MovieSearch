@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BaseView<Content: View>: View {
+    
+    
     let title: String
     let content: Content
     
@@ -35,8 +37,8 @@ struct BaseView<Content: View>: View {
         BaseView(
             title: "Movies"
         ) {
-            Text("Your Content Goes Here")
-                .foregroundColor(.theme)
+
+            MovieView(movie: .example)
         }
         .environmentObject(Persistence())
 }

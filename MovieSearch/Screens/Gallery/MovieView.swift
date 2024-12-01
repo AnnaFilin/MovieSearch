@@ -15,7 +15,7 @@ struct MovieView: View {
     var body: some View {
         ZStack {
 
-            if let posterPath = movie.poster_path {
+            if let posterPath = movie.posterPath {
                 GeometryReader { geometry in
                     ImageView(url: posterPath, width: geometry.size.width , height: 150, opacity: 0.5, fillContentMode: true)
                         .frame(width: geometry.size.width - 10)
@@ -25,8 +25,8 @@ struct MovieView: View {
             
             HStack(alignment: .top, spacing: 0) {
                 
-                if let posterPath = movie.poster_path {
-                    ImageView(url: posterPath, width: 90, height: 150, opacity: 1.0, fillContentMode: true)
+                if let posterPath = movie.posterPath {
+                ImageView(url: posterPath, width: 90, height: 150, opacity: 1.0, fillContentMode: true)
                         .frame(width: 90, height: 150)
                         .clipped()
                         .cornerRadius(5)
@@ -38,15 +38,14 @@ struct MovieView: View {
                         .fontWeight(.heavy)
                         .lineLimit(2)
                     
-                    Text("Rating \(String(movie.vote_average ?? 0))/\(String(movie.vote_count ?? 0))")
+                    Text("Rating \(String(movie.voteAverage))/\(String(movie.voteCount ?? 0))")
                         .font(.subheadline)
                     
-                    Text(movie.release_date  ?? "Unknown Release Date")
+                    Text(movie.releaseDate ?? "Release date unknown")
                         .font(.subheadline)
                 }
                 .padding(.top)
                 .padding(.leading, 8)
-//                .foregroundStyle(.white)
                 
                 Spacer()
                 
@@ -72,6 +71,7 @@ struct MovieView: View {
                 .cornerRadius(5)
                 .shadow(color: .orange, radius: 3)
         )
+        .foregroundStyle(.theme)
         .padding(.horizontal)
         .padding(.bottom)
     }

@@ -22,6 +22,7 @@ struct ContentView: View {
                     if viewModel.trendingMovies.isEmpty {
                         Task {
                             await viewModel.loadSavedMovies()
+//                            await viewModel.fetchMovies()
                         }
                     }
                 }
@@ -33,14 +34,12 @@ struct ContentView: View {
                  }
                 .tabItem {
                     Label("Trending", systemImage: "film")
-//                        .shadow(color: .orange, radius: 1)
                 }
                 .tag(0)
             
                 TabContentView(movies: viewModel.movies, title: "Favorites")
                     .tabItem {
                         Label("Favorites", systemImage: "star")
-//                            .shadow(color: .orange, radius: 1)
                     }
                     .tag(1)
                 
@@ -54,7 +53,6 @@ struct ContentView: View {
                     }
                    .tabItem {
                        Label("Search", systemImage: "magnifyingglass")
-//                           .shadow(color: .orange, radius: 1)
                    }
                    .tag(2)
             }

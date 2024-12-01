@@ -35,7 +35,7 @@ struct DetailsView: View {
             HStack {
                 Image(systemName: "clock")
                     .foregroundColor(.orange)
-                Text(formatMovieDuration(minutes: movieDetails.runtime ?? 0))
+                Text(formatMovieDuration(minutes: movieDetails.runtime))
                     .font(.callout)
             }
             
@@ -43,8 +43,8 @@ struct DetailsView: View {
                 HStack {
                     Image(systemName: "star.fill")
                         .foregroundColor(.yellow)
-                    Text(String(format: "%.1f", movieDetails.vote_average))
-                    Text("(\(movieDetails.vote_count))")
+                    Text(String(format: "%.1f", movieDetails.voteAverage))
+                    Text("(\(movieDetails.voteCount))")
                         .font(.caption)
                         .foregroundColor(.gray)
                 }
@@ -81,7 +81,7 @@ struct DetailsView: View {
 
                 Image(systemName: "calendar")
                     .foregroundColor(.yellow)
-                Text(movieDetails.release_date ?? "Unknown Release Date")
+                Text(movieDetails.releaseDate)
                     .font(.caption)
                     .foregroundColor(.gray)
             }
@@ -96,7 +96,7 @@ struct DetailsView: View {
             HStack {
                 Image(systemName: "map")
                     .foregroundColor(.orange)
-                Text(ListFormatter.localizedString(byJoining: movieDetails.origin_country))
+                Text(ListFormatter.localizedString(byJoining: movieDetails.originCountry))
                     .font(.callout)
             }
             

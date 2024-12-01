@@ -20,8 +20,8 @@ struct MovieDetailsView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                if let posterPath = movie.poster_path {
-                    ImageView(url: posterPath, width: nil, height: nil, opacity: 0.3, fillContentMode: true)
+                if let posterPath = movie.posterPath {
+                ImageView(url: posterPath, width: nil, height: nil, opacity: 0.3, fillContentMode: true)
                         .ignoresSafeArea()
                         
                 }
@@ -43,8 +43,8 @@ struct MovieDetailsView: View {
                         }
                         
                         HStack(alignment: .top, spacing: 16) {
-                            if let posterPath = movie.poster_path {
-                                ImageView(url: posterPath,  width: 150, height: 230, opacity: 0.9, fillContentMode: false)
+                            if let posterPath = movie.posterPath {
+                            ImageView(url: posterPath,  width: 150, height: 230, opacity: 0.9, fillContentMode: false)
                                     .cornerRadius(5)
                                     .shadow(color: .orange, radius: 1)
                             }
@@ -62,7 +62,7 @@ struct MovieDetailsView: View {
                         
                         Text(movie.overview)
                         
-                        if let productionCountries = movieDetails?.production_countries {
+                        if let productionCountries = movieDetails?.productionCountries {
                             HStack(alignment: .top) {
                                 Image(systemName: "globe")
                                     .foregroundColor(.orange)
@@ -80,7 +80,7 @@ struct MovieDetailsView: View {
                             .padding(.bottom)
                         }
                         
-                        if let productionCompanies = movieDetails?.production_companies {
+                        if let productionCompanies = movieDetails?.productionCompanies {
                             HStack(alignment: .top) {
                                 Image(systemName: "building.2")
                                            .foregroundColor(.orange)
@@ -98,7 +98,7 @@ struct MovieDetailsView: View {
                             .padding(.bottom)
                         }
                         
-                        if let spokenLanguages = movieDetails?.spoken_languages {
+                        if let spokenLanguages = movieDetails?.spokenLanguages {
                             HStack(alignment: .top) {
                                 Image(systemName: "text.bubble")
                                     .foregroundColor(.orange)

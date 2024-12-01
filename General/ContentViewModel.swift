@@ -93,7 +93,7 @@ class ViewModel: ObservableObject {
             } catch {
                 print("Failed to decode saved movies: \(error.localizedDescription)")
             }
-            } else if let bundleURL = Bundle.main.url(forResource: "SavedMovies", withExtension: "json") {
+            } else if let bundleURL = Bundle.main.url(forResource: "MockMovies", withExtension: "json") {
                 do {
                     let data = try Data(contentsOf: bundleURL)
                     self.movies = try JSONDecoder().decode([Movie].self, from: data)

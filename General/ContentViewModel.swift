@@ -16,13 +16,45 @@ struct MovieResponse: Codable {
 
 @MainActor
 class ViewModel: ObservableObject {
-
     @Published var movies: [Movie] = []
-    @Published var searchText: String = ""
+    @Published var searchMovies: [Movie] = []
+    @Published var trendingMovies: [Movie] = []
+    @Published var searchText: String = "" {
+        didSet {
+            debounceSearch()
+        }
+    }
     @Published var isLoading: Bool = false
+    @Published var isSearching: Bool = false
     @Published var errorMessage: String?
+    
+    private var searchTask: Task<Void, Never>? = nil
+    
+    private func debounceSearch() {
+        searchTask?.cancel()
 
-    let savePath = URL.documentsDirectory.appending(path: "SavedMovies")
+        searchTask = Task {
+            do {
+                guard !searchText.isEmpty else {
+                    print("Search text is empty. Clearing results.")
+                    self.searchMovies = []
+                    return
+                }
+
+                try await Task.sleep(nanoseconds: 500_000_000)
+                if Task.isCancelled { return }
+
+                print("Performing search for: \(searchText)")
+                await searchMovies(query: searchText)
+            } catch {
+                if !(error is CancellationError) {
+                    print("Unexpected error during debounce: \(error)")
+                }
+            }
+        }
+    }
+
+    let savePath = URL.documentsDirectory.appending(path: "MockMovies")
     
     init() { }
     
@@ -32,7 +64,6 @@ class ViewModel: ObservableObject {
 
         guard let url = URL(string: "https://api.themoviedb.org/3/trending/movie/day?api_key=\(Config.apiKey)") else {
             errorMessage = "Invalid URL."
-            isLoading = false
             return
         }
 
@@ -42,7 +73,7 @@ class ViewModel: ObservableObject {
             let movieResponse = try JSONDecoder().decode(MovieResponse.self, from: data)
 
             self.movies = movieResponse.results
-
+            self.trendingMovies = movies
             await saveMovies()
         } catch {
             errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
@@ -56,15 +87,19 @@ class ViewModel: ObservableObject {
         if FileManager.default.fileExists(atPath: savePath.path) {
             do {
                 let data = try Data(contentsOf: savePath)
+                
                 self.movies = try JSONDecoder().decode([Movie].self, from: data)
+                self.trendingMovies = movies
                 print("Movies loaded from save path.")
             } catch {
                 print("Failed to decode saved movies: \(error.localizedDescription)")
             }
-            } else if let bundleURL = Bundle.main.url(forResource: "SavedMovies", withExtension: "json") {
+            } else if let bundleURL = Bundle.main.url(forResource: "MockMovies", withExtension: "json") {
                 do {
                     let data = try Data(contentsOf: bundleURL)
+    
                     self.movies = try JSONDecoder().decode([Movie].self, from: data)
+                    self.trendingMovies = movies
                     print("Movies loaded from bundle.")
                 } catch {
                     print("Error loading bundled movies: \(error.localizedDescription)")
@@ -72,6 +107,7 @@ class ViewModel: ObservableObject {
             } else {
                 print("No saved movies found.")
                 self.movies = []
+                self.trendingMovies = movies
             }
     }
 
@@ -96,6 +132,7 @@ class ViewModel: ObservableObject {
     
     func searchMovies(query: String) async {
         isLoading = true
+        isSearching = true
         errorMessage = nil
 
         guard var components = URLComponents(string: "https://api.themoviedb.org/3/search/movie") else {
@@ -114,7 +151,6 @@ class ViewModel: ObservableObject {
 
        guard let url = components.url else {
            errorMessage = "Failed to construct URL."
-           isLoading = false
            return
        }
 
@@ -122,7 +158,7 @@ class ViewModel: ObservableObject {
            let (data, _) = try await URLSession.shared.data(from: url)
 
            let decodedMovies = try JSONDecoder().decode(MovieResponse.self, from: data)
-           self.movies = decodedMovies.results
+           self.searchMovies = decodedMovies.results
        } catch {
                errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
        }

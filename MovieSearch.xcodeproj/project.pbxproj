@@ -8,19 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		5A7532402CF1E04700489705 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A75323F2CF1E04700489705 /* Persistence.swift */; };
+		5AFEB5902CFDF95500F74906 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5AFEB5862CFDF95500F74906 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5A752E522CEB4A4800489705 /* MovieSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A7531F42CEF907E00489705 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5A75323F2CF1E04700489705 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		5AFEB5862CFDF95500F74906 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		5AFEB4AB2CF9E85700F74906 /* Exceptions for "General" folder in "MovieSearch" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				.gitignore,
 				Assets.xcassets,
 				"Bundle-Decodable.swift",
 				Config.swift,
@@ -81,6 +82,7 @@
 				5A7531D22CEE440200489705 /* MovieSearch */,
 				5A752E532CEB4A4800489705 /* Products */,
 				5AFEB4AA2CF9E84E00F74906 /* General */,
+				5AFEB56F2CFDF95500F74906 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +97,7 @@
 		5A7531D22CEE440200489705 /* MovieSearch */ = {
 			isa = PBXGroup;
 			children = (
+				5AFEB5862CFDF95500F74906 /* .gitignore */,
 				5AFEB4B02CF9E9F400F74906 /* Screens */,
 				5AFEB4A72CF9E7E600F74906 /* Models */,
 				5AFEB4B12CF9F83500F74906 /* Persistance */,
@@ -118,6 +121,14 @@
 				5A75323F2CF1E04700489705 /* Persistence.swift */,
 			);
 			path = Persistance;
+			sourceTree = "<group>";
+		};
+		5AFEB56F2CFDF95500F74906 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				5A7531F42CEF907E00489705 /* Config.xcconfig */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +198,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AFEB5902CFDF95500F74906 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

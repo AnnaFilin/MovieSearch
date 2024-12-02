@@ -1,12 +1,25 @@
 # Ignore Xcode configurations
-config.xcconfig
+*.xcconfig
 
 # Ignore build files
 build/
 
 # Ignore Xcode-specific settings
-*.xcuserdata
 *.xcworkspace
-
+*.xcuserdata
 *.xcuserstate
 xcuserdata/
+project.xcworkspace/
+
+# Ignore derived data
+DerivedData/
+
+# Ignore temporary files and caches
+*.swp
+*.lock
+*.tmp
+.DS_Store
+
+# Ignore CocoaPods and Carthage dependencies
+Pods/
+Carthage/

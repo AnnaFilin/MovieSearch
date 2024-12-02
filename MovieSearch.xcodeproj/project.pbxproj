@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A7532402CF1E04700489705 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A75323F2CF1E04700489705 /* Persistence.swift */; };
 		5AFEB5902CFDF95500F74906 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5AFEB5862CFDF95500F74906 /* .gitignore */; };
+		5AFEB6102CFE403C00F74906 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5AFEB60F2CFE403C00F74906 /* Config.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +17,7 @@
 		5A7531F42CEF907E00489705 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5A75323F2CF1E04700489705 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5AFEB5862CFDF95500F74906 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5AFEB60F2CFE403C00F74906 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -25,7 +27,6 @@
 				Assets.xcassets,
 				"Bundle-Decodable.swift",
 				Config.swift,
-				Config.xcconfig,
 				ContentView.swift,
 				ContentViewModel.swift,
 				MovieSearchApp.swift,
@@ -83,6 +84,7 @@
 				5A752E532CEB4A4800489705 /* Products */,
 				5AFEB4AA2CF9E84E00F74906 /* General */,
 				5AFEB56F2CFDF95500F74906 /* Recovered References */,
+				5AFEB60F2CFE403C00F74906 /* Config.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -199,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AFEB5902CFDF95500F74906 /* .gitignore in Resources */,
+				5AFEB6102CFE403C00F74906 /* Config.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

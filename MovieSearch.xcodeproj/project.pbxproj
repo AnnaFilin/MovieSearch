@@ -22,13 +22,7 @@
 		5AFEB4AB2CF9E85700F74906 /* Exceptions for "General" folder in "MovieSearch" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Assets.xcassets,
-				"Bundle-Decodable.swift",
-				Config.swift,
 				Config.xcconfig,
-				ContentView.swift,
-				ContentViewModel.swift,
-				MovieSearchApp.swift,
 			);
 			target = 5A752E512CEB4A4800489705 /* MovieSearch */;
 		};

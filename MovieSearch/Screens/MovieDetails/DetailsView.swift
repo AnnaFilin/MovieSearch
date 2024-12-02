@@ -40,30 +40,12 @@ struct DetailsView: View {
             }
             
             HStack(spacing: 8) {
-                HStack {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
-                    Text(String(format: "%.1f", movieDetails.voteAverage))
-                    Text("(\(movieDetails.voteCount))")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
-                Spacer()
+                RatingView(voteAverage: movie.voteAverage, voteCount: movie.voteCount)
                 
-                Button(action: {
-                    if favorites.contains(movie) {
-                        favorites.remove(movie)
-                    } else {
-                        favorites.add(movie)
-                    }
-                }) {
-                    Image(systemName: favorites.contains(movie) ? "heart.fill" : "heart")
-                        .foregroundColor(.orange)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .accessibilityLabel(favorites.contains(movie) ? "Remove from Favorites" : "Add to Favorites")
-                }
-                .padding(.horizontal, 4)
+                Spacer()
+
+                FavoritesButtonView(movie: movie)
+                    .padding(.horizontal, 4)
             }
 
             HStack {
@@ -77,13 +59,11 @@ struct DetailsView: View {
                 Image(systemName: "flag")
                     .foregroundColor(statusColor)
                 Text(movieDetails.status)
-                    .font(.callout)
-
-                Image(systemName: "calendar")
-                    .foregroundColor(.yellow)
-                Text(movieDetails.releaseDate)
                     .font(.caption)
-                    .foregroundColor(.gray)
+
+                if let date = movieDetails.releaseDate {
+                    ReleaseDateView(date: date)
+                }
             }
 
             HStack {

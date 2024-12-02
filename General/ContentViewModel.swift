@@ -87,6 +87,7 @@ class ViewModel: ObservableObject {
         if FileManager.default.fileExists(atPath: savePath.path) {
             do {
                 let data = try Data(contentsOf: savePath)
+                
                 self.movies = try JSONDecoder().decode([Movie].self, from: data)
                 self.trendingMovies = movies
                 print("Movies loaded from save path.")
@@ -96,6 +97,7 @@ class ViewModel: ObservableObject {
             } else if let bundleURL = Bundle.main.url(forResource: "MockMovies", withExtension: "json") {
                 do {
                     let data = try Data(contentsOf: bundleURL)
+    
                     self.movies = try JSONDecoder().decode([Movie].self, from: data)
                     self.trendingMovies = movies
                     print("Movies loaded from bundle.")
@@ -157,7 +159,6 @@ class ViewModel: ObservableObject {
 
            let decodedMovies = try JSONDecoder().decode(MovieResponse.self, from: data)
            self.searchMovies = decodedMovies.results
-//           self.movies = searchMovies
        } catch {
                errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
        }

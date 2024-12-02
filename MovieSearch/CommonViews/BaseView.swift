@@ -30,6 +30,7 @@ struct BaseView<Content: View>: View {
         }
         .navigationTitle(title)
         .shadow(color: .shadow, radius: 1)
+     
     }
 }
 

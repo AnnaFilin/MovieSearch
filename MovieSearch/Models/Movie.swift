@@ -13,7 +13,7 @@ struct Movie: Codable, Identifiable, Hashable {
        let posterPath, backdropPath: String?
        let genreIDS: [Int]
        let releaseDate: String?
-       let popularity, voteAverage: Double
+       let popularity, voteAverage: Double?
        let voteCount: Int?
        let adult, video: Bool
 
@@ -32,7 +32,7 @@ struct Movie: Codable, Identifiable, Hashable {
            case adult, video
        }
     
-    init(id: Int, title: String, originalTitle: String, originalLanguage: String, overview: String, posterPath: String, backdropPath: String, genreIDS: [Int], releaseDate: String, popularity: Double, voteAverage: Double, voteCount: Int, adult: Bool, video: Bool) {
+    init(id: Int, title: String, originalTitle: String, originalLanguage: String, overview: String, posterPath: String?, backdropPath: String?, genreIDS: [Int], releaseDate: String?, popularity: Double?, voteAverage: Double?, voteCount: Int?, adult: Bool, video: Bool) {
         self.id = id
         self.title = title
         self.originalTitle = originalTitle

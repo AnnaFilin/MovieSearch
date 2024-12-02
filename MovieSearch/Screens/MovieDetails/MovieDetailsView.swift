@@ -51,9 +51,17 @@ struct MovieDetailsView: View {
                             
                             if let movieDetails = movieDetails {
                                 DetailsView(movieDetails: movieDetails, movie: movie)
+                                    .padding(.vertical)
                             }
+    
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(.theme.opacity(0.05))
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(.theme, lineWidth: 1)
+                            )
                         
                         if let genres = movieDetails?.genres {
                             let genreNames = genres.map { $0.name }
@@ -61,6 +69,15 @@ struct MovieDetailsView: View {
                         }
                         
                         Text(movie.overview)
+                            .padding() 
+                            .background(.theme.opacity(0.05))
+                                .cornerRadius(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(.theme, lineWidth: 1)
+                                )
+                            
+                           
                         
                         if let productionCountries = movieDetails?.productionCountries {
                             HStack(alignment: .top) {
@@ -74,7 +91,6 @@ struct MovieDetailsView: View {
                                     
                                     Text(movieCountries)
                                         .font(.subheadline)
-                                        .foregroundColor(.white)
                                 }
                             }
                             .padding(.bottom)
@@ -92,7 +108,6 @@ struct MovieDetailsView: View {
                                     
                                     Text(movieCompanies)
                                         .font(.subheadline)
-                                        .foregroundColor(.white)
                                 }
                             }
                             .padding(.bottom)
@@ -110,22 +125,21 @@ struct MovieDetailsView: View {
                                     
                                     Text(movieLanguages)
                                         .font(.subheadline)
-                                        .foregroundColor(.white)
                                 }
                             }
                             .padding(.bottom)
                         }
                     }
                     .padding(.horizontal)
-                    .padding(.bottom)
+                    .padding(.bottom, geometry.safeAreaInsets.bottom)
                     .foregroundStyle(.white)
                 }
+                .padding(.bottom, geometry.safeAreaInsets.bottom)
                 .safeAreaInset(edge: .top, spacing: 0) { Spacer().frame(height: 16) }
-   
             }
         }
         .background(Color(red: 0.15, green: 0.16, blue: 0.12))
-        .ignoresSafeArea(edges: .bottom)
+     
         .onAppear {
             Task {
                 await fetchMovieDetails()

@@ -31,8 +31,6 @@ struct TabContentView: View {
 }
 
 #Preview {
-//    let movies =
-    
     TabContentView(movies: [.example], title: "Trending")
-//        .environmentObject(favorites)
+        .environmentObject(Persistence())
 }

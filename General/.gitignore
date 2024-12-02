@@ -8,3 +8,5 @@ build/
 *.xcuserdata
 *.xcworkspace
 
+*.xcuserstate
+xcuserdata/

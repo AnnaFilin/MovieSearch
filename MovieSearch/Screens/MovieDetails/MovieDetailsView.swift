@@ -116,15 +116,14 @@ struct MovieDetailsView: View {
                         }
                     }
                     .padding(.horizontal)
-                    .padding(.bottom)
                     .padding(.bottom, geometry.safeAreaInsets.bottom)
+                    .foregroundStyle(.theme)
                 }
+                .padding(.bottom, geometry.safeAreaInsets.bottom)
                 .safeAreaInset(edge: .top, spacing: 0) { Spacer().frame(height: 16) }
-   
             }
         }
         .background(Color(red: 0.15, green: 0.16, blue: 0.12))
-        .ignoresSafeArea(edges: .bottom)
         .onAppear {
             Task {
                 await fetchMovieDetails()

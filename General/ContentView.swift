@@ -15,7 +15,7 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            TabContentView(movies: viewModel.trendingMovies, title: "Trending")
+            TabContentView(movies: viewModel.trendingMovies, title: "Trending", selectedTab: $selectedTab)
                 .searchable(text: $viewModel.searchText, prompt: "Search movie")
                 .onAppear {
                     viewModel.searchText = ""
@@ -37,13 +37,13 @@ struct ContentView: View {
                 }
                 .tag(0)
             
-                TabContentView(movies: viewModel.movies, title: "Favorites")
+                TabContentView(movies: viewModel.movies, title: "Favorites", selectedTab: $selectedTab)
                     .tabItem {
                         Label("Favorites", systemImage: "star")
                     }
                     .tag(1)
                 
-                TabContentView(movies: viewModel.searchMovies, title: "Search")
+                TabContentView(movies: viewModel.searchMovies, title: "Search", selectedTab: $selectedTab)
                    .searchable(text: $viewModel.searchText, prompt: "Search movie")
                    .onChange(of: viewModel.searchText) {
                        Task {
@@ -56,6 +56,7 @@ struct ContentView: View {
                    }
                    .tag(2)
             }
+        .accentColor(.shadow)
         .preferredColorScheme(.dark)
         .environmentObject(favorites)
     }
@@ -63,4 +64,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(Persistence())
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct MovieView: View {
     @EnvironmentObject var favorites: Persistence
     
@@ -30,6 +31,7 @@ struct MovieView: View {
                         .frame(width: 90, height: 150)
                         .clipped()
                         .cornerRadius(5)
+                        .shadow(color: .shadow, radius: 1)
                 }
                 
                 VStack(alignment: .leading, spacing: 8) {
@@ -38,31 +40,21 @@ struct MovieView: View {
                         .fontWeight(.heavy)
                         .lineLimit(2)
                     
-                    Text("Rating \(String(movie.voteAverage))/\(String(movie.voteCount ?? 0))")
+                    RatingView(voteAverage: movie.voteAverage, voteCount: movie.voteCount)
                         .font(.subheadline)
                     
-                    Text(movie.releaseDate ?? "Release date unknown")
-                        .font(.subheadline)
+                    if let date = movie.releaseDate {
+                        ReleaseDateView(date: date)
+                    }
+                    
                 }
                 .padding(.top)
                 .padding(.leading, 8)
                 
                 Spacer()
                 
-                Button(action: {
-                    if favorites.contains(movie) {
-                        favorites.remove(movie)
-                    } else {
-                        favorites.add(movie)
-                    }
-                }) {
-                    Image(systemName: favorites.contains(movie) ? "heart.fill" : "heart")
-                        .foregroundColor(.orange)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .accessibilityLabel(favorites.contains(movie) ? "Remove from Favorites" : "Add to Favorites")
-                }
-                .padding()
+                FavoritesButtonView(movie: movie)
+                    .padding()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: 150)
@@ -81,4 +73,3 @@ struct MovieView: View {
     MovieView( movie: .example)
         .environmentObject(Persistence())
 }
-

@@ -110,7 +110,6 @@ struct MovieDetailsView: View {
                                     
                                     Text(movieLanguages)
                                         .font(.subheadline)
-                                        .foregroundColor(.white)
                                 }
                             }
                             .padding(.bottom)
@@ -118,7 +117,7 @@ struct MovieDetailsView: View {
                     }
                     .padding(.horizontal)
                     .padding(.bottom)
-                    .foregroundStyle(.white)
+                    .padding(.bottom, geometry.safeAreaInsets.bottom)
                 }
                 .safeAreaInset(edge: .top, spacing: 0) { Spacer().frame(height: 16) }
    
@@ -171,7 +170,6 @@ struct MovieDetailsView: View {
 }
 
 #Preview {
-
     MovieDetailsView(movie: .example, movieDetails: .example)
         .environmentObject(Persistence())
 }

@@ -8,31 +8,34 @@
 import SwiftUI
 
 struct TabContentView: View {
-    let movies: [Movie]
+    let movies: [Movie]?
     let title: String
+    @Binding var selectedTab: Int
 
     var body: some View {
         NavigationStack {
             BaseView(title: title) {
-                ScrollView {
-                    ForEach(movies, id: \.self.id) { movie in
-                        NavigationLink(value: movie) {
-                            MovieView(movie: movie)
+                if let movies = movies, !movies.isEmpty {
+                    ScrollView {
+                        ForEach(movies, id: \.self.id) { movie in
+                            NavigationLink(value: movie) {
+                                MovieView(movie: movie)
+                            }
                         }
                     }
+                } else {
+                   EmptyStateView(selectedTab: $selectedTab)
                 }
             }
             .navigationDestination(for: Movie.self) { selection in
                 MovieDetailsView(movie: selection)
             }
         }
-        .tint(.orange)
+        .tint(.shadow)
     }
 }
 
 #Preview {
-//    let movies =
-    
-    TabContentView(movies: [.example], title: "Trending")
-//        .environmentObject(favorites)
+    TabContentView(movies: [], title: "Trending", selectedTab: .constant(2))
+        .environmentObject(Persistence())
 }

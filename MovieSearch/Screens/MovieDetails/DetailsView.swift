@@ -13,95 +13,37 @@ struct DetailsView: View {
     var movieDetails: MovieDetail
     var movie: Movie
     
-    var statusColor: Color {
-        switch movieDetails.status.lowercased() {
-        case "released": return .green
-        case "upcoming": return .orange
-        case "cancelled": return .red
-        default: return .gray
-        }
-    }
-    
-    var formattedBudget: String {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .currency
-            formatter.currencySymbol = "$"
-            formatter.maximumFractionDigits = 0
-        return formatter.string(from: NSNumber(value: movieDetails.budget)) ?? "$0"
-    }
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 8){
             HStack {
+                            RatingView(voteAverage: movieDetails.voteAverage, voteCount: movieDetails.voteCount)
+                    
+                
+            }
+//            .padding()
+            
+            HStack(spacing: 8) {
                 Image(systemName: "clock")
                     .foregroundColor(.orange)
                 Text(formatMovieDuration(minutes: movieDetails.runtime))
                     .font(.callout)
-            }
-            
-            HStack(spacing: 8) {
-                HStack {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
-                    Text(String(format: "%.1f", movieDetails.voteAverage))
-                    Text("(\(movieDetails.voteCount))")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
-                Spacer()
+                    .opacity(0.5)
                 
-                Button(action: {
-                    if favorites.contains(movie) {
-                        favorites.remove(movie)
-                    } else {
-                        favorites.add(movie)
-                    }
-                }) {
-                    Image(systemName: favorites.contains(movie) ? "heart.fill" : "heart")
-                        .foregroundColor(.orange)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .accessibilityLabel(favorites.contains(movie) ? "Remove from Favorites" : "Add to Favorites")
-                }
-                .padding(.horizontal, 4)
-            }
+                
+                Spacer()
 
-            HStack {
-                Image(systemName: "chart.line.uptrend.xyaxis")
-                    .foregroundColor(.orange)
-                Text(String(format: "%.0f", movieDetails.popularity))
-                    .font(.callout)
+                FavoritesButtonView(movie: movie)
+                    .padding(.horizontal, 4)
+    
+//                Image(systemName: movieDetails.adult ? "lock" : "smiley")
+//                    .foregroundColor(movieDetails.adult ? .red : .yellow)
             }
-            
-            HStack {
-                Image(systemName: "flag")
-                    .foregroundColor(statusColor)
-                Text(movieDetails.status)
-                    .font(.callout)
+//            .padding()
 
-                Image(systemName: "calendar")
-                    .foregroundColor(.yellow)
-                Text(movieDetails.releaseDate)
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-
-            HStack {
-                Image(systemName: "dollarsign.circle")
-                    .foregroundColor(.orange)
-                Text(formattedBudget)
-                    .font(.callout)
-            }
             
-            HStack {
-                Image(systemName: "map")
-                    .foregroundColor(.orange)
-                Text(ListFormatter.localizedString(byJoining: movieDetails.originCountry))
-                    .font(.callout)
-            }
-            
-            Image(systemName: movieDetails.adult ? "lock" : "smiley")
-                .foregroundColor(movieDetails.adult ? .red : .yellow)
+//            if let date = movieDetails.releaseDate {
+//                                ReleaseDateView(date: date)
+//                            }
         }
     }
     

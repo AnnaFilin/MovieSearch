@@ -27,8 +27,8 @@ struct GenresView: View {
             GridItem(.flexible(), spacing: 15),
             GridItem(.flexible(), spacing: 15),
             GridItem(.flexible(), spacing: 15),
-            GridItem(.flexible(), spacing: 15),
-            GridItem(.flexible(), spacing: 15)
+//            GridItem(.flexible(), spacing: 15),
+//            GridItem(.flexible(), spacing: 15)
         ]
     
     var body: some View {
@@ -36,18 +36,27 @@ struct GenresView: View {
             ForEach(movieGenres, id: \.self) { genre in
                 if let icon = genres[genre] {
                     VStack {
-                        Image(systemName: icon)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.orange)
+//                        Image(systemName: icon)
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 20, height: 20)
+//                            .foregroundColor(.shadow)
                         Text(genre)
-                            .font(.caption)
+                            .font(.callout.bold())
                             .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .foregroundColor(.theme)
+                            .opacity(0.7)
                     }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color.theme.opacity(0.2)) // Faded background
+                    .cornerRadius(10)
                 }
             }
         }
+        .padding()
+//        .background(.black)
     }
 }
 

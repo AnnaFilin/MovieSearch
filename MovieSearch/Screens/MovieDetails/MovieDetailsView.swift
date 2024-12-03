@@ -25,104 +25,121 @@ struct MovieDetailsView: View {
                         .ignoresSafeArea()
                         
                 }
+                    LinearGradient(
+                        gradient: Gradient(colors: [.background.opacity(0.01), .background.opacity(0.5), .background.opacity(0.9)]),
+                        startPoint: .top,
+                        endPoint: .center
+                    )
+
                 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text( movie.title)
-                            .font(.title.bold())
-                            .shadow(color: .orange, radius: 1)
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(nil)
-                            .padding(.bottom, 5)
-                       
-                        if let movieTagline = movieDetails?.tagline {
-                            Text(movieTagline)
-                                .font(.title3)
+                   
+                        VStack(alignment: .leading, spacing: 8) {
+
+                            
+                            
+                            
+                            HStack(alignment: .top, spacing: 16) {
+                                if let posterPath = movie.posterPath {
+                                ImageView(url: posterPath,  width: 150, height: 230, opacity: 0.9, fillContentMode: false)
+                                        .cornerRadius(5)
+                                        .shadow(color: .orange, radius: 1)
+                                }
+                                
+//                                if let movieDetails = movieDetails {
+//                                    DetailsView(movieDetails: movieDetails, movie: movie)
+//                                }
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .padding(.horizontal, 0)
+                            
+                            Text( movie.title)
+                                .font(.title.bold())
                                 .shadow(color: .orange, radius: 1)
-                                .padding(.bottom, 2)
-                        }
-                        
-                        HStack(alignment: .top, spacing: 16) {
-                            if let posterPath = movie.posterPath {
-                            ImageView(url: posterPath,  width: 150, height: 230, opacity: 0.9, fillContentMode: false)
-                                    .cornerRadius(5)
-                                    .shadow(color: .orange, radius: 1)
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(nil)
+                                .padding(.bottom, 5)
+                            
+//                            if let movieTagline = movieDetails?.tagline {
+//                                Text(movieTagline)
+//                                    .font(.title3)
+//                                    .shadow(color: .orange, radius: 1)
+//                                    .padding(.bottom, 2)
+//                            }
+//                          
+                            
+                            if let genres = movieDetails?.genres {
+                                let genreNames = genres.map { $0.name }
+                                GenresView(movieGenres: genreNames)
                             }
                             
-                            if let movieDetails = movieDetails {
-                                DetailsView(movieDetails: movieDetails, movie: movie)
-                            }
+                            MovieOverviewView(overview: movie.overview)
+                            
+                            Spacer()
+                            
+                            //                        if let productionCountries = movieDetails?.productionCountries {
+                            //                            HStack(alignment: .top) {
+                            //                                Image(systemName: "globe")
+                            //                                    .foregroundColor(.orange)
+                            //                                VStack(alignment: .leading) {
+                            //                                    Text("Production countries:")
+                            //                                        .font(.headline)
+                            //                                    let productionCountriesNames = productionCountries.map {$0.name}
+                            //                                    let movieCountries = ListFormatter.localizedString(byJoining: productionCountriesNames)
+                            //
+                            //                                    Text(movieCountries)
+                            //                                        .font(.subheadline)
+                            //                                        .foregroundColor(.white)
+                            //                                }
+                            //                            }
+                            //                            .padding(.bottom)
+                            //                        }
+                            //
+                            //                        if let productionCompanies = movieDetails?.productionCompanies {
+                            //                            HStack(alignment: .top) {
+                            //                                Image(systemName: "building.2")
+                            //                                           .foregroundColor(.orange)
+                            //                                VStack(alignment: .leading) {
+                            //                                    Text("Production companies:")
+                            //                                        .font(.headline)
+                            //                                    let productionCompaniesNames = productionCompanies.map {$0.name}
+                            //                                    let movieCompanies = ListFormatter.localizedString(byJoining: productionCompaniesNames)
+                            //
+                            //                                    Text(movieCompanies)
+                            //                                        .font(.subheadline)
+                            //                                        .foregroundColor(.white)
+                            //                                }
+                            //                            }
+                            //                            .padding(.bottom)
+                            //                        }
+                            //
+                            //                        if let spokenLanguages = movieDetails?.spokenLanguages {
+                            //                            HStack(alignment: .top) {
+                            //                                Image(systemName: "text.bubble")
+                            //                                    .foregroundColor(.orange)
+                            //                                VStack(alignment: .leading) {
+                            //                                    Text("Spoken languages:")
+                            //                                        .font(.headline)
+                            //                                    let spokenLanguagesNames = spokenLanguages.map {$0.name}
+                            //                                    let movieLanguages = ListFormatter.localizedString(byJoining: spokenLanguagesNames)
+                            //
+                            //                                    Text(movieLanguages)
+                            //                                        .font(.subheadline)
+                            //                                }
+                            //                            }
+                            //                            .padding(.bottom)
+                            //                        }
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        if let genres = movieDetails?.genres {
-                            let genreNames = genres.map { $0.name }
-                            GenresView(movieGenres: genreNames)
-                        }
-                        
-                        Text(movie.overview)
-                        
-                        if let productionCountries = movieDetails?.productionCountries {
-                            HStack(alignment: .top) {
-                                Image(systemName: "globe")
-                                    .foregroundColor(.orange)
-                                VStack(alignment: .leading) {
-                                    Text("Production countries:")
-                                        .font(.headline)
-                                    let productionCountriesNames = productionCountries.map {$0.name}
-                                    let movieCountries = ListFormatter.localizedString(byJoining: productionCountriesNames)
-                                    
-                                    Text(movieCountries)
-                                        .font(.subheadline)
-                                        .foregroundColor(.white)
-                                }
-                            }
-                            .padding(.bottom)
-                        }
-                        
-                        if let productionCompanies = movieDetails?.productionCompanies {
-                            HStack(alignment: .top) {
-                                Image(systemName: "building.2")
-                                           .foregroundColor(.orange)
-                                VStack(alignment: .leading) {
-                                    Text("Production companies:")
-                                        .font(.headline)
-                                    let productionCompaniesNames = productionCompanies.map {$0.name}
-                                    let movieCompanies = ListFormatter.localizedString(byJoining: productionCompaniesNames)
-                                    
-                                    Text(movieCompanies)
-                                        .font(.subheadline)
-                                        .foregroundColor(.white)
-                                }
-                            }
-                            .padding(.bottom)
-                        }
-                        
-                        if let spokenLanguages = movieDetails?.spokenLanguages {
-                            HStack(alignment: .top) {
-                                Image(systemName: "text.bubble")
-                                    .foregroundColor(.orange)
-                                VStack(alignment: .leading) {
-                                    Text("Spoken languages:")
-                                        .font(.headline)
-                                    let spokenLanguagesNames = spokenLanguages.map {$0.name}
-                                    let movieLanguages = ListFormatter.localizedString(byJoining: spokenLanguagesNames)
-                                    
-                                    Text(movieLanguages)
-                                        .font(.subheadline)
-                                }
-                            }
-                            .padding(.bottom)
-                        }
-                    }
-                    .padding(.horizontal)
-                    .padding(.bottom, geometry.safeAreaInsets.bottom)
-                    .foregroundStyle(.theme)
+//                        .padding(.horizontal)
+                        .padding(.bottom, geometry.safeAreaInsets.bottom)
+                        .foregroundStyle(.theme)
+//                    }
                 }
                 .padding(.bottom, geometry.safeAreaInsets.bottom)
                 .safeAreaInset(edge: .top, spacing: 0) { Spacer().frame(height: 16) }
             }
         }
+//        .background(.background)
         .background(Color(red: 0.15, green: 0.16, blue: 0.12))
         .onAppear {
             Task {
@@ -165,6 +182,26 @@ struct MovieDetailsView: View {
 
     isLoading = false
         
+    }
+    
+    func fetchCastDetails() async {
+//        let url = URL(string: "https://api.themoviedb.org/3/movie/402431/credits")!
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//        let queryItems: [URLQueryItem] = [
+//          URLQueryItem(name: "language", value: "en-US"),
+//        ]
+//        components.queryItems = components.queryItems.map { $0 + queryItems } ?? queryItems
+//
+//        var request = URLRequest(url: components.url!)
+//        request.httpMethod = "GET"
+//        request.timeoutInterval = 10
+//        request.allHTTPHeaderFields = [
+//          "accept": "application/json",
+//          "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYTU5YjA2ZmIzM2ZhMTlhMzQyN2MyZTM5OGQ3NjAzZSIsIm5iZiI6MTczMjE3ODA1Ni4yMTg2MjcyLCJzdWIiOiI2NzNlZWU1NDg3MDgxYzcyNWE5NzE4NzMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.5eHxxfUtUMUIRMKgUdGlpBrP3TbwHuAeWx85VArY2XQ"
+//        ]
+//
+//        let (data, _) = try await URLSession.shared.data(for: request)
+//        print(String(decoding: data, as: UTF8.self))
     }
 }
 

@@ -17,7 +17,11 @@ struct RatingView: View {
             Image(systemName: "star.fill")
                 .foregroundColor(.shadow)
             Text(String(format: "%.1f", voteAverage ?? 0))
-            Text("(\(voteCount ?? 0))")
+                .foregroundStyle(.theme)
+                .opacity(0.5)
+            Text("\(voteCount ?? 0) reviewers")
+                .foregroundStyle(.theme)
+                .opacity(0.5)
         }
     }
 }

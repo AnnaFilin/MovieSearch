@@ -7,10 +7,16 @@
 
 import SwiftUI
 
+struct CastResponse: Codable {
+    let id: Int
+    let cast: [CastMember]
+}
+
 struct MovieDetailsView: View {
     @EnvironmentObject var favorites: Persistence
 
     var movie: Movie
+    @State var castDetails: [CastMember]?
     
     @State var isLoading: Bool = false
     @State var errorMessage: String?
@@ -21,53 +27,31 @@ struct MovieDetailsView: View {
         GeometryReader { geometry in
             ZStack {
                 if let posterPath = movie.posterPath {
-                ImageView(url: posterPath, width: nil, height: nil, opacity: 0.3, fillContentMode: true)
+                    ImageView(url: posterPath, width: nil, height: nil, opacity: 1.0, fillContentMode: true)
                         .ignoresSafeArea()
                         
                 }
                     LinearGradient(
-                        gradient: Gradient(colors: [.background.opacity(0.01), .background.opacity(0.5), .background.opacity(0.9)]),
+                        gradient: Gradient(colors: [.background.opacity(0.01), .background.opacity(0.01), .background.opacity(0.6), .background.opacity(0.9)]),
                         startPoint: .top,
                         endPoint: .center
-                    )
+                    ) .ignoresSafeArea()
 
-                
-                ScrollView {
-                   
+                VStack(alignment: .leading) {
+                    Spacer()
+              
+                    Text( movie.title)
+                        .font(.title.bold())
+                        .shadow(color: .shadow, radius: 1)
+                        .opacity(0.7)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(nil)
+                        .padding(.bottom, 5)
+                    
+                    ScrollView {
+                       
                         VStack(alignment: .leading, spacing: 8) {
 
-                            
-                            
-                            
-                            HStack(alignment: .top, spacing: 16) {
-                                if let posterPath = movie.posterPath {
-                                ImageView(url: posterPath,  width: 150, height: 230, opacity: 0.9, fillContentMode: false)
-                                        .cornerRadius(5)
-                                        .shadow(color: .orange, radius: 1)
-                                }
-                                
-//                                if let movieDetails = movieDetails {
-//                                    DetailsView(movieDetails: movieDetails, movie: movie)
-//                                }
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-//                            .padding(.horizontal, 0)
-                            
-                            Text( movie.title)
-                                .font(.title.bold())
-                                .shadow(color: .orange, radius: 1)
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(nil)
-                                .padding(.bottom, 5)
-                            
-//                            if let movieTagline = movieDetails?.tagline {
-//                                Text(movieTagline)
-//                                    .font(.title3)
-//                                    .shadow(color: .orange, radius: 1)
-//                                    .padding(.bottom, 2)
-//                            }
-//                          
-                            
                             if let genres = movieDetails?.genres {
                                 let genreNames = genres.map { $0.name }
                                 GenresView(movieGenres: genreNames)
@@ -75,83 +59,35 @@ struct MovieDetailsView: View {
                             
                             MovieOverviewView(overview: movie.overview)
                             
-                            Spacer()
-                            
-                            //                        if let productionCountries = movieDetails?.productionCountries {
-                            //                            HStack(alignment: .top) {
-                            //                                Image(systemName: "globe")
-                            //                                    .foregroundColor(.orange)
-                            //                                VStack(alignment: .leading) {
-                            //                                    Text("Production countries:")
-                            //                                        .font(.headline)
-                            //                                    let productionCountriesNames = productionCountries.map {$0.name}
-                            //                                    let movieCountries = ListFormatter.localizedString(byJoining: productionCountriesNames)
-                            //
-                            //                                    Text(movieCountries)
-                            //                                        .font(.subheadline)
-                            //                                        .foregroundColor(.white)
-                            //                                }
-                            //                            }
-                            //                            .padding(.bottom)
-                            //                        }
-                            //
-                            //                        if let productionCompanies = movieDetails?.productionCompanies {
-                            //                            HStack(alignment: .top) {
-                            //                                Image(systemName: "building.2")
-                            //                                           .foregroundColor(.orange)
-                            //                                VStack(alignment: .leading) {
-                            //                                    Text("Production companies:")
-                            //                                        .font(.headline)
-                            //                                    let productionCompaniesNames = productionCompanies.map {$0.name}
-                            //                                    let movieCompanies = ListFormatter.localizedString(byJoining: productionCompaniesNames)
-                            //
-                            //                                    Text(movieCompanies)
-                            //                                        .font(.subheadline)
-                            //                                        .foregroundColor(.white)
-                            //                                }
-                            //                            }
-                            //                            .padding(.bottom)
-                            //                        }
-                            //
-                            //                        if let spokenLanguages = movieDetails?.spokenLanguages {
-                            //                            HStack(alignment: .top) {
-                            //                                Image(systemName: "text.bubble")
-                            //                                    .foregroundColor(.orange)
-                            //                                VStack(alignment: .leading) {
-                            //                                    Text("Spoken languages:")
-                            //                                        .font(.headline)
-                            //                                    let spokenLanguagesNames = spokenLanguages.map {$0.name}
-                            //                                    let movieLanguages = ListFormatter.localizedString(byJoining: spokenLanguagesNames)
-                            //
-                            //                                    Text(movieLanguages)
-                            //                                        .font(.subheadline)
-                            //                                }
-                            //                            }
-                            //                            .padding(.bottom)
-                            //                        }
+                            if let castDetails = castDetails {
+                                HorizontalScroll(cast: castDetails)
+                            }
                         }
-//                        .padding(.horizontal)
-                        .padding(.bottom, geometry.safeAreaInsets.bottom)
+                        .padding(.bottom, geometry.safeAreaInsets.bottom + 16) // Учитываем безопасную зону
                         .foregroundStyle(.theme)
-//                    }
+                    }
+                    .frame(height: geometry.size.height * 0.6)
+                    .padding(.bottom, geometry.safeAreaInsets.bottom)
+
                 }
-                .padding(.bottom, geometry.safeAreaInsets.bottom)
-                .safeAreaInset(edge: .top, spacing: 0) { Spacer().frame(height: 16) }
+                .foregroundStyle(.theme)
+                .padding(.horizontal, 20)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
-//        .background(.background)
         .background(Color(red: 0.15, green: 0.16, blue: 0.12))
         .onAppear {
+            self.isLoading = true
             Task {
+                
                 await fetchMovieDetails()
+                await fetchCastDetails()
+                self.isLoading=false
             }
         }
     }
     
     func fetchMovieDetails() async {
-        isLoading = true
-        errorMessage = nil
-
         guard var components = URLComponents(string: "https://api.themoviedb.org/3/movie/\(movie.id)") else {
                errorMessage = "Invalid URL."
                return
@@ -178,34 +114,41 @@ struct MovieDetailsView: View {
             
         } catch {
             errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
-    }
-
-    isLoading = false
-        
+        }
     }
     
     func fetchCastDetails() async {
-//        let url = URL(string: "https://api.themoviedb.org/3/movie/402431/credits")!
-//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-//        let queryItems: [URLQueryItem] = [
-//          URLQueryItem(name: "language", value: "en-US"),
-//        ]
-//        components.queryItems = components.queryItems.map { $0 + queryItems } ?? queryItems
-//
-//        var request = URLRequest(url: components.url!)
-//        request.httpMethod = "GET"
-//        request.timeoutInterval = 10
-//        request.allHTTPHeaderFields = [
-//          "accept": "application/json",
-//          "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYTU5YjA2ZmIzM2ZhMTlhMzQyN2MyZTM5OGQ3NjAzZSIsIm5iZiI6MTczMjE3ODA1Ni4yMTg2MjcyLCJzdWIiOiI2NzNlZWU1NDg3MDgxYzcyNWE5NzE4NzMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.5eHxxfUtUMUIRMKgUdGlpBrP3TbwHuAeWx85VArY2XQ"
-//        ]
-//
-//        let (data, _) = try await URLSession.shared.data(for: request)
-//        print(String(decoding: data, as: UTF8.self))
+        guard var components = URLComponents(string: "https://api.themoviedb.org/3/movie/\(movie.id)/credits") else {
+               errorMessage = "Invalid URL."
+               return
+           }
+        
+        components.queryItems = [
+          URLQueryItem(name: "language", value: "en-US"),
+          URLQueryItem(name: "api_key", value: Config.apiKey)
+        ]
+        
+        guard let url = components.url else {
+            errorMessage = "Failed to construct URL."
+            return
+        }
+
+        let request = URLRequest(url: url)
+
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+
+            let decodedCastResponse = try JSONDecoder().decode(CastResponse.self, from: data)
+            
+            self.castDetails = decodedCastResponse.cast
+        } catch {
+            errorMessage = "Failed to fetch cast details: \(error.localizedDescription)"
+            print(errorMessage ?? "Unknown error")
+        }
     }
 }
 
 #Preview {
-    MovieDetailsView(movie: .example, movieDetails: .example)
+    MovieDetailsView(movie: .example, castDetails: [.example], movieDetails: .example)
         .environmentObject(Persistence())
 }

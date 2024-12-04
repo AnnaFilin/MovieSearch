@@ -24,17 +24,15 @@ struct GenresView: View {
         ]
     
     let columns = [
-            GridItem(.flexible(), spacing: 15),
-            GridItem(.flexible(), spacing: 15),
-            GridItem(.flexible(), spacing: 15),
-//            GridItem(.flexible(), spacing: 15),
-//            GridItem(.flexible(), spacing: 15)
+        GridItem(.fixed(100),spacing: 15),
+            GridItem(.fixed(100), spacing: 15),
+            GridItem(.fixed(100), spacing: 15),
         ]
-    
+  
     var body: some View {
         LazyVGrid(columns: columns, spacing: 15) {
             ForEach(movieGenres, id: \.self) { genre in
-                if let icon = genres[genre] {
+//                if let icon = genres[genre] {
                     VStack {
 //                        Image(systemName: icon)
 //                            .resizable()
@@ -49,10 +47,10 @@ struct GenresView: View {
                             .opacity(0.7)
                     }
                     .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
+                    .padding(.vertical, 12)
                     .background(Color.theme.opacity(0.2)) // Faded background
                     .cornerRadius(10)
-                }
+//                }
             }
         }
         .padding()

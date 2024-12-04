@@ -12,7 +12,7 @@ struct MovieOverviewView: View {
     let overview: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
                Text(overview)
                    .font(.headline)
                    .opacity(0.7)
@@ -20,9 +20,8 @@ struct MovieOverviewView: View {
                    .lineLimit(expandText ? nil : 3)
                    .frame(maxHeight: expandText ? .infinity : 60)
                    .animation(
-//                       Animation.easeInOut(duration: 0.7),
-                    Animation.linear(duration: 0.7),
-                       value: expandText
+                        Animation.linear(duration: 0.7),
+                           value: expandText
                    )
 
                Button(action: {
@@ -31,9 +30,9 @@ struct MovieOverviewView: View {
                    }
                }) {
                    Text(!expandText ? "More" : "Show less")
-                       .font(.subheadline)
-                       .fontWeight(.semibold)
-                       .foregroundColor(.shadow)
+                       .font(.headline)
+                       .fontWeight(.bold)
+                       .foregroundColor(.theme)
                        .opacity(0.7)
                }
                .buttonStyle(.plain)

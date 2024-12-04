@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct CastDetailsView: View {
+    
+    var castItem: CastMember
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            if let posterPath = castItem.profilePath {
+                ImageView(url: posterPath, width: 70, height: 80, opacity: 1.0, fillContentMode: true)
+                    .clipped()
+                    
+            }
+            
+            Text(castItem.name)
+                .font(.callout)
+            
+            
+            Text(castItem.character)
+                .font(.callout)
+        }
+        .foregroundStyle(.theme)
     }
     
     
@@ -17,5 +34,5 @@ struct CastDetailsView: View {
 }
 
 #Preview {
-    CastDetailsView()
+    CastDetailsView(castItem: .example)
 }

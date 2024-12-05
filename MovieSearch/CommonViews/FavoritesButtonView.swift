@@ -22,10 +22,12 @@ struct FavoritesButtonView: View {
             }
         }) {
             Image(systemName: favorites.contains(movie) ? "heart.fill" : "heart")
-                .foregroundColor(.orange)
+//                .foregroundColor(.orange)
                 .font(.title2)
                 .fontWeight(.semibold)
                 .accessibilityLabel(favorites.contains(movie) ? "Remove from Favorites" : "Add to Favorites")
+                .shadow(color: .shadow, radius: 3)
+                .opacity(0.8)
         }
     }
 }

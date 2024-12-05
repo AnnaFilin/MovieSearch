@@ -28,8 +28,7 @@ struct MovieDetailsView: View {
             ZStack {
                 if let posterPath = movie.posterPath {
                     ImageView(url: posterPath, width: nil, height: nil, opacity: 1.0, fillContentMode: true)
-                        .ignoresSafeArea()
-                        
+                        .ignoresSafeArea()          
                 }
                     LinearGradient(
                         gradient: Gradient(colors: [.background.opacity(0.01), .background.opacity(0.01), .background.opacity(0.6), .background.opacity(0.9)]),
@@ -37,24 +36,38 @@ struct MovieDetailsView: View {
                         endPoint: .center
                     ) .ignoresSafeArea()
 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: AppSpacing.vertical) {
                     Spacer()
               
-                    Text( movie.title)
-                        .font(.title.bold())
-                        .shadow(color: .shadow, radius: 1)
-                        .opacity(0.7)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(nil)
-                        .padding(.bottom, 5)
+                    
+                    HStack(alignment: .center, spacing: AppSpacing.itemSpacing) {
+                        Text( movie.title)
+                            .font(.title.bold())
+                            .shadow(color: .shadow, radius: 1)
+                            .opacity(0.7)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(nil)
+                            .padding(.horizontal, AppSpacing.itemSpacing)
+                        
+                        Spacer()
+
+                        RatingView(voteAverage: movie.voteAverage, voteCount: movie.voteCount)
+                    }
+                    
+//                    HStack {
+//                        if let date = movieDetails?.releaseDate {
+//                            ReleaseDateView(date: date)
+//                        } 
+//                    }
                     
                     ScrollView {
                        
-                        VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .leading, spacing: AppSpacing.vertical) {
 
                             if let genres = movieDetails?.genres {
                                 let genreNames = genres.map { $0.name }
                                 GenresView(movieGenres: genreNames)
+                                    .padding(.bottom, AppSpacing.itemSpacing)
                             }
                             
                             MovieOverviewView(overview: movie.overview)
@@ -63,15 +76,15 @@ struct MovieDetailsView: View {
                                 HorizontalScroll(cast: castDetails)
                             }
                         }
-                        .padding(.bottom, geometry.safeAreaInsets.bottom + 16) // Учитываем безопасную зону
+                        .padding(.bottom, geometry.safeAreaInsets.bottom + AppSpacing.vertical)
                         .foregroundStyle(.theme)
                     }
                     .frame(height: geometry.size.height * 0.6)
+                    .padding(.horizontal, AppSpacing.itemSpacing)
                     .padding(.bottom, geometry.safeAreaInsets.bottom)
-
                 }
                 .foregroundStyle(.theme)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, AppSpacing.horizontal)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }

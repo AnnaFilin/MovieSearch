@@ -24,6 +24,7 @@
 		5AFEB4AB2CF9E85700F74906 /* Exceptions for "General" folder in "MovieSearch" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				AppSpacing.swift,
 				Assets.xcassets,
 				"Bundle-Decodable.swift",
 				Config.swift,

@@ -14,14 +14,19 @@ struct RatingView: View {
     
     var body: some View {
         HStack(alignment: .center) {
-            Image(systemName: "star.fill")
-                .foregroundColor(.shadow)
             Text(String(format: "%.1f", voteAverage ?? 0))
+                .font(.subheadline)
+                .fontWeight(.bold)
                 .foregroundStyle(.theme)
-                .opacity(0.5)
-            Text("\(voteCount ?? 0) reviewers")
-                .foregroundStyle(.theme)
-                .opacity(0.5)
+                .opacity(0.6)
+//            Text("\(voteCount ?? 0) reviewers")
+//                .foregroundStyle(.theme)
+//                .opacity(0.5)
+            
+            Image(systemName: "star.fill")
+                .foregroundColor(.theme)
+                .shadow(color: .shadow, radius: 3)
+                .opacity(0.7)
         }
     }
 }

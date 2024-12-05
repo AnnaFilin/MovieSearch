@@ -12,31 +12,59 @@ struct MovieOverviewView: View {
     let overview: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-               Text(overview)
-                   .font(.headline)
-                   .opacity(0.7)
-                   .multilineTextAlignment(.leading)
-                   .lineLimit(expandText ? nil : 3)
-                   .frame(maxHeight: expandText ? .infinity : 60)
-                   .animation(
-                        Animation.linear(duration: 0.7),
-                           value: expandText
-                   )
-
-               Button(action: {
-                   withAnimation(.easeInOut(duration: 0.5)) {
-                       expandText.toggle()
-                   }
-               }) {
-                   Text(!expandText ? "More" : "Show less")
-                       .font(.headline)
-                       .fontWeight(.bold)
-                       .foregroundColor(.theme)
-                       .opacity(0.7)
-               }
-               .buttonStyle(.plain)
-           }
+        VStack(alignment: .leading, spacing: expandText ? AppSpacing.itemSpacing : 0) {
+                if expandText {
+                    Text(overview)
+                        .font(.headline)
+                        .opacity(0.6)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(nil)
+                        .frame(maxWidth: .infinity) 
+                        .animation(
+                            Animation.linear(duration: 0.7),
+                            value: expandText
+                        )
+                    
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            expandText.toggle()
+                        }
+                    }) {
+                        Text("Show less")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.theme)
+                            .opacity(0.7)
+                    }
+                    .buttonStyle(.plain)
+                } else {
+                    HStack(alignment: .lastTextBaseline, spacing: AppSpacing.itemSpacing / 2) {
+                        Text(overview)
+                            .font(.headline)
+                            .opacity(0.6)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(3)
+                            .frame(maxWidth: .infinity)
+                            .animation(
+                                Animation.linear(duration: 0.7),
+                                value: expandText
+                            )
+                        
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                expandText.toggle()
+                            }
+                        }) {
+                            Text("More")
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .foregroundColor(.theme)
+                                .opacity(0.7)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
     }
 }
 

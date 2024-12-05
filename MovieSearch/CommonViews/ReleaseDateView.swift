@@ -25,11 +25,12 @@ struct ReleaseDateView: View {
     
     var body: some View {
         HStack {
-                Image(systemName: "calendar")
-                    .foregroundColor(.yellow)
             Text(formattedReleaseDate  )
-                    .font(.caption)
+                .font(.caption)
+
+            Image(systemName: "calendar")
         }
+        .opacity(0.8)
     }
 }
 

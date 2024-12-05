@@ -56,7 +56,7 @@ struct ContentView: View {
                    }
                    .tag(2)
             }
-        .accentColor(.shadow)
+        .accentColor(.theme)
         .preferredColorScheme(.dark)
         .environmentObject(favorites)
     }

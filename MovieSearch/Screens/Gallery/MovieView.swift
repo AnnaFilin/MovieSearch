@@ -24,21 +24,30 @@ struct MovieView: View {
                 }
             }
             
-            HStack(alignment: .top, spacing: 0) {
+            LinearGradient(
+                gradient: Gradient(colors: [.background.opacity(0.6), .background.opacity(0.4), .background.opacity(0.01)]),
+                startPoint: .center,
+                endPoint: .trailing
+            )
+            
+            HStack(alignment: .top, spacing: AppSpacing.horizontal) {
                 
                 if let posterPath = movie.posterPath {
                 ImageView(url: posterPath, width: 90, height: 150, opacity: 1.0, fillContentMode: true)
                         .frame(width: 90, height: 150)
                         .clipped()
                         .cornerRadius(5)
-                        .shadow(color: .shadow, radius: 1)
+                        .shadow(color: .theme, radius: 1)
+                        .opacity(0.9)
                 }
                 
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: AppSpacing.vertical/2) {
                     Text(movie.title)
                         .font(.title)
+                        .opacity(0.8)
                         .fontWeight(.heavy)
                         .lineLimit(2)
+                        .shadow(color: .shadow, radius: 1)
                     
                     RatingView(voteAverage: movie.voteAverage, voteCount: movie.voteCount)
                         .font(.subheadline)
@@ -58,10 +67,12 @@ struct MovieView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: 150)
+        .clipped()
+        .cornerRadius(5)
         .background(
             Color(red: 0.15, green: 0.16, blue: 0.12)
                 .cornerRadius(5)
-                .shadow(color: .orange, radius: 3)
+                .shadow(color: .theme, radius: 3)
         )
         .foregroundStyle(.theme)
         .padding(.horizontal)

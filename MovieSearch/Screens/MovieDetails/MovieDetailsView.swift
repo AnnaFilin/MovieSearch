@@ -31,14 +31,13 @@ struct MovieDetailsView: View {
                         .ignoresSafeArea()          
                 }
                     LinearGradient(
-                        gradient: Gradient(colors: [.background.opacity(0.01), .background.opacity(0.01), .background.opacity(0.6), .background.opacity(0.9)]),
+                        gradient: Gradient(colors: [.background.opacity(0.001), .background.opacity(0.01), .background.opacity(0.6), .background.opacity(0.9)]),
                         startPoint: .top,
                         endPoint: .center
-                    ) .ignoresSafeArea()
+                    ) 
 
                 VStack(alignment: .leading, spacing: AppSpacing.vertical) {
                     Spacer()
-              
                     
                     HStack(alignment: .center, spacing: AppSpacing.itemSpacing) {
                         Text( movie.title)
@@ -54,12 +53,6 @@ struct MovieDetailsView: View {
                         RatingView(voteAverage: movie.voteAverage, voteCount: movie.voteCount)
                     }
                     
-//                    HStack {
-//                        if let date = movieDetails?.releaseDate {
-//                            ReleaseDateView(date: date)
-//                        } 
-//                    }
-                    
                     ScrollView {
                        
                         VStack(alignment: .leading, spacing: AppSpacing.vertical) {
@@ -73,6 +66,15 @@ struct MovieDetailsView: View {
                             MovieOverviewView(overview: movie.overview)
                             
                             if let castDetails = castDetails {
+                                Text("Cast")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .shadow(color: .shadow, radius: 1)
+                                    .opacity(0.65)
+                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(nil)
+                                   
+                                    
                                 HorizontalScroll(cast: castDetails)
                             }
                         }
@@ -92,7 +94,6 @@ struct MovieDetailsView: View {
         .onAppear {
             self.isLoading = true
             Task {
-                
                 await fetchMovieDetails()
                 await fetchCastDetails()
                 self.isLoading=false

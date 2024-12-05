@@ -81,11 +81,11 @@
 		5A752E492CEB4A4800489705 = {
 			isa = PBXGroup;
 			children = (
+				5AFEB60F2CFE403C00F74906 /* Config.xcconfig */,
 				5A7531D22CEE440200489705 /* MovieSearch */,
 				5A752E532CEB4A4800489705 /* Products */,
 				5AFEB4AA2CF9E84E00F74906 /* General */,
 				5AFEB56F2CFDF95500F74906 /* Recovered References */,
-				5AFEB60F2CFE403C00F74906 /* Config.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};

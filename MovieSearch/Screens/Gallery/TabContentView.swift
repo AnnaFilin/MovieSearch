@@ -17,11 +17,14 @@ struct TabContentView: View {
             BaseView(title: title) {
                 if let movies = movies, !movies.isEmpty {
                     ScrollView {
-                        ForEach(movies, id: \.self.id) { movie in
-                            NavigationLink(value: movie) {
-                                MovieView(movie: movie)
+                        VStack(spacing: AppSpacing.itemSpacing/2) {
+                            ForEach(movies, id: \.self.id) { movie in
+                                NavigationLink(value: movie) {
+                                    MovieView(movie: movie)
+                                }
                             }
                         }
+                        .padding(.top,AppSpacing.vertical)
                     }
                 } else {
                    EmptyStateView(selectedTab: $selectedTab)
@@ -31,7 +34,7 @@ struct TabContentView: View {
                 MovieDetailsView(movie: selection)
             }
         }
-        .tint(.shadow)
+        .tint(.theme)
     }
 }
 

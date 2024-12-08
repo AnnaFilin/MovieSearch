@@ -18,7 +18,11 @@ struct MovieResponse: Codable {
 class ViewModel: ObservableObject {
     @Published var movies: [Movie] = []
     @Published var searchMovies: [Movie] = []
+    @Published var topRatedMovies: [Movie] = []
+
     @Published var trendingMovies: [Movie] = []
+    @Published var popularMovies: [Movie] = []
+
     @Published var searchText: String = "" {
         didSet {
             debounceSearch()
@@ -82,6 +86,54 @@ class ViewModel: ObservableObject {
 
         isLoading = false
     }
+    
+//    let url = URL(string: "")!
+    func fetchPopularMovies() async {
+        isLoading = true
+        errorMessage = nil
+
+        guard let url = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=\(Config.apiKey)") else {
+            errorMessage = "Invalid URL."
+            return
+        }
+
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+
+            let movieResponse = try JSONDecoder().decode(MovieResponse.self, from: data)
+
+            self.popularMovies = movieResponse.results
+        } catch {
+            errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
+            print(errorMessage ?? "Unknown error")
+        }
+
+        isLoading = false
+    }
+
+    func fetchTopRatedMovies() async {
+        isLoading = true
+        errorMessage = nil
+
+        guard let url = URL(string: "https://api.themoviedb.org/3/movie/top_rated?api_key=\(Config.apiKey)") else {
+            errorMessage = "Invalid URL."
+            return
+        }
+
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+
+            let movieResponse = try JSONDecoder().decode(MovieResponse.self, from: data)
+
+            self.topRatedMovies = movieResponse.results
+        } catch {
+            errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
+            print(errorMessage ?? "Unknown error")
+        }
+
+        isLoading = false
+    }
+
 
     func loadSavedMovies() async {
         if FileManager.default.fileExists(atPath: savePath.path) {

@@ -71,6 +71,9 @@ struct BelongsToCollection: Codable {
 struct Genre: Codable {
     let id: Int
     let name: String
+    
+    static let allGenres: [Genre] = Bundle.main.decode("Genres.json")
+    static let example = allGenres[0]
 }
 
 // MARK: - ProductionCompany

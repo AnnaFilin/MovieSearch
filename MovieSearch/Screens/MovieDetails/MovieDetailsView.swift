@@ -74,8 +74,10 @@ struct MovieDetailsView: View {
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(nil)
                                    
-                                    
-                                HorizontalScroll(cast: castDetails)
+                                HorizontalScroll(items: castDetails) { castMember in
+                                  CastDetailsView(castItem: castMember)
+                              }
+
                             }
                         }
                         .padding(.bottom, geometry.safeAreaInsets.bottom + AppSpacing.vertical)
@@ -102,6 +104,7 @@ struct MovieDetailsView: View {
     }
     
     func fetchMovieDetails() async {
+        print("API Key from Config: \(Config.apiKey)")
         guard var components = URLComponents(string: "https://api.themoviedb.org/3/movie/\(movie.id)") else {
                errorMessage = "Invalid URL."
                return
@@ -148,9 +151,13 @@ struct MovieDetailsView: View {
         }
 
         let request = URLRequest(url: url)
+        
+//        print("Request URL: \(url)")
 
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
+
+       
 
             let decodedCastResponse = try JSONDecoder().decode(CastResponse.self, from: data)
             

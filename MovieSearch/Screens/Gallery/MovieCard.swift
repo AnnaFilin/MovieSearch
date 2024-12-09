@@ -40,14 +40,6 @@ struct MovieCard: View {
             if let releaseDate = movie.releaseDate {
                 ReleaseDateView(date: releaseDate)
             }
-            
-//            Text(movie.character)
-//                .font(.subheadline)
-//                .fontWeight(.medium)
-//                .lineLimit(nil)
-//                .multilineTextAlignment(.leading)
-//                .frame(maxWidth: 100, alignment: .leading)
-//                .opacity(0.5)
         }
         .frame(width: 190)
     }

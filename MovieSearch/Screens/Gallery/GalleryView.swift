@@ -29,12 +29,13 @@ struct GalleryView: View {
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(nil)
 
-                                    HorizontalScroll(items: Array(searchMovies)) { movie in
-                                        NavigationLink(value: movie) {
-                                            FavoriteMovieCard(movie: movie)
-                                                .frame(width: UIScreen.main.bounds.width - AppSpacing.horizontal)
-                                        }
-                                    }
+//                                    HorizontalScroll(items: Array(searchMovies)) { movie in
+//                                        NavigationLink(value: movie) {
+//                                            FavoriteMovieCard(movie: movie)
+//                                                .frame(width: UIScreen.main.bounds.width - AppSpacing.horizontal)
+//                                        }
+//                                    }
+                                    CarouselView(movies: searchMovies)
                                 }
                                 
                                 if !favorites.favoritedMovies.isEmpty {
@@ -132,18 +133,10 @@ struct GalleryView: View {
                                         }
                                     }
                                 }
-//                                ForEach(movies, id: \.self.id) { movie in
-//                                    NavigationLink(value: movie) {
-//                                        MovieView(movie: movie)
-//                                    }
-//                                }
                             }
                             .padding(.top,AppSpacing.vertical)
                             .padding(.horizontal, AppSpacing.horizontal)
                         }
-//                    } else {
-//                       EmptyStateView(selectedTab: $selectedTab)
-//                    }
                 }
                 .navigationDestination(for: Movie.self) { selection in
                     MovieDetailsView(movie: selection)

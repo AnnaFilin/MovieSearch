@@ -10,7 +10,6 @@ import SwiftUI
 struct ContentView: View {
     let genres: [Genre] = Bundle.main.decode("Genres.json")
     @StateObject private var viewModel = ViewModel()
-//    @StateObject private var favorites = Persistence()
     @State private var selectedTab: Int = 0
 
     var body: some View {
@@ -28,63 +27,31 @@ struct ContentView: View {
                 }
                 .onChange(of: viewModel.searchText) {
                    Task {
-//                       selectedTab = 2
                        await viewModel.searchMovies(query: viewModel.searchText)
                    }
                 }
                 .searchable(text: $viewModel.searchText, prompt: "Search movie")
+//                .frame(height: 60) // Set a fixed height
+//                  .background(
+//                      RoundedRectangle(cornerRadius: 12)
+//                          .fill(Color(UIColor.systemGray6))
+//                  )
+
                 .tabItem {
                     Label("All movies", systemImage: "film")
                 }
                 .tag(0)
             
-            
-//            TabContentView(movies: viewModel.trendingMovies, title: "Trending", selectedTab: $selectedTab)
-//                .searchable(text: $viewModel.searchText, prompt: "Search movie")
-//                .onAppear {
-//                    print("All environment variables: \(ProcessInfo.processInfo.environment)")
-//                    viewModel.searchText = ""
-//                    if viewModel.trendingMovies.isEmpty {
-//                        Task {
-//                            await viewModel.loadSavedMovies()
-////                            await viewModel.fetchMovies()
-//                        }
-//                    }
-//                }
-//                .onChange(of: viewModel.searchText) {
-//                    Task {
-//                        selectedTab = 2
-//                        await viewModel.searchMovies(query: viewModel.searchText)
-//                    }
-//                 }
-//                .tabItem {
-//                    Label("Trending", systemImage: "film")
-//                }
-//                .tag(0)
-//            
                 TabContentView(movies: viewModel.movies, title: "Favorites", selectedTab: $selectedTab)
                     .tabItem {
                         Label("Favorites", systemImage: "star")
                     }
                     .tag(1)
                 
-                TabContentView(movies: viewModel.searchMovies, title: "Search", selectedTab: $selectedTab)
-                   .searchable(text: $viewModel.searchText, prompt: "Search movie")
-                   .onChange(of: viewModel.searchText) {
-                       Task {
-                           
-                           await viewModel.searchMovies(query: viewModel.searchText)
-                       }
-                    }
-                   .tabItem {
-                       Label("Search", systemImage: "magnifyingglass")
-                   }
-                   .tag(2)
             }
     
         .accentColor(.theme)
         .preferredColorScheme(.dark)
-//        .environmentObject(favorites)
     }
 }
 

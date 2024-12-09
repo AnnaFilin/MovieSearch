@@ -26,6 +26,7 @@
 				AppSpacing.swift,
 				Assets.xcassets,
 				"Bundle-Decodable.swift",
+				CarouselView.swift,
 				Config.swift,
 				ContentView.swift,
 				ContentViewModel.swift,

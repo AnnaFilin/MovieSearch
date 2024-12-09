@@ -38,5 +38,13 @@ struct MovieSearchApp: App {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
+        
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.systemGray6
+           UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).layer.cornerRadius = 10
+           UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).clipsToBounds = true
+           UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).borderStyle = .none
+        
+//        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).transform = CGAffineTransform(scaleX: 1.0, y: 1.5)
+
     }
 }

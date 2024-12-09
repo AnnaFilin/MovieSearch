@@ -9,13 +9,17 @@ import Combine
 
 
 class Persistence: ObservableObject {
-    @Published private(set) var favoritedMovies: Set<String>
+//    @Published private(set) var favoritedMovies: Set<String>
 
+    @Published private(set) var favoritedMovies: Set<Movie>
+    
     private let key = "FavoriteMovies"
 
     init() {
         if let savedItems = UserDefaults.standard.data(forKey: key) {
-            if let decodedItems = try? JSONDecoder().decode(Set<String>.self, from: savedItems) {
+            if let decodedItems = try? JSONDecoder().decode(Set<Movie>.self, from: savedItems) {
+//                if let decodedItems = try? JSONDecoder().decode(Set<String>.self, from: savedItems) {
+
                 favoritedMovies = decodedItems
                 return
             }
@@ -25,16 +29,16 @@ class Persistence: ObservableObject {
     }
 
     func contains(_ movie: Movie) -> Bool {
-        favoritedMovies.contains(String(movie.id))
+        favoritedMovies.contains(movie)
     }
 
     func add(_ movie: Movie) {
-        favoritedMovies.insert(String(movie.id))
+        favoritedMovies.insert(movie)
         save()
     }
 
     func remove(_ movie: Movie) {
-        favoritedMovies.remove(String(movie.id))
+        favoritedMovies.remove(movie)
         save()
     }
 

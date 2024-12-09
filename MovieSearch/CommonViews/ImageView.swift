@@ -29,7 +29,8 @@ struct ImageView: View {
                     .aspectRatio(contentMode: fillContentMode ? .fill: .fit)
                     .frame(
                         width: width ?? UIScreen.main.bounds.width,
-                        height: height ?? UIScreen.main.bounds.height
+                        height: height ?? UIScreen.main.bounds.height,
+                        alignment: .bottom
                     )
                     .opacity(opacity)
                     .cornerRadius(5)

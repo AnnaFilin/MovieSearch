@@ -16,6 +16,7 @@ struct MovieSearchApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(Persistence())
         }
     }
 

@@ -13,21 +13,29 @@ struct MovieCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             if let posterPath = movie.posterPath {
-                ImageView(url: posterPath, width: 190, height: 270, opacity: 0.8, fillContentMode: true)
-                    .clipped()
-                    .shadow(radius: 2)
-                    .cornerRadius(8)
+                ZStack(alignment: .topTrailing) {
+                    ImageView(url: posterPath, width: 190, height: 270, opacity: 0.8, fillContentMode: true)
+                        .clipped()
+                        .shadow(radius: 2)
+                        .cornerRadius(8)
+
+                    FavoritesButtonView(movie: movie)
+                        .padding()
+                }
             }
             
-            Text(movie.title)
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .opacity(0.7)
-                .lineLimit(nil)
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: 190, alignment: .leading)
-        
-//            RatingView(voteAverage: movie.voteAverage, voteCount: movie.voteCount)
+            HStack {
+                
+                Text(movie.title)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .opacity(0.7)
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: 190, alignment: .leading)
+                
+                RatingView(voteAverage: movie.voteAverage, voteCount: movie.voteCount)
+            }
             
             if let releaseDate = movie.releaseDate {
                 ReleaseDateView(date: releaseDate)
@@ -50,4 +58,5 @@ struct MovieCard: View {
 
 #Preview {
     MovieCard(movie: .example)
+        .environmentObject(Persistence())
 }

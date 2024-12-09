@@ -8,18 +8,61 @@
 import SwiftUI
 
 struct GalleryView: View {
-        let trendingMovies: [Movie]?
+    @EnvironmentObject private var favorites: Persistence
+    let trendingMovies: [Movie]?
     let popularMovies: [Movie]?
     let topRatedMovies: [Movie]?
+    let searchMovies: [Movie]?
     let genres: [Genre]
-//        let title: String
-        @Binding var selectedTab: Int
+    @Binding var selectedTab: Int
 
         var body: some View {
             NavigationStack {
                 BaseView(title: "") {
                         ScrollView {
-                            VStack(alignment: .leading, spacing: AppSpacing.vertical * 2) {
+                            VStack(alignment: .leading, spacing: AppSpacing.vertical ) {
+                                if let searchMovies = searchMovies, !searchMovies.isEmpty {
+                                    Text("Search results")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                        .opacity(0.65)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(nil)
+
+                                    HorizontalScroll(items: Array(searchMovies)) { movie in
+                                        NavigationLink(value: movie) {
+                                            FavoriteMovieCard(movie: movie)
+                                                .frame(width: UIScreen.main.bounds.width - AppSpacing.horizontal)
+                                        }
+                                    }
+                                }
+                                
+                                if !favorites.favoritedMovies.isEmpty {
+                                    Text("Favorites")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                        .opacity(0.65)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(nil)
+
+                                    if let searchMovies = searchMovies, !searchMovies.isEmpty {
+                                            HorizontalScroll(items: Array(favorites.favoritedMovies))  { movie in
+                                                NavigationLink(value: movie) {
+                                                    MovieCard(movie: movie)
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            HorizontalScroll(items: Array(favorites.favoritedMovies)) { movie in
+                                            NavigationLink(value: movie) {
+                                                FavoriteMovieCard(movie: movie)
+                                                    .frame(width: UIScreen.main.bounds.width - AppSpacing.horizontal)
+                                            }
+                                        }
+                                    }
+                                }
+        
+                                
                                 if let topRatedMovies = topRatedMovies, !topRatedMovies.isEmpty {
                                     
                                     Text("Top Rated")
@@ -113,6 +156,6 @@ struct GalleryView: View {
 
 
 #Preview {
-    GalleryView(trendingMovies: [.example], popularMovies: [.example],topRatedMovies: [.example], genres: [.example], selectedTab: .constant(2))
+    GalleryView(trendingMovies: [.example], popularMovies: [.example],topRatedMovies: [.example], searchMovies: [.example], genres: [.example], selectedTab: .constant(2))
                 .environmentObject(Persistence())
 }

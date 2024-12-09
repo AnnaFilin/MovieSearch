@@ -20,8 +20,22 @@ struct BaseView<Content: View>: View {
     
     var body: some View {
         ZStack {
-            Color.background
-                .ignoresSafeArea()
+//            Color.background
+//                .ignoresSafeArea()
+//            
+            LinearGradient(
+                gradient: Gradient(colors: [.shadow.opacity(0.3), .background.opacity(0.8), .background.opacity(0.8), .shadow.opacity(0.9)]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            
+            LinearGradient(
+                gradient: Gradient(colors: [.background.opacity(1.0), .shadow.opacity(0.1), .shadow.opacity(0.1), .background.opacity(1.0)]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
             
             VStack {
                 content
@@ -29,7 +43,7 @@ struct BaseView<Content: View>: View {
             }
         }
         .navigationTitle(title)
-        .shadow(color: .shadow, radius: 1)
+//        .shadow(color: .shadow, radius: 1)
     }
 }
 

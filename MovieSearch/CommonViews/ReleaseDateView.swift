@@ -14,7 +14,9 @@ struct ReleaseDateView: View {
         let inputDateFormatter = DateFormatter()
         inputDateFormatter.dateFormat = "yyyy-MM-dd"
         let outputDateFormatter = DateFormatter()
-        outputDateFormatter.dateFormat = "dd MMM yy"
+//        outputDateFormatter.dateFormat = "dd MMM yy"
+                outputDateFormatter.dateFormat = "yyyy"
+
 
         if let formattedDate = inputDateFormatter.date(from: date ?? "") {
             return outputDateFormatter.string(from: formattedDate)
@@ -28,7 +30,7 @@ struct ReleaseDateView: View {
             Text(formattedReleaseDate  )
                 .font(.caption)
 
-            Image(systemName: "calendar")
+//            Image(systemName: "calendar")
         }
         .opacity(0.8)
     }

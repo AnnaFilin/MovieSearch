@@ -10,6 +10,13 @@ import SwiftUI
 struct CarouselView: View {
     let movies: [Movie]
     @State private var selectedIndex: Int = 0
+    let horizontalInset: CGFloat
+    
+    init(movies: [Movie], selectedIndex: Int = 2, horizontalInset: CGFloat = AppSpacing.horizontal) {
+        self.movies = movies
+        self.selectedIndex = selectedIndex
+        self.horizontalInset = horizontalInset
+    }
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -19,7 +26,7 @@ struct CarouselView: View {
                 }
             }
             .frame(height: UIScreen.main.bounds.width * 1.4)
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never)) // Hides default dots
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never)) 
             
             HStack(spacing: 8) {
                 ForEach(movies.indices, id: \.self) { index in
@@ -29,10 +36,11 @@ struct CarouselView: View {
                         .padding(.bottom, AppSpacing.vertical * 3)
                 }
             }
+            .padding(.horizontal, horizontalInset)
         }
     }
 }
 
 #Preview {
-    CarouselView(movies: [.example])
+    CarouselView(movies: [.example], selectedIndex: 2 )
 }

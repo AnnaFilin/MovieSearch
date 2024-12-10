@@ -14,7 +14,8 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            GalleryView(trendingMovies: viewModel.trendingMovies, popularMovies: viewModel.popularMovies, topRatedMovies: viewModel.topRatedMovies, searchMovies: viewModel.searchMovies, genres: genres, selectedTab: $selectedTab)
+
+            GalleryView( genres: genres, selectedTab: $selectedTab)
                 .onAppear {
                     viewModel.searchText = ""
                     if viewModel.trendingMovies.isEmpty {
@@ -25,17 +26,13 @@ struct ContentView: View {
                         }
                     }
                 }
+                .environmentObject(viewModel)
                 .onChange(of: viewModel.searchText) {
                    Task {
                        await viewModel.searchMovies(query: viewModel.searchText)
                    }
                 }
                 .searchable(text: $viewModel.searchText, prompt: "Search movie")
-//                .frame(height: 60) // Set a fixed height
-//                  .background(
-//                      RoundedRectangle(cornerRadius: 12)
-//                          .fill(Color(UIColor.systemGray6))
-//                  )
 
                 .tabItem {
                     Label("All movies", systemImage: "film")
@@ -49,6 +46,7 @@ struct ContentView: View {
                     .tag(1)
                 
             }
+        
     
         .accentColor(.theme)
         .preferredColorScheme(.dark)

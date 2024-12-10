@@ -10,12 +10,15 @@ import SwiftUI
 struct HorizontalScroll<Item, Content: View>: View {
 
     let items: [Item]
-    let content: (Item) -> Content 
+    let content: (Item) -> Content
+    let horizontalInset: CGFloat
 
-    init(items: [Item], @ViewBuilder content: @escaping (Item) -> Content) {
-        self.items = items
-        self.content = content
-    }
+    init(items: [Item], horizontalInset: CGFloat = 16, @ViewBuilder content: @escaping (Item) -> Content) {
+           self.items = items
+           self.content = content
+           self.horizontalInset = horizontalInset
+       }
+
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -24,7 +27,8 @@ struct HorizontalScroll<Item, Content: View>: View {
                     content(items[index])
                 }
             }
-            .padding(.vertical, 6)
+            .padding(.horizontal, horizontalInset)
+
         }
     }
 }

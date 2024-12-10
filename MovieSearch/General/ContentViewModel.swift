@@ -87,7 +87,6 @@ class ViewModel: ObservableObject {
         isLoading = false
     }
     
-//    let url = URL(string: "")!
     func fetchPopularMovies() async {
         isLoading = true
         errorMessage = nil

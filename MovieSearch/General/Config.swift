@@ -20,7 +20,7 @@ struct Config {
         guard let key = ProcessInfo.processInfo.environment["API_KEY"] else {
             fatalError("API Key not found!")
         }
-        print("API Key from Config: \(key)") // Для проверки
+//      
         return key
     }
 }

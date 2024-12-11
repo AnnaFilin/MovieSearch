@@ -24,10 +24,9 @@ struct GalleryView: View {
                                 
                                 VStack(alignment: .leading, spacing: AppSpacing.vertical) {
                                     
-                                    Text("Search results")
+                                    Text("Search")
                                         .font(.title2)
                                         .fontWeight(.bold)
-                                        .opacity(0.65)
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(nil)
                                         .padding(.horizontal, AppSpacing.horizontal)
@@ -42,13 +41,21 @@ struct GalleryView: View {
                             }
                             
                             if !viewModel.topRatedMovies.isEmpty {
-                                Text("Top Rated")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .opacity(0.65)
-                                    .multilineTextAlignment(.leading)
-                                    .lineLimit(nil)
-                                    .padding(.horizontal, AppSpacing.horizontal)
+                                HStack {
+                                    Text("Top Rated")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(nil)
+                                        
+//                                    Spacer()
+//                                    Button(action: {     
+//                                    }) {
+//                                        Text("See all")
+//                                            .font(.headline)
+//                                    }
+                                }
+                                .padding(.horizontal, AppSpacing.horizontal)
                                 
                                 HorizontalScroll(items: viewModel.topRatedMovies, horizontalInset: AppSpacing.horizontal)  { movie in
                                     NavigationLink(value: movie) {
@@ -60,7 +67,6 @@ struct GalleryView: View {
                             Text("Genres")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .opacity(0.65)
                                 .multilineTextAlignment(.leading)
                                 .lineLimit(nil)
                                 .padding(.horizontal, AppSpacing.horizontal)
@@ -71,23 +77,23 @@ struct GalleryView: View {
                             }
                             
                             if !viewModel.popularMovies.isEmpty {
-                                HStack() {
+                                HStack {
                                     Text("Popular")
                                         .font(.title2)
                                         .fontWeight(.bold)
-                                        .opacity(0.65)
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(nil)
-                                        .padding(.horizontal, AppSpacing.horizontal)
-                                    
-                                    Spacer()
-                                    Button(action: {
                                         
-                                    }) {
-                                        Text("See all")
-                                            .font(.headline)
-                                    }
+//                                    Spacer()
+//                                    Button(action: {
+//                                        
+//                                    }) {
+//                                        Text("See all")
+//                                            .font(.headline)
+//                                          
+//                                    }
                                 }
+                                .padding(.horizontal, AppSpacing.horizontal)
                                 
                                 HorizontalScroll(items: viewModel.popularMovies,  horizontalInset: AppSpacing.horizontal)  { movie in
                                     NavigationLink(value: movie) {
@@ -97,13 +103,22 @@ struct GalleryView: View {
                             }
                             if !viewModel.trendingMovies.isEmpty {
                                 
-                                Text("Trendind Movies")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .opacity(0.65)
-                                    .multilineTextAlignment(.leading)
-                                    .lineLimit(nil)
-                                    .padding(.horizontal, AppSpacing.horizontal)
+                                HStack {
+                                    Text("Trending")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(nil)
+                                        
+//                                    Spacer()
+//                                    Button(action: {
+//                                        
+//                                    }) {
+//                                        Text("See all")
+//                                            .font(.headline)
+//                                    }
+                                }
+                                .padding(.horizontal, AppSpacing.horizontal)
                                 
                                 HorizontalScroll(items: viewModel.trendingMovies, horizontalInset: AppSpacing.horizontal)  { movie in
                                     NavigationLink(value: movie) {

@@ -16,17 +16,17 @@ struct RatingView: View {
         HStack(alignment: .center) {
             Text(String(format: "%.1f", voteAverage ?? 0))
                 .font(.subheadline)
-                .fontWeight(.bold)
-                .foregroundStyle(.theme)
-                .opacity(0.6)
+                .fontWeight(.semibold)
+//                .foregroundStyle(.theme)
+//                .opacity(0.6)
 //            Text("\(voteCount ?? 0) reviewers")
 //                .foregroundStyle(.theme)
 //                .opacity(0.5)
             
             Image(systemName: "star.fill")
-                .foregroundColor(.theme)
+                .foregroundColor(.gold)
                 .shadow(color: .shadow, radius: 3)
-                .opacity(0.7)
+//                .opacity(0.7)
         }
     }
 }

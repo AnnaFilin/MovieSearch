@@ -11,7 +11,7 @@ struct MovieCard: View {
     var movie: Movie
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: AppSpacing.vertical/4) {
             if let posterPath = movie.posterPath {
                 ZStack(alignment: .topTrailing) {
                     ImageView(url: posterPath, width: 190, height: 270, opacity: 0.8, fillContentMode: true)
@@ -27,9 +27,10 @@ struct MovieCard: View {
             HStack {
                 
                 Text(movie.title)
+                    .lineSpacing(0)
                     .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .opacity(0.7)
+                    .fontWeight(.medium)
+//                    .opacity(0.7)
                     .lineLimit(nil)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: 190, alignment: .leading)

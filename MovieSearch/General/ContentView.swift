@@ -33,7 +33,7 @@ struct ContentView: View {
                         await viewModel.searchMovies(query: viewModel.searchText)
                     }
                 }
-                .searchable(text: $viewModel.searchText, prompt: "Search movie")
+                .searchable(text: $viewModel.searchText, prompt: "Search...")
             
                 .tabItem {
                     Label("All movies", systemImage: "film")

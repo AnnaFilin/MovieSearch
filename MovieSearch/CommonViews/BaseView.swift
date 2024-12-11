@@ -36,7 +36,7 @@ struct BaseView<Content: View>: View {
             
             VStack {
                 content
-                    .foregroundColor(.theme)
+                    .foregroundColor(.white)
             }
         }
         .navigationTitle(title)

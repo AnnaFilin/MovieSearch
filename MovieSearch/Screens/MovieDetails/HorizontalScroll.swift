@@ -13,7 +13,7 @@ struct HorizontalScroll<Item, Content: View>: View {
     let content: (Item) -> Content
     let horizontalInset: CGFloat
 
-    init(items: [Item], horizontalInset: CGFloat = 16, @ViewBuilder content: @escaping (Item) -> Content) {
+    init(items: [Item], horizontalInset: CGFloat = AppSpacing.horizontal, @ViewBuilder content: @escaping (Item) -> Content) {
            self.items = items
            self.content = content
            self.horizontalInset = horizontalInset

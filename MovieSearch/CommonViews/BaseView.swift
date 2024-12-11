@@ -21,14 +21,14 @@ struct BaseView<Content: View>: View {
     var body: some View {
         ZStack {
             LinearGradient(
-                gradient: Gradient(colors: [.shadow.opacity(0.3), .background.opacity(0.8), .background.opacity(0.8), .shadow.opacity(0.9)]),
+                gradient: Gradient(colors: [.shadow.opacity(0.4), .background.opacity(0.8), .background.opacity(0.8), .shadow.opacity(0.9)]),
                 startPoint: .top,
                 endPoint: .bottom
             )
             .ignoresSafeArea()
             
             LinearGradient(
-                gradient: Gradient(colors: [.background.opacity(1.0), .shadow.opacity(0.1), .shadow.opacity(0.1), .background.opacity(1.0)]),
+                gradient: Gradient(colors: [.background.opacity(0.9), .shadow.opacity(0.4), .shadow.opacity(0.2), .background.opacity(0.9)]),
                 startPoint: .top,
                 endPoint: .bottom
             )

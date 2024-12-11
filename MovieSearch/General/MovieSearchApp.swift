@@ -10,8 +10,8 @@ import SwiftUI
 @main
 struct MovieSearchApp: App {
     init() {
-          setupNavigationBarAppearance()
-      }
+        setupNavigationBarAppearance()
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -19,12 +19,12 @@ struct MovieSearchApp: App {
                 .environmentObject(Persistence())
         }
     }
-
+    
     func setupNavigationBarAppearance() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .clear
-
+        
         appearance.titleTextAttributes = [
             .foregroundColor: UIColor(Color.theme).withAlphaComponent(0.9),
             .font: UIFont.systemFont(ofSize: 24, weight: .bold)
@@ -39,12 +39,11 @@ struct MovieSearchApp: App {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.systemGray6
-           UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).layer.cornerRadius = 10
-           UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).clipsToBounds = true
-           UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).borderStyle = .none
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor(Color.theme.opacity(0.3))//UIColor.systemGray6
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).layer.cornerRadius = 10
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).clipsToBounds = true
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).borderStyle = .none
         
-//        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).transform = CGAffineTransform(scaleX: 1.0, y: 1.5)
-
+        
     }
 }

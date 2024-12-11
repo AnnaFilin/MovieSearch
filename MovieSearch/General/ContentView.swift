@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject private var favorites: Persistence
     let genres: [Genre] = Bundle.main.decode("Genres.json")
     @StateObject private var viewModel = ViewModel()
     @State private var selectedTab: Int = 0
-
+    
     var body: some View {
         TabView(selection: $selectedTab) {
-
+            
             GalleryView( genres: genres, selectedTab: $selectedTab)
                 .onAppear {
                     viewModel.searchText = ""
@@ -28,26 +29,29 @@ struct ContentView: View {
                 }
                 .environmentObject(viewModel)
                 .onChange(of: viewModel.searchText) {
-                   Task {
-                       await viewModel.searchMovies(query: viewModel.searchText)
-                   }
+                    Task {
+                        await viewModel.searchMovies(query: viewModel.searchText)
+                    }
                 }
                 .searchable(text: $viewModel.searchText, prompt: "Search movie")
-
+            
                 .tabItem {
                     Label("All movies", systemImage: "film")
                 }
                 .tag(0)
             
-                TabContentView(movies: viewModel.movies, title: "Favorites", selectedTab: $selectedTab)
-                    .tabItem {
-                        Label("Favorites", systemImage: "star")
-                    }
-                    .tag(1)
-                
+            
+            TabContentView(
+                title: "Favorites", selectedTab: $selectedTab)
+            
+            .tabItem {
+                Label("Favorites", systemImage: "star")
             }
+            .tag(1)
+            
+        }
         
-    
+        
         .accentColor(.theme)
         .preferredColorScheme(.dark)
     }

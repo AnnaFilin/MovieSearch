@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct TabContentView: View {
-    let movies: [Movie]?
+//    let movies: [Movie]?
+    @EnvironmentObject private var favorites: Persistence
+
     let title: String
     @Binding var selectedTab: Int
 
     var body: some View {
         NavigationStack {
             BaseView(title: title) {
-                if let movies = movies, !movies.isEmpty {
+                if !favorites.favoritedMovies.isEmpty {
                     ScrollView {
                         VStack(spacing: AppSpacing.itemSpacing/2) {
-                            ForEach(movies, id: \.self.id) { movie in
+                            ForEach(Array(favorites.favoritedMovies), id: \.self.id) { movie in
                                 NavigationLink(value: movie) {
                                     MovieView(movie: movie)
                                 }
@@ -39,6 +41,8 @@ struct TabContentView: View {
 }
 
 #Preview {
-    TabContentView(movies: [.example], title: "Trending", selectedTab: .constant(2))
+    TabContentView( title: "Favorites", selectedTab: .constant(2))
+//    TabContentView(movies: [.example], title: "Trending", selectedTab: .constant(2))
+
         .environmentObject(Persistence())
 }

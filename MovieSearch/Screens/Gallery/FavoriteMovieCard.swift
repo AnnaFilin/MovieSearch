@@ -20,7 +20,7 @@ struct FavoriteMovieCard: View {
                 .overlay(
                     Rectangle()
                         .fill(LinearGradient(
-                            gradient: Gradient(colors: [Color.background.opacity(0.01), Color.background]),
+                            gradient: Gradient(colors: [Color.background.opacity(0.01), Color.background.opacity(0.3)]),
                             startPoint: .center,
                             endPoint: .bottom
                         ))

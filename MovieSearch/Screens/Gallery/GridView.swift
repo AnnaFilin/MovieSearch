@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GridView: View {
     let movies: [Movie]
+    @Binding var path: [AppNavigation]
     
     let columns = [
         GridItem(.adaptive(minimum: 150))
@@ -18,7 +19,10 @@ struct GridView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(movies) {movie in
-                    NavigationLink(value: movie) {
+                    
+                    Button {
+                        path.append(.movieDetails(movie: movie))
+                    } label: {
                         MovieCard(movie: movie, width: 175, height: 280)
                     }
                 }
@@ -29,7 +33,7 @@ struct GridView: View {
 }
 
 #Preview {
-    GridView(movies: [.example])
+    GridView(movies: [.example], path: .constant([]))
         .environmentObject(Persistence())
 }
 

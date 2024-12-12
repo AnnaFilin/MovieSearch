@@ -30,9 +30,7 @@ struct DetailsView: View {
 
                 FavoritesButtonView(movie: movie)
                     .padding(.horizontal, 4)
-    
-//                Image(systemName: movieDetails.adult ? "lock" : "smiley")
-//                    .foregroundColor(movieDetails.adult ? .red : .yellow)
+
         }
 
             

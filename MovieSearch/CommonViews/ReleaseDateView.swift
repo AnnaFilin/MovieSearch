@@ -14,10 +14,9 @@ struct ReleaseDateView: View {
         let inputDateFormatter = DateFormatter()
         inputDateFormatter.dateFormat = "yyyy-MM-dd"
         let outputDateFormatter = DateFormatter()
-//        outputDateFormatter.dateFormat = "dd MMM yy"
-                outputDateFormatter.dateFormat = "yyyy"
-
-
+        outputDateFormatter.dateFormat = "yyyy"
+        
+        
         if let formattedDate = inputDateFormatter.date(from: date ?? "") {
             return outputDateFormatter.string(from: formattedDate)
         } else {
@@ -29,8 +28,6 @@ struct ReleaseDateView: View {
         HStack {
             Text(formattedReleaseDate  )
                 .font(.caption)
-
-//            Image(systemName: "calendar")
         }
         .opacity(0.8)
     }

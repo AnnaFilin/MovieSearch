@@ -9,28 +9,23 @@ import SwiftUI
 
 struct TabContentView: View {
     @EnvironmentObject private var favorites: Persistence
-
+    
     let title: String
     @Binding var selectedTab: Int
-
+    @Binding var path: [AppNavigation]
+    
     var body: some View {
-        NavigationStack {
-            BaseView(title: title) {
-                if !favorites.favoritedMovies.isEmpty {
-                    GridView(movies: Array(favorites.favoritedMovies))
-                } else {
-                   EmptyStateView()
-                }
-            }
-            .navigationDestination(for: Movie.self) { selection in
-                MovieDetailsView(movie: selection)
+        BaseView(title: title) {
+            if !favorites.favoritedMovies.isEmpty {
+                GridView(movies: Array(favorites.favoritedMovies), path: $path)
+            } else {
+                EmptyStateView()
             }
         }
-        .tint(.theme)
     }
 }
 
 #Preview {
-    TabContentView( title: "Favorites",selectedTab: .constant(2))
+    TabContentView( title: "Favorites",selectedTab: .constant(2),  path: .constant([.movieDetails(movie: .example)]))
         .environmentObject(Persistence())
 }

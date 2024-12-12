@@ -208,7 +208,6 @@ class ViewModel: ObservableObject {
 
            let decodedMovies = try JSONDecoder().decode(MovieResponse.self, from: data)
            self.searchMovies = decodedMovies.results
-//           self.movies = searchMovies
        } catch {
                errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
        }

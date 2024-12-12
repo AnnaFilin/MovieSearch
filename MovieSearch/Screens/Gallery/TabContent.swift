@@ -10,28 +10,20 @@ import SwiftUI
 struct TabContent: View {
     let movies: [Movie]?
     let title: String
-//    @Binding var selectedTab: Int
+    @Binding var path: [AppNavigation]
 
     var body: some View {
-        NavigationStack {
-//        VStack {
-            
-            BaseView(title: title) {
-                if let movies = movies, !movies.isEmpty {
-                    GridView(movies: movies)
-                } else {
-                   EmptyStateView() //selectedTab: $selectedTab
-                }
-            }
-            .navigationDestination(for: Movie.self) { selection in
-                MovieDetailsView(movie: selection)
+        BaseView(title: title) {
+            if let movies = movies, !movies.isEmpty {
+                GridView(movies: movies,path: $path)
+            } else {
+               EmptyStateView()
             }
         }
-        .tint(.theme)
     }
 }
 
 #Preview {
-    TabContent(movies: [.example], title: "Trending") //, selectedTab: .constant(2)
+    TabContent(movies: [.example], title: "Trending", path: .constant([])) 
         .environmentObject(Persistence())
 }

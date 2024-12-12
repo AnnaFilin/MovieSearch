@@ -16,7 +16,6 @@ struct MovieOverviewView: View {
                 if expandText {
                     Text(overview)
                         .font(.headline)
-//                        .opacity(0.6)
                         .multilineTextAlignment(.leading)
                         .lineLimit(nil)
                         .frame(maxWidth: .infinity) 
@@ -34,14 +33,12 @@ struct MovieOverviewView: View {
                             .font(.headline)
                             .fontWeight(.bold)
                             .foregroundColor(.theme)
-//                            .opacity(0.7)/
                     }
                     .buttonStyle(.plain)
                 } else {
                     HStack(alignment: .lastTextBaseline, spacing: AppSpacing.itemSpacing / 2) {
                         Text(overview)
                             .font(.headline)
-//                            .opacity(0.6)
                             .multilineTextAlignment(.leading)
                             .lineLimit(3)
                             .frame(maxWidth: .infinity)
@@ -59,7 +56,6 @@ struct MovieOverviewView: View {
                                 .font(.headline)
                                 .fontWeight(.bold)
                                 .foregroundColor(.theme)
-//                                .opacity(0.7)
                         }
                         .buttonStyle(.plain)
                     }

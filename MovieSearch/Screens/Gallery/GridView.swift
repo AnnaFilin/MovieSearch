@@ -19,11 +19,9 @@ struct GridView: View {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(movies) {movie in
                     NavigationLink(value: movie) {
-                        MovieCard(movie: movie, width: 170, height: 280)
+                        MovieCard(movie: movie, width: 175, height: 280)
                     }
                 }
-//                .padding( AppSpacing.itemSpacing)
-
             }
             .padding(.horizontal, AppSpacing.horizontal)
         }

@@ -34,7 +34,6 @@ struct ContentView: View {
                     }
                 }
                 .searchable(text: $viewModel.searchText, prompt: "Search...")
-            
                 .tabItem {
                     Label("All movies", systemImage: "film")
                 }

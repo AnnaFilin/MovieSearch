@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TabContentView: View {
-//    let movies: [Movie]?
     @EnvironmentObject private var favorites: Persistence
 
     let title: String
@@ -20,7 +19,7 @@ struct TabContentView: View {
                 if !favorites.favoritedMovies.isEmpty {
                     GridView(movies: Array(favorites.favoritedMovies))
                 } else {
-                   EmptyStateView(selectedTab: $selectedTab)
+                   EmptyStateView()
                 }
             }
             .navigationDestination(for: Movie.self) { selection in
@@ -32,6 +31,6 @@ struct TabContentView: View {
 }
 
 #Preview {
-    TabContentView( title: "Favorites", selectedTab: .constant(2))
+    TabContentView( title: "Favorites",selectedTab: .constant(2))
         .environmentObject(Persistence())
 }

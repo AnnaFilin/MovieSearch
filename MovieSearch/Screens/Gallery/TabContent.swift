@@ -10,24 +10,17 @@ import SwiftUI
 struct TabContent: View {
     let movies: [Movie]?
     let title: String
-    @Binding var selectedTab: Int
+//    @Binding var selectedTab: Int
 
     var body: some View {
         NavigationStack {
+//        VStack {
+            
             BaseView(title: title) {
                 if let movies = movies, !movies.isEmpty {
-                    ScrollView {
-                        VStack(spacing: AppSpacing.itemSpacing/2) {
-                            ForEach(movies, id: \.self.id) { movie in
-                                NavigationLink(value: movie) {
-                                    MovieView(movie: movie)
-                                }
-                            }
-                        }
-                        .padding(.top,AppSpacing.vertical)
-                    }
+                    GridView(movies: movies)
                 } else {
-                   EmptyStateView(selectedTab: $selectedTab)
+                   EmptyStateView() //selectedTab: $selectedTab
                 }
             }
             .navigationDestination(for: Movie.self) { selection in
@@ -39,6 +32,6 @@ struct TabContent: View {
 }
 
 #Preview {
-    TabContent(movies: [.example], title: "Trending", selectedTab: .constant(2))
+    TabContent(movies: [.example], title: "Trending") //, selectedTab: .constant(2)
         .environmentObject(Persistence())
 }

@@ -31,12 +31,8 @@ struct GalleryView: View {
                                         .lineLimit(nil)
                                         .padding(.horizontal, AppSpacing.horizontal)
                                         .id("SearchResults")
-                                    
-                                    HorizontalScroll(items: viewModel.searchMovies,  horizontalInset: AppSpacing.horizontal)  { movie in
-                                        NavigationLink(value: movie) {
-                                            MovieCard(movie: movie)
-                                        }
-                                    }
+
+                                    GridView(movies: viewModel.searchMovies)
                                 }
                             }
                             
@@ -48,12 +44,13 @@ struct GalleryView: View {
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(nil)
                                         
-//                                    Spacer()
-//                                    Button(action: {     
-//                                    }) {
-//                                        Text("See all")
-//                                            .font(.headline)
-//                                    }
+                                    Spacer()
+                                    
+                                    NavigationLink(destination: TabContent(movies: viewModel.topRatedMovies, title: "Top Rated")) {
+                                        
+                                        Text("See all")
+                                            .font(.headline)
+                                    }
                                 }
                                 .padding(.horizontal, AppSpacing.horizontal)
                                 
@@ -83,15 +80,14 @@ struct GalleryView: View {
                                         .fontWeight(.bold)
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(nil)
+                                    
+                                    Spacer()
                                         
-//                                    Spacer()
-//                                    Button(action: {
-//                                        
-//                                    }) {
-//                                        Text("See all")
-//                                            .font(.headline)
-//                                          
-//                                    }
+                                    NavigationLink(destination: TabContent(movies: viewModel.popularMovies, title: "Popular")) {
+                                        
+                                        Text("See all")
+                                            .font(.headline)
+                                    }
                                 }
                                 .padding(.horizontal, AppSpacing.horizontal)
                                 
@@ -101,31 +97,23 @@ struct GalleryView: View {
                                     }
                                 }
                             }
-                            if !viewModel.trendingMovies.isEmpty {
-                                
-                                HStack {
-                                    Text("Trending")
-                                        .font(.title2)
-                                        .fontWeight(.bold)
-                                        .multilineTextAlignment(.leading)
-                                        .lineLimit(nil)
-                                        
-//                                    Spacer()
-//                                    Button(action: {
-//                                        
-//                                    }) {
-//                                        Text("See all")
-//                                            .font(.headline)
+                            
+//                            if !viewModel.trendingMovies.isEmpty {
+//                                HStack {
+//                                    Text("Trending")
+//                                        .font(.title2)
+//                                        .fontWeight(.bold)
+//                                        .multilineTextAlignment(.leading)
+//                                        .lineLimit(nil)
+//                                }
+//                                .padding(.horizontal, AppSpacing.horizontal)
+//                                
+//                                HorizontalScroll(items: viewModel.trendingMovies, horizontalInset: AppSpacing.horizontal)  { movie in
+//                                    NavigationLink(value: movie) {
+//                                        MovieCard(movie: movie)
 //                                    }
-                                }
-                                .padding(.horizontal, AppSpacing.horizontal)
-                                
-                                HorizontalScroll(items: viewModel.trendingMovies, horizontalInset: AppSpacing.horizontal)  { movie in
-                                    NavigationLink(value: movie) {
-                                        MovieCard(movie: movie)
-                                    }
-                                }
-                            }
+//                                }
+//                            }
                         }
                     }
                 }

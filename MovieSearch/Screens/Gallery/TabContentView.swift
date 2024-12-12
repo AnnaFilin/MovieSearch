@@ -18,16 +18,7 @@ struct TabContentView: View {
         NavigationStack {
             BaseView(title: title) {
                 if !favorites.favoritedMovies.isEmpty {
-                    ScrollView {
-                        VStack(spacing: AppSpacing.itemSpacing/2) {
-                            ForEach(Array(favorites.favoritedMovies), id: \.self.id) { movie in
-                                NavigationLink(value: movie) {
-                                    MovieView(movie: movie)
-                                }
-                            }
-                        }
-                        .padding(.top,AppSpacing.vertical)
-                    }
+                    GridView(movies: Array(favorites.favoritedMovies))
                 } else {
                    EmptyStateView(selectedTab: $selectedTab)
                 }
@@ -42,7 +33,5 @@ struct TabContentView: View {
 
 #Preview {
     TabContentView( title: "Favorites", selectedTab: .constant(2))
-//    TabContentView(movies: [.example], title: "Trending", selectedTab: .constant(2))
-
         .environmentObject(Persistence())
 }

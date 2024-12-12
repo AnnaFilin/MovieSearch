@@ -22,26 +22,23 @@ struct CastDetailsView: View {
             }
             
             Text(castItem.name)
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .opacity(0.7)
-                .lineLimit(nil)
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: 100, alignment: .leading)
-            
-            Text(castItem.character)
+                .lineSpacing(0)
                 .font(.subheadline)
                 .fontWeight(.medium)
                 .lineLimit(nil)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: 100, alignment: .leading)
-                .opacity(0.5)
+            
+            Text(castItem.character)
+                .lineSpacing(0)
+                .font(.subheadline)
+                .fontWeight(.light)
+                .lineLimit(nil)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: 100, alignment: .leading)
         }
         .frame(width: 100)
     }
-    
-    
-    
 }
 
 #Preview {

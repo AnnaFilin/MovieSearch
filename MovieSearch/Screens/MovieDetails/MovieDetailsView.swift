@@ -17,79 +17,73 @@ struct MovieDetailsView: View {
 
     var movie: Movie
     @State var castDetails: [CastMember]?
-    
     @State var isLoading: Bool = false
     @State var errorMessage: String?
     @State var movieDetails: MovieDetail?
-  
-    
+
+    @State private var scrollOffset: CGFloat = 0
+
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
-                if let posterPath = movie.posterPath {
-                    ImageView(url: posterPath, width: nil, height: nil, opacity: 1.0, fillContentMode: true)
-                        .ignoresSafeArea()          
-                }
-                    LinearGradient(
-                        gradient: Gradient(colors: [.background.opacity(0.001), .background.opacity(0.01), .background.opacity(0.6), .background.opacity(0.9)]),
-                        startPoint: .top,
-                        endPoint: .center
-                    ) 
-
-                VStack(alignment: .leading, spacing: AppSpacing.vertical) {
-                    Spacer()
-                    
-                    HStack(alignment: .center, spacing: AppSpacing.itemSpacing) {
-                        Text( movie.title)
-                            .font(.title.bold())
-                            .shadow(color: .shadow, radius: 1)
-                            .opacity(0.7)
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(nil)
-                            .padding(.horizontal, AppSpacing.itemSpacing)
-                        
+            MovieDetailsBackground(movie: movie) {
+                ScrollView() {
+                    VStack(alignment: .leading, spacing: AppSpacing.vertical) {
                         Spacer()
+                            .frame(height: geometry.size.height * 0.55)
+                        
+                        HStack(alignment: .center, spacing: AppSpacing.itemSpacing) {
+                            Text(movie.title)
+                                .font(.title.bold())
+                                .shadow(color: .shadow, radius: 1)
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(nil)
+                                .padding(.horizontal, AppSpacing.horizontal)
+                            
+                            Spacer()
 
-                        RatingView(voteAverage: movie.voteAverage, voteCount: movie.voteCount)
-                    }
-                    
-                    ScrollView {
-                       
+                            RatingView(voteAverage: movie.voteAverage, voteCount: movie.voteCount)
+                                .padding(.horizontal, AppSpacing.horizontal)
+                        }
+
                         VStack(alignment: .leading, spacing: AppSpacing.vertical) {
-
                             if let genres = movieDetails?.genres {
                                 let genreNames = genres.map { $0.name }
                                 GenresView(movieGenres: genreNames)
-                                    .padding(.bottom, AppSpacing.itemSpacing)
+                                    .padding(.bottom, AppSpacing.vertical)
+                                    .padding(.horizontal, AppSpacing.horizontal)
                             }
-                            
+
                             MovieOverviewView(overview: movie.overview)
-                            
+                                .padding(.horizontal, AppSpacing.horizontal)
+
                             if let castDetails = castDetails {
                                 Text("Cast")
                                     .font(.title2)
                                     .fontWeight(.bold)
                                     .shadow(color: .shadow, radius: 1)
-                                    .opacity(0.65)
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(nil)
-                                   
+                                    .padding(.horizontal, AppSpacing.horizontal)
+                                
                                 HorizontalScroll(items: castDetails) { castMember in
-                                  CastDetailsView(castItem: castMember)
-                              }
-
+                                    CastDetailsView(castItem: castMember)
+                                }
                             }
                         }
                         .padding(.bottom, geometry.safeAreaInsets.bottom + AppSpacing.vertical)
-                        .foregroundStyle(.theme)
                     }
-                    .frame(height: geometry.size.height * 0.6)
-                    .padding(.horizontal, AppSpacing.itemSpacing)
-                    .padding(.bottom, geometry.safeAreaInsets.bottom)
+                    .background(
+                        GeometryReader { proxy -> Color in
+                            let offset = proxy.frame(in: .global).minY
+                            DispatchQueue.main.async {
+                                self.scrollOffset = offset
+                            }
+                            return Color.clear
+                        }
+                    )
+                    .padding(.bottom, geometry.safeAreaInsets.bottom + AppSpacing.vertical)
                 }
-                .foregroundStyle(.theme)
-                .padding(.horizontal, AppSpacing.horizontal)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.top, -geometry.safeAreaInsets.top)
             }
         }
         .background(Color(red: 0.15, green: 0.16, blue: 0.12))
@@ -98,69 +92,65 @@ struct MovieDetailsView: View {
             Task {
                 await fetchMovieDetails()
                 await fetchCastDetails()
-                self.isLoading=false
+                self.isLoading = false
             }
         }
     }
     
-    func fetchMovieDetails() async {
-        print("API Key from Config: \(Config.apiKey)")
-        guard var components = URLComponents(string: "https://api.themoviedb.org/3/movie/\(movie.id)") else {
-               errorMessage = "Invalid URL."
-               return
-           }
-
-        components.queryItems = [
-          URLQueryItem(name: "language", value: "en-US"),
-          URLQueryItem(name: "api_key", value: Config.apiKey)
-        ]
-
-       guard let url = components.url else {
-           errorMessage = "Failed to construct URL."
-           return
-       }
-        
-        let request = URLRequest(url: url)
-
-        do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-            
-            let decodedMovieDetails = try JSONDecoder().decode(MovieDetail.self, from: data)
-            self.movieDetails = decodedMovieDetails
-           
-            
-        } catch {
-            errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
-        }
-    }
     
+    func fetchMovieDetails() async {
+           print("API Key from Config: \(Config.apiKey)")
+           guard var components = URLComponents(string: "https://api.themoviedb.org/3/movie/\(movie.id)") else {
+                  errorMessage = "Invalid URL."
+                  return
+              }
+   
+           components.queryItems = [
+             URLQueryItem(name: "language", value: "en-US"),
+             URLQueryItem(name: "api_key", value: Config.apiKey)
+           ]
+   
+          guard let url = components.url else {
+              errorMessage = "Failed to construct URL."
+              return
+          }
+   
+           let request = URLRequest(url: url)
+   
+           do {
+               let (data, _) = try await URLSession.shared.data(for: request)
+   
+               let decodedMovieDetails = try JSONDecoder().decode(MovieDetail.self, from: data)
+               self.movieDetails = decodedMovieDetails
+   
+           } catch {
+               errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
+           }
+       }
+   
     func fetchCastDetails() async {
         guard var components = URLComponents(string: "https://api.themoviedb.org/3/movie/\(movie.id)/credits") else {
-               errorMessage = "Invalid URL."
-               return
-           }
-        
+                errorMessage = "Invalid URL."
+                return
+            }
+
         components.queryItems = [
-          URLQueryItem(name: "language", value: "en-US"),
-          URLQueryItem(name: "api_key", value: Config.apiKey)
+            URLQueryItem(name: "language", value: "en-US"),
+            URLQueryItem(name: "api_key", value: Config.apiKey)
         ]
-        
+
         guard let url = components.url else {
             errorMessage = "Failed to construct URL."
             return
         }
 
         let request = URLRequest(url: url)
-        
-//        print("Request URL: \(url)")
 
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
 
-       
-
             let decodedCastResponse = try JSONDecoder().decode(CastResponse.self, from: data)
-            
+
             self.castDetails = decodedCastResponse.cast
         } catch {
             errorMessage = "Failed to fetch cast details: \(error.localizedDescription)"

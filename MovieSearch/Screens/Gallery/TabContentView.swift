@@ -13,11 +13,12 @@ struct TabContentView: View {
     let title: String
     @Binding var selectedTab: Int
     @Binding var path: [AppNavigation]
+    let screenWidth: CGFloat
     
     var body: some View {
         BaseView(title: title) {
             if !favorites.favoritedMovies.isEmpty {
-                GridView(movies: Array(favorites.favoritedMovies), path: $path)
+                GridView(movies: Array(favorites.favoritedMovies), path: $path, width: screenWidth)
             } else {
                 EmptyStateView()
             }
@@ -26,6 +27,6 @@ struct TabContentView: View {
 }
 
 #Preview {
-    TabContentView( title: "Favorites",selectedTab: .constant(2),  path: .constant([.movieDetails(movie: .example)]))
+    TabContentView( title: "Favorites",selectedTab: .constant(2),  path: .constant([.movieDetails(movie: .example)]), screenWidth: UIScreen.main.bounds.width)
         .environmentObject(Persistence())
 }

@@ -10,29 +10,28 @@ import SwiftUI
 struct GridView: View {
     let movies: [Movie]
     @Binding var path: [AppNavigation]
-    
+    let width: CGFloat
     
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: geometry.size.width / 2.5))], spacing: AppSpacing.itemSpacing) {
-                    ForEach(movies) {movie in
-                        
-                        Button {
-                            path.append(.movieDetails(movie: movie))
-                        } label: {
-                            MovieCard(movie: movie, width: geometry.size.width / 2.5, height: 280)
-                        }
+        ScrollView {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum :width / 2.5))], spacing: AppSpacing.itemSpacing) {
+
+            ForEach(movies) {movie in
+                    
+                    Button {
+                        path.append(.movieDetails(movie: movie))
+                    } label: {
+
+                        MovieCard(movie: movie, width:width / 2.5, height: 280)
                     }
                 }
-                .padding(.horizontal, AppSpacing.horizontal)
             }
         }
     }
 }
 
 #Preview {
-    GridView(movies: [.example], path: .constant([]))
+    GridView(movies: [.example], path: .constant([]), width: UIScreen.main.bounds.width)
         .environmentObject(Persistence())
 }
 

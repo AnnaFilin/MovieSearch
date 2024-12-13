@@ -14,101 +14,107 @@ struct GalleryView: View {
     let genres: [Genre]
     @Binding var selectedTab: Int
     @Binding var path: [AppNavigation]
+    let screenWidth: CGFloat
     
     var body: some View {
         ScrollViewReader { proxy in
             BaseView(title: "") {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: AppSpacing.vertical ) {
-                        if !viewModel.searchMovies.isEmpty {
+                Color.clear
+                    .frame(height: 10)
+
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: AppSpacing.vertical ) {
                             
-                            VStack(alignment: .leading, spacing: AppSpacing.vertical) {
-                                
-                                Text("Search")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .multilineTextAlignment(.leading)
-                                    .lineLimit(nil)
-                                    .padding(.horizontal, AppSpacing.horizontal)
-                                    .id("SearchResults")
-                                
-                                GridView(movies: viewModel.searchMovies, path: $path)
+                            if !viewModel.searchMovies.isEmpty {
+                                VStack(alignment: .leading, spacing: AppSpacing.vertical) {
+                                    
+                                    Text("Search")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(nil)
+                                        .padding(.horizontal, AppSpacing.horizontal)
+                                        .id("SearchResults")
+                                    
+                                    GridView(movies: viewModel.searchMovies, path: $path, width: screenWidth)
+                                }
+                                .padding(.top, 10)
                             }
-                        }
-                        
-                        if !viewModel.topRatedMovies.isEmpty {
-                            HStack {
-                                Text("Top Rated")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .multilineTextAlignment(.leading)
-                                    .lineLimit(nil)
+                            
+                            if !viewModel.topRatedMovies.isEmpty {
+                                HStack {
+                                    Text("Top Rated")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(nil)
+                                    
+                                    Spacer()
+                                    
+                                    Button("See all") {
+                                        path.append(.tabContent(movies: viewModel.topRatedMovies, title: "Top Rated"))
+                                    }
+                                }
+                                .padding(.horizontal, AppSpacing.horizontal)
                                 
-                                Spacer()
-                                
-                                Button("See all") {
-                                    path.append(.tabContent(movies: viewModel.topRatedMovies, title: "Top Rated"))
+                                HorizontalScroll(items: viewModel.topRatedMovies, horizontalInset: AppSpacing.horizontal)  { movie in
+                                    
+                                    Button {
+                                        path.append(.movieDetails(movie: movie))
+                                    } label: {
+                                        MovieCard(movie: movie)
+                                    }
                                 }
                             }
-                            .padding(.horizontal, AppSpacing.horizontal)
                             
-                            HorizontalScroll(items: viewModel.topRatedMovies, horizontalInset: AppSpacing.horizontal)  { movie in
-                                
-                                Button {
-                                    path.append(.movieDetails(movie: movie))
-                                } label: {
-                                    MovieCard(movie: movie)
-                                }
-                            }
-                        }
-                        
-                        Text("Genres")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(nil)
-                            .padding(.horizontal, AppSpacing.horizontal)
-                        
-                        HorizontalScroll(items: genres, horizontalInset: AppSpacing.horizontal ) { genre in
-                            GenreView(genre: genre)
-                                .opacity(0.7)
-                        }
-                        
-                        if !viewModel.popularMovies.isEmpty {
-                            HStack {
-                                Text("Popular")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .multilineTextAlignment(.leading)
-                                    .lineLimit(nil)
-                                
-                                Spacer()
-                                
-                                Button("See all") {
-                                    path.append(.tabContent(movies: viewModel.popularMovies, title: "Popular"))
-                                }
-                            }
-                            .padding(.horizontal, AppSpacing.horizontal)
+                            Text("Genres")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(nil)
+                                .padding(.horizontal, AppSpacing.horizontal)
                             
-                            HorizontalScroll(items: viewModel.popularMovies,  horizontalInset: AppSpacing.horizontal)  { movie in
+                            HorizontalScroll(items: genres, horizontalInset: AppSpacing.horizontal ) { genre in
+                                GenreView(genre: genre)
+                                    .opacity(0.7)
+                            }
+                            
+                            if !viewModel.popularMovies.isEmpty {
+                                HStack {
+                                    Text("Popular")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(nil)
+                                    
+                                    Spacer()
+                                    
+                                    Button("See all") {
+                                        path.append(.tabContent(movies: viewModel.popularMovies, title: "Popular"))
+                                    }
+                                }
+                                .padding(.horizontal, AppSpacing.horizontal)
                                 
-                                Button {
-                                    path.append(.movieDetails(movie: movie))
-                                } label: {
-                                    MovieCard(movie: movie)
+                                HorizontalScroll(items: viewModel.popularMovies,  horizontalInset: AppSpacing.horizontal)  { movie in
+                                    
+                                    Button {
+                                        path.append(.movieDetails(movie: movie))
+                                    } label: {
+                                        MovieCard(movie: movie)
+                                    }
                                 }
                             }
                         }
                     }
-                }
             }
-            .onChange(of: viewModel.searchMovies) {
-                if !viewModel.searchMovies.isEmpty {
-                    withAnimation {
-                        proxy.scrollTo("SearchResults", anchor: .top)
+                .onChange(of: viewModel.searchMovies) {
+                    if !viewModel.searchMovies.isEmpty {
+                        withAnimation {
+                            proxy.scrollTo("SearchResults", anchor: .top)
+                        }
                     }
                 }
-            }
+            
         }
     }
 }
@@ -116,7 +122,7 @@ struct GalleryView: View {
 
 
 #Preview {
-    GalleryView(genres: [.example], selectedTab: .constant(2), path: .constant([]) )
+    GalleryView(genres: [.example], selectedTab: .constant(2), path: .constant([]), screenWidth:UIScreen.main.bounds.width )
         .environmentObject(ViewModel())
         .environmentObject(Persistence())
 }

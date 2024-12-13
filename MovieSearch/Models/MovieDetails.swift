@@ -6,7 +6,6 @@
 //
 import Foundation
 
-// MARK: - Welcome
 struct MovieDetail: Codable {
     let adult: Bool
     let backdropPath: String
@@ -55,7 +54,6 @@ struct MovieDetail: Codable {
     static let example: MovieDetail = Bundle.main.decode("MockMovieDetails.json")
 }
 
-// MARK: - BelongsToCollection
 struct BelongsToCollection: Codable {
     let id: Int
     let name, posterPath, backdropPath: String
@@ -67,7 +65,6 @@ struct BelongsToCollection: Codable {
     }
 }
 
-// MARK: - Genre
 struct Genre: Codable {
     let id: Int
     let name: String
@@ -77,7 +74,6 @@ struct Genre: Codable {
     static let example = allGenres[0]
 }
 
-// MARK: - ProductionCompany
 struct ProductionCompany: Codable {
     let id: Int
     let logoPath, name, originCountry: String
@@ -90,7 +86,6 @@ struct ProductionCompany: Codable {
     }
 }
 
-// MARK: - ProductionCountry
 struct ProductionCountry: Codable {
     let iso3166_1, name: String
 
@@ -100,7 +95,6 @@ struct ProductionCountry: Codable {
     }
 }
 
-// MARK: - SpokenLanguage
 struct SpokenLanguage: Codable {
     let englishName, iso639_1, name: String
 

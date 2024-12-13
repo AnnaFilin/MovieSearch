@@ -7,10 +7,6 @@
 
 import Foundation
 
-// MARK: - Welcome
-
-
-// MARK: - Cast
 struct CastMember: Codable {
     let adult: Bool
     let gender, id: Int

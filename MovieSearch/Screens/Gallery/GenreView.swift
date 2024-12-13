@@ -13,28 +13,22 @@ struct GenreView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 25)
-                .fill(.shadow)
-        
             VStack {
-                Image(genre.image)
-                    .renderingMode(.template)
-                    .resizable()
-                    .foregroundColor(.white)
-                    .opacity(0.8)
-                    .frame(width: 90, height: 80)
                 Button(genre.name) {
                     Task {
                         await fetchMoviesByGenre()
                     }
                 }
                 .foregroundStyle(.white)
-                .font(.custom("ArialRoundedMTBold", size: 28))
-                .offset(y: -15)
+                .font(.headline)
+                .opacity(1.0)
             }
+            .padding()
             
+            RoundedRectangle(cornerRadius: 8)
+                .fill(.white)
+                .opacity(0.5)
         }
-        .frame(width: 200, height: 130)
     }
     
     func fetchMoviesByGenre() async {

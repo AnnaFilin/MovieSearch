@@ -20,59 +20,63 @@ struct ContentView: View {
     @State private var path: [AppNavigation] = []
     
     var body: some View {
-        TabView(selection: $selectedTab) {
-            NavigationStack(path: $path) {
-                GalleryView( genres: genres, selectedTab: $selectedTab, path: $path)
-                    .onAppear {
-                        viewModel.searchText = ""
-                        if viewModel.trendingMovies.isEmpty {
-                            Task {
-                                await viewModel.loadSavedMovies()
-                                await viewModel.fetchPopularMovies()
-                                await viewModel.fetchTopRatedMovies()
+        GeometryReader { geometry in 
+            let screenWidth = geometry.size.width
+            
+            TabView(selection: $selectedTab) {
+                NavigationStack(path: $path) {
+                    GalleryView( genres: genres, selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
+                        .onAppear {
+                            viewModel.searchText = ""
+                            if viewModel.trendingMovies.isEmpty {
+                                Task {
+                                    await viewModel.loadSavedMovies()
+                                    await viewModel.fetchPopularMovies()
+                                    await viewModel.fetchTopRatedMovies()
+                                }
                             }
                         }
-                    }
-                    .environmentObject(viewModel)
-                    .onChange(of: viewModel.searchText) {
-                        Task {
-                            await viewModel.searchMovies(query: viewModel.searchText)
+                        .environmentObject(viewModel)
+                        .onChange(of: viewModel.searchText) {
+                            Task {
+                                await viewModel.searchMovies(query: viewModel.searchText)
+                            }
                         }
-                    }
-                    .searchable(text: $viewModel.searchText, prompt: "Search...")
+                        .searchable(text: $viewModel.searchText, prompt: "Search...")
+                        .navigationDestination(for: AppNavigation.self) { navigation in
+                            switch navigation {
+                            case .tabContent(let movies, let title):
+                                TabContent(movies: movies, title: title, path: $path, screenWidth: screenWidth)
+                            case .movieDetails(let movie):
+                                MovieDetailsView(movie: movie)
+                            }
+                        }
+                }
+                .tabItem {
+                    Label("All movies", systemImage: "film")
+                }
+                .tag(0)
+                
+                NavigationStack(path: $path) {
+                    TabContentView(
+                        title: "Favorites", selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
                     .navigationDestination(for: AppNavigation.self) { navigation in
                         switch navigation {
                         case .tabContent(let movies, let title):
-                            TabContent(movies: movies, title: title, path: $path)
+                            TabContent(movies: movies, title: title, path: $path, screenWidth: screenWidth)
                         case .movieDetails(let movie):
                             MovieDetailsView(movie: movie)
                         }
                     }
-            }
-            .tabItem {
-                Label("All movies", systemImage: "film")
-            }
-            .tag(0)
-            
-            NavigationStack(path: $path) {
-                TabContentView(
-                    title: "Favorites", selectedTab: $selectedTab, path: $path)
-                .navigationDestination(for: AppNavigation.self) { navigation in
-                    switch navigation {
-                    case .tabContent(let movies, let title):
-                        TabContent(movies: movies, title: title, path: $path)
-                    case .movieDetails(let movie):
-                        MovieDetailsView(movie: movie)
-                    }
                 }
+                .tabItem {
+                    Label("Favorites", systemImage: "star")
+                }
+                .tag(1)
             }
-            .tabItem {
-                Label("Favorites", systemImage: "star")
-            }
-            .tag(1)
+            .accentColor(.theme)
+            .preferredColorScheme(.dark)
         }
-        .accentColor(.theme)
-        .preferredColorScheme(.dark)
     }
 }
 

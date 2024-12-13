@@ -11,11 +11,12 @@ struct TabContent: View {
     let movies: [Movie]?
     let title: String
     @Binding var path: [AppNavigation]
+    let screenWidth: CGFloat
 
     var body: some View {
         BaseView(title: title) {
             if let movies = movies, !movies.isEmpty {
-                GridView(movies: movies,path: $path)
+                GridView(movies: movies,path: $path, width: screenWidth)
             } else {
                EmptyStateView()
             }
@@ -24,6 +25,6 @@ struct TabContent: View {
 }
 
 #Preview {
-    TabContent(movies: [.example], title: "Trending", path: .constant([])) 
+    TabContent(movies: [.example], title: "Trending", path: .constant([]), screenWidth: UIScreen.main.bounds.width) 
         .environmentObject(Persistence())
 }

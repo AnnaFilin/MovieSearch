@@ -15,18 +15,22 @@ struct GenreView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 25)
                 .fill(.shadow)
-            
+        
             VStack {
+                Image(genre.image)
+                    .renderingMode(.template)
+                    .resizable()
+                    .foregroundColor(.white)
+                    .opacity(0.8)
+                    .frame(width: 90, height: 80)
                 Button(genre.name) {
                     Task {
-                        
                         await fetchMoviesByGenre()
                     }
                 }
-                .foregroundStyle(.theme)
-                .font(.headline)
-                .fontWeight(.semibold)
-                
+                .foregroundStyle(.white)
+                .font(.custom("ArialRoundedMTBold", size: 28))
+                .offset(y: -15)
             }
             
         }

@@ -38,8 +38,7 @@ struct MovieOverviewView: View {
                 } else {
                     HStack(alignment: .lastTextBaseline, spacing: AppSpacing.itemSpacing / 2) {
                         Text(overview)
-//                            .font(.headline)
-                            .font(.system(size: 16, weight: .regular, design: .default)) // SF Pro Text
+                            .font(.system(size: 16, weight: .regular, design: .default)) 
                                 .lineSpacing(4)
                                 .foregroundColor(.gray)
                             .multilineTextAlignment(.leading)

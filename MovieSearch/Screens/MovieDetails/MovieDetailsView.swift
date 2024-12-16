@@ -33,11 +33,7 @@ struct MovieDetailsView: View {
                         
                         HStack(alignment: .center, spacing: AppSpacing.itemSpacing) {
                             Text(movie.title)
-//                                .font(.title.bold())
-//                                .shadow(color: .shadow, radius: 1)
-//                                .font(.title)        // Заголовок
-//                                       .fontWeight(.bold)
-                                .font(.system(size: 28, weight: .bold, design: .default)) // SF Pro Display
+                                .font(.system(size: 28, weight: .bold, design: .default)) 
                                     .tracking(0.5) 
                                 .multilineTextAlignment(.leading)
                                 .lineLimit(nil)

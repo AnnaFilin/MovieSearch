@@ -15,7 +15,7 @@ struct GenreView: View {
         ZStack {
             RoundedRectangle(cornerRadius: AppSpacing.cornerRadius)
                 .fill(.lilac)
-                .opacity(0.6) // Фон
+                .opacity(0.6)
             
             VStack {
                 Button(genre.name) {
@@ -34,7 +34,6 @@ struct GenreView: View {
     
     func fetchMoviesByGenre() async {
         
-        print("search by genre \(genre.name), id: \(genre.id)")
         viewModel.isLoading = true
         viewModel.errorMessage = nil
         

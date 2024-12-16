@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailsView: View {
     @EnvironmentObject var favorites: Persistence
-
+    
     var movieDetails: MovieDetail
     var movie: Movie
     
@@ -27,34 +27,30 @@ struct DetailsView: View {
                     .opacity(0.5)
                 
                 Spacer()
-
+                
                 FavoritesButtonView(movie: movie)
                     .padding(.horizontal, 4)
-
-        }
-
-            
-//            if let date = movieDetails.releaseDate {
-//                                ReleaseDateView(date: date)
-//                            }
+                
+            }
         }
     }
+}
+
+func formatMovieDuration(minutes: Int) -> String {
+    let hours = minutes / 60
+    let remainingMinutes = minutes % 60
     
-    func formatMovieDuration(minutes: Int) -> String {
-        let hours = minutes / 60
-        let remainingMinutes = minutes % 60
-        
-        if hours > 0 {
-            return "\(hours)h \(remainingMinutes)m"
-        } else {
-            return "\(remainingMinutes)m"
-        }
+    if hours > 0 {
+        return "\(hours)h \(remainingMinutes)m"
+    } else {
+        return "\(remainingMinutes)m"
     }
-   
+}
+
 }
 
 #Preview {
-   
+    
     DetailsView(movieDetails: .example, movie: .example)
         .environmentObject(Persistence())
 }

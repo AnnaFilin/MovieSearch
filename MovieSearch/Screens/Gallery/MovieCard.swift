@@ -30,9 +30,7 @@ struct MovieCard: View {
                 
                 Text(movie.title)
                     .lineSpacing(0)
-//                    .font(.subheadline)
-//                    .fontWeight(.medium)
-                    .font(.headline)       // ~18 pts
+                    .font(.headline)
                        .fontWeight(.bold)
                     .lineLimit(nil)
                     .multilineTextAlignment(.leading)
@@ -47,8 +45,6 @@ struct MovieCard: View {
             }
         }
         .frame(width: width, height: height)
-//        .saturation(0.9)
-//        .shadow(color: .shadow, radius: AppSpacing.cornerRadius)
     }
 }
 

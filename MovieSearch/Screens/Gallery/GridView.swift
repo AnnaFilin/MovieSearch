@@ -23,9 +23,11 @@ struct GridView: View {
                     } label: {
 
                         MovieCard(movie: movie, width:width / 2.5, height: 280)
+                            .padding(.vertical, AppSpacing.vertical)
                     }
                 }
             }
+            .padding(.horizontal, AppSpacing.horizontal)
         }
     }
 }

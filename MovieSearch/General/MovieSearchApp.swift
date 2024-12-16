@@ -17,6 +17,7 @@ struct MovieSearchApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(Persistence())
+                .environment(\.font, .custom("SFProDisplay-Regular", size: 16))
         }
     }
     
@@ -25,24 +26,25 @@ struct MovieSearchApp: App {
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .clear
         
+
         appearance.titleTextAttributes = [
-            .foregroundColor: UIColor(Color.theme).withAlphaComponent(0.9),
-            .font: UIFont.systemFont(ofSize: 24, weight: .bold)
-        ]
-        
-        appearance.largeTitleTextAttributes = [
-            .foregroundColor: UIColor(Color.theme).withAlphaComponent(0.8),
-            .font: UIFont.systemFont(ofSize: 34, weight: .bold)
-        ]
+                .foregroundColor: UIColor(Color.theme).withAlphaComponent(0.9),
+                .font: UIFont(name: "SFProDisplay-Bold", size: 24) ?? UIFont.systemFont(ofSize: 24, weight: .bold)
+            ]
+            
+            appearance.largeTitleTextAttributes = [
+                .foregroundColor: UIColor(Color.theme).withAlphaComponent(0.8),
+                .font: UIFont(name: "SFProDisplay-Bold", size: 34) ?? UIFont.systemFont(ofSize: 34, weight: .bold)
+            ]
         
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor(Color.theme.opacity(0.3))//UIColor.systemGray6
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).layer.cornerRadius = 10
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).clipsToBounds = true
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).borderStyle = .none
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [
+            .font: UIFont(name: "SFProDisplay-Regular", size: 16) ?? UIFont.systemFont(ofSize: 16)
+        ]
+ 
         
         
     }

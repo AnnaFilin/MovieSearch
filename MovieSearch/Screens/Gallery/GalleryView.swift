@@ -21,16 +21,24 @@ struct GalleryView: View {
             BaseView(title: "") {
                 Color.clear
                     .frame(height: 10)
-
+                
+                VStack(spacing: 0) {
+                    
+                    CustomSearchBar(searchText: $viewModel.searchText)
+                        .padding(.horizontal, AppSpacing.horizontal)
+                        .padding(.bottom, AppSpacing.vertical)
+                        .frame(height: 50)
+                    
+                    
                     ScrollView {
-                        VStack(alignment: .leading, spacing: AppSpacing.vertical ) {
+                        VStack(alignment: .leading, spacing: AppSpacing.vertical * 2 ) {
                             
                             if !viewModel.searchMovies.isEmpty {
                                 VStack(alignment: .leading, spacing: AppSpacing.vertical) {
                                     
                                     Text("Search")
-                                        .font(.title2)
-                                        .fontWeight(.bold)
+                                        .font(.system(size: 20, weight: .light, design: .default))
+                                        .foregroundColor(.white)
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(nil)
                                         .padding(.horizontal, AppSpacing.horizontal)
@@ -44,8 +52,8 @@ struct GalleryView: View {
                             if !viewModel.topRatedMovies.isEmpty {
                                 HStack {
                                     Text("Top Rated")
-                                        .font(.title2)
-                                        .fontWeight(.bold)
+                                        .font(.system(size: 20, weight: .light, design: .default))
+                                        .foregroundColor(.white)
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(nil)
                                     
@@ -54,8 +62,12 @@ struct GalleryView: View {
                                     Button("See all") {
                                         path.append(.tabContent(movies: viewModel.topRatedMovies, title: "Top Rated"))
                                     }
+                                    .font(.system(size: 16, weight: .medium, design: .default))
+                                    .foregroundColor(.shadow)
+                                    .padding(.trailing, 12) 
                                 }
                                 .padding(.horizontal, AppSpacing.horizontal)
+                                .shadow(color: .lilac.opacity(0.4), radius: 20, x: 0, y: 10)
                                 
                                 HorizontalScroll(items: viewModel.topRatedMovies, horizontalInset: AppSpacing.horizontal)  { movie in
                                     
@@ -65,11 +77,13 @@ struct GalleryView: View {
                                         MovieCard(movie: movie)
                                     }
                                 }
+                                .padding(.bottom, AppSpacing.vertical)
+                                .shadow(color: .lilac.opacity(0.2), radius: 20, x: 5, y: 10)
                             }
                             
                             Text("Genres")
-                                .font(.title2)
-                                .fontWeight(.bold)
+                                .font(.system(size: 20, weight: .light, design: .default))
+                                .foregroundColor(.white)
                                 .multilineTextAlignment(.leading)
                                 .lineLimit(nil)
                                 .padding(.horizontal, AppSpacing.horizontal)
@@ -78,12 +92,14 @@ struct GalleryView: View {
                                 GenreView(genre: genre)
                                     .opacity(0.7)
                             }
+                            .padding(.bottom, AppSpacing.vertical)
+                            .shadow(color: .lilac.opacity(0.2), radius: 20, x: 5, y: 10)
                             
                             if !viewModel.popularMovies.isEmpty {
                                 HStack {
                                     Text("Popular")
-                                        .font(.title2)
-                                        .fontWeight(.bold)
+                                        .font(.system(size: 20, weight: .light, design: .default))
+                                        .foregroundColor(.white)
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(nil)
                                     
@@ -92,6 +108,9 @@ struct GalleryView: View {
                                     Button("See all") {
                                         path.append(.tabContent(movies: viewModel.popularMovies, title: "Popular"))
                                     }
+                                    .font(.system(size: 16, weight: .medium, design: .default))
+                                    .foregroundColor(.shadow)
+                                    .padding(.trailing, 12) 
                                 }
                                 .padding(.horizontal, AppSpacing.horizontal)
                                 
@@ -103,9 +122,12 @@ struct GalleryView: View {
                                         MovieCard(movie: movie)
                                     }
                                 }
+                                .shadow(color: .lilac.opacity(0.2), radius: 20, x: 5, y: 10)
                             }
                         }
                     }
+                    .padding(.top, AppSpacing.vertical*2)
+                }
             }
                 .onChange(of: viewModel.searchMovies) {
                     if !viewModel.searchMovies.isEmpty {

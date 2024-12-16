@@ -18,7 +18,7 @@ struct CastDetailsView: View {
                 ImageView(url: profilePath, width: 100, height: 130, opacity: 0.8, fillContentMode: true)
                     .clipped()
                     .shadow(radius: 2)
-                    .cornerRadius(8)
+                    .cornerRadius(AppSpacing.cornerRadius)
             }
             
             Text(castItem.name)

@@ -13,8 +13,13 @@ struct GenreView: View {
     
     var body: some View {
         ZStack {
+            RoundedRectangle(cornerRadius: AppSpacing.cornerRadius)
+                .fill(.lilac)
+                .opacity(0.6) // Фон
+            
             VStack {
                 Button(genre.name) {
+                    print("Button tapped for genre: \(genre.name)")
                     Task {
                         await fetchMoviesByGenre()
                     }
@@ -24,10 +29,6 @@ struct GenreView: View {
                 .opacity(1.0)
             }
             .padding()
-            
-            RoundedRectangle(cornerRadius: 8)
-                .fill(.white)
-                .opacity(0.5)
         }
     }
     
@@ -62,5 +63,5 @@ struct GenreView: View {
 
 #Preview {
     GenreView(genre: .example)
-    //        .environmentObject(<#T##object: ObservableObject##ObservableObject#>)
+            .environmentObject(ViewModel())
 }

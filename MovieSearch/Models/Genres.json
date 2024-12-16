@@ -1,98 +1,79 @@
  [
     {
       "id": 28,
-      "name": "Action",
-      "image": "action"
+      "name": "Action"
     },
     {
       "id": 12,
-      "name": "Adventure",
-      "image": "adventure"
+      "name": "Adventure"
     },
     {
       "id": 16,
-      "name": "Animation",
-      "image": "animation"
+      "name": "Animation"
     },
     {
       "id": 35,
-      "name": "Comedy",
-      "image": "comedy"
+      "name": "Comedy"
     },
     {
       "id": 80,
-      "name": "Crime",
-      "image": "crime"
+      "name": "Crime"
     },
     {
       "id": 99,
-      "name": "Documentary",
-      "image": "documentary"
+      "name": "Documentary"
     },
     {
       "id": 18,
-      "name": "Drama",
-      "image": "drama"
+      "name": "Drama"
     },
     {
       "id": 10751,
-      "name": "Family",
-      "image": "family"
+      "name": "Family"
     },
     {
       "id": 14,
-      "name": "Fantasy",
-      "image": "fantasy"
+      "name": "Fantasy"
     },
     {
       "id": 36,
-      "name": "History",
-      "image": "history"
+      "name": "History"
     },
     {
       "id": 27,
-      "name": "Horror",
-      "image": "horror"
+      "name": "Horror"
     },
     {
       "id": 10402,
-      "name": "Music",
-      "image": "music"
+      "name": "Music"
     },
     {
       "id": 9648,
-      "name": "Mystery",
-      "image": "mystery"
+      "name": "Mystery"
     },
     {
       "id": 10749,
-      "name": "Romance",
-      "image": "romance"
+      "name": "Romance"
     },
     {
       "id": 878,
-      "name": "Science Fiction",
-      "image": "sci-fi"
+      "name": "Science Fiction"
     },
     {
       "id": 10770,
-      "name": "TV Movie",
-      "image": "tv-movie"
+      "name": "TV Movie"
     },
     {
       "id": 53,
-      "name": "Thriller",
-      "image": "thriller"
+      "name": "Thriller"
     },
     {
       "id": 10752,
-      "name": "War",
-      "image": "war"
+      "name": "War"
     },
     {
       "id": 37,
-      "name": "Western",
-      "image": "western"
+      "name": "Western"
     }
   ]
 

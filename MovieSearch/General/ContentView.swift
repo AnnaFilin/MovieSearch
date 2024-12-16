@@ -25,32 +25,34 @@ struct ContentView: View {
             
             TabView(selection: $selectedTab) {
                 NavigationStack(path: $path) {
-                    GalleryView( genres: genres, selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
-                        .onAppear {
-                            viewModel.searchText = ""
-                            if viewModel.trendingMovies.isEmpty {
-                                Task {
-                                    await viewModel.loadSavedMovies()
-                                    await viewModel.fetchPopularMovies()
-                                    await viewModel.fetchTopRatedMovies()
+         
+                        
+                        GalleryView( genres: genres, selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
+                            .onAppear {
+                                viewModel.searchText = ""
+                                if viewModel.trendingMovies.isEmpty {
+                                    Task {
+                                        await viewModel.loadSavedMovies()
+                                        await viewModel.fetchPopularMovies()
+                                        await viewModel.fetchTopRatedMovies()
+                                    }
                                 }
                             }
-                        }
-                        .environmentObject(viewModel)
-                        .onChange(of: viewModel.searchText) {
-                            Task {
-                                await viewModel.searchMovies(query: viewModel.searchText)
+                            .environmentObject(viewModel)
+                            .onChange(of: viewModel.searchText) {
+                                Task {
+                                    await viewModel.searchMovies(query: viewModel.searchText)
+                                }
                             }
-                        }
-                        .searchable(text: $viewModel.searchText, prompt: "Search...")
-                        .navigationDestination(for: AppNavigation.self) { navigation in
-                            switch navigation {
-                            case .tabContent(let movies, let title):
-                                TabContent(movies: movies, title: title, path: $path, screenWidth: screenWidth)
-                            case .movieDetails(let movie):
-                                MovieDetailsView(movie: movie)
+                            .navigationDestination(for: AppNavigation.self) { navigation in
+                                switch navigation {
+                                case .tabContent(let movies, let title):
+                                    TabContent(movies: movies, title: title, path: $path, screenWidth: screenWidth)
+                                case .movieDetails(let movie):
+                                    MovieDetailsView(movie: movie)
+                                }
                             }
-                        }
+                
                 }
                 .tabItem {
                     Label("All movies", systemImage: "film")

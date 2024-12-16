@@ -30,6 +30,7 @@
 				Config.swift,
 				ContentView.swift,
 				ContentViewModel.swift,
+				CustomSearchBar.swift,
 				MovieSearchApp.swift,
 			);
 			target = 5A752E512CEB4A4800489705 /* MovieSearch */;

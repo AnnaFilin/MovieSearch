@@ -65,10 +65,9 @@ struct BelongsToCollection: Codable {
     }
 }
 
-struct Genre: Codable {
+struct Genre: Codable, Identifiable {
     let id: Int
     let name: String
-    let image: String
     
     static let allGenres: [Genre] = Bundle.main.decode("Genres.json")
     static let example = allGenres[0]

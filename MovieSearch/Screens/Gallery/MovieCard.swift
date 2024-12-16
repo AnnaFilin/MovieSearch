@@ -16,10 +16,10 @@ struct MovieCard: View {
         VStack(alignment: .leading, spacing: AppSpacing.vertical/4) {
             if let posterPath = movie.posterPath {
                 ZStack(alignment: .topTrailing) {
-                    ImageView(url: posterPath, width: width, height: height - 50, opacity: 0.8, fillContentMode: true)
+                    ImageView(url: posterPath, width: width, height: height - 50, opacity: 0.9, fillContentMode: true)
                         .clipped()
                         .shadow(radius: 2)
-                        .cornerRadius(8)
+                        .cornerRadius(AppSpacing.cornerRadius)
 
                     FavoritesButtonView(movie: movie)
                         .padding()
@@ -30,20 +30,25 @@ struct MovieCard: View {
                 
                 Text(movie.title)
                     .lineSpacing(0)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
+//                    .font(.subheadline)
+//                    .fontWeight(.medium)
+                    .font(.headline)       // ~18 pts
+                       .fontWeight(.bold)
                     .lineLimit(nil)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: 190, alignment: .leading)
                 
                 RatingView(voteAverage: movie.voteAverage, voteCount: movie.voteCount)
             }
+            .padding(.top, AppSpacing.itemSpacing)
             
             if let releaseDate = movie.releaseDate {
                 ReleaseDateView(date: releaseDate)
             }
         }
         .frame(width: width, height: height)
+//        .saturation(0.9)
+//        .shadow(color: .shadow, radius: AppSpacing.cornerRadius)
     }
 }
 

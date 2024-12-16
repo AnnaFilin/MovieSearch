@@ -33,7 +33,7 @@ struct ImageView: View {
                         alignment: .bottom
                     )
                     .opacity(opacity)
-                    .cornerRadius(5)
+                    .cornerRadius(AppSpacing.cornerRadius)
             case .failure:
                 Text("Failed to load image")
                     .frame(
@@ -41,7 +41,7 @@ struct ImageView: View {
                         height: height ?? UIScreen.main.bounds.height
                     )
                     .background(Color.gray.opacity(0.2))
-                    .cornerRadius(10)
+                    .cornerRadius(AppSpacing.cornerRadius)
             @unknown default:
                 Text("Unknown error")
                     .frame(
@@ -49,7 +49,7 @@ struct ImageView: View {
                         height: height ?? UIScreen.main.bounds.height
                     )
                     .background(Color.gray.opacity(0.2))
-                    .cornerRadius(10)
+                    .cornerRadius(AppSpacing.cornerRadius)
             }
         }
     }

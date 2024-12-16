@@ -28,6 +28,9 @@ struct HorizontalScroll<Item, Content: View>: View {
                 }
             }
             .padding(.horizontal, horizontalInset)
+//                    .shadow(color: .shadow, radius: AppSpacing.cornerRadius)
+//                    .opacity(0.6)
+
 
         }
     }

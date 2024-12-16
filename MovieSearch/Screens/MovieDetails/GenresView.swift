@@ -18,7 +18,7 @@ struct GenreItemView: View {
             .lineLimit(nil)
             .padding(AppSpacing.itemSpacing)
             .background(Color.theme.opacity(0.2))
-            .cornerRadius(10)
+            .cornerRadius(AppSpacing.cornerRadius)
     }
     
 }

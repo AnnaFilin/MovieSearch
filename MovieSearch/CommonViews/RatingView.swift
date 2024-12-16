@@ -15,12 +15,14 @@ struct RatingView: View {
     var body: some View {
         HStack(alignment: .center) {
             Text(String(format: "%.1f", voteAverage ?? 0))
-                .font(.subheadline)
-                .fontWeight(.semibold)
+//                .font(.subheadline)
+//                .fontWeight(.semibold)
+                .font(.caption)        // ~12–13 pts
+                    .fontWeight(.medium)
             
             Image(systemName: "star.fill")
                 .foregroundColor(.gold)
-                .shadow(color: .shadow, radius: 3)
+//                .shadow(color: .shadow, radius: 3)
         }
     }
 }

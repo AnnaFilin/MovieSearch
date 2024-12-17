@@ -17,6 +17,7 @@ struct TabContent: View {
         BaseView(title: title) {
             if let movies = movies, !movies.isEmpty {
                 GridView(movies: movies,path: $path, width: screenWidth)
+                    .padding(.top, 10)
             } else {
                EmptyStateView()
             }

@@ -47,7 +47,6 @@ func formatMovieDuration(minutes: Int) -> String {
     }
 }
 
-}
 
 #Preview {
     

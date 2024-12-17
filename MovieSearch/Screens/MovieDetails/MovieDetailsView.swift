@@ -87,6 +87,8 @@ struct MovieDetailsView: View {
             }
         }
         .background(Color(red: 0.15, green: 0.16, blue: 0.12))
+        .toolbarBackground(Color.clear, for: .navigationBar) 
+               .toolbarBackground(.hidden, for: .navigationBar)
         .onAppear {
             self.isLoading = true
             Task {

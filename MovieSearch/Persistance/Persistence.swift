@@ -9,8 +9,6 @@ import Combine
 
 
 class Persistence: ObservableObject {
-//    @Published private(set) var favoritedMovies: Set<String>
-
     @Published private(set) var favoritedMovies: Set<Movie>
     
     private let key = "FavoriteMovies"
@@ -18,8 +16,6 @@ class Persistence: ObservableObject {
     init() {
         if let savedItems = UserDefaults.standard.data(forKey: key) {
             if let decodedItems = try? JSONDecoder().decode(Set<Movie>.self, from: savedItems) {
-//                if let decodedItems = try? JSONDecoder().decode(Set<String>.self, from: savedItems) {
-
                 favoritedMovies = decodedItems
                 return
             }

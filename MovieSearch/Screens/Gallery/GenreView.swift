@@ -21,7 +21,7 @@ struct GenreView: View {
                 Button(genre.name) {
                     print("Button tapped for genre: \(genre.name)")
                     Task {
-                        await fetchMoviesByGenre()
+                        await viewModel.fetchMoviesByGenre(genre: genre)
                     }
                 }
                 .foregroundStyle(.white)
@@ -30,33 +30,6 @@ struct GenreView: View {
             }
             .padding()
         }
-    }
-    
-    func fetchMoviesByGenre() async {
-        
-        viewModel.isLoading = true
-        viewModel.errorMessage = nil
-        
-        
-        guard let url = URL(string: "https://api.themoviedb.org/3/discover/movie?api_key=\(Config.apiKey)&with_genres=\(genre.id)") else {
-            viewModel.errorMessage = "Invalid URL."
-            return
-        }
-        
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            
-            let movieResponse = try JSONDecoder().decode(MovieResponse.self, from: data)
-            
-            viewModel.searchMovies = movieResponse.results
-            print(movieResponse.results[0])
-        } catch {
-            viewModel.errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
-            print(viewModel.errorMessage ?? "Unknown error")
-        }
-        
-        viewModel.isLoading = false
-        
     }
 }
 

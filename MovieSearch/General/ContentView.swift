@@ -25,7 +25,6 @@ struct ContentView: View {
             
             TabView(selection: $selectedTab) {
                 NavigationStack(path: $path) {
-         
                         
                         GalleryView( genres: genres, selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
                             .onAppear {
@@ -39,15 +38,16 @@ struct ContentView: View {
                                 }
                             }
                             .environmentObject(viewModel)
-                            .onChange(of: viewModel.searchText) {
-                                Task {
-                                    await viewModel.searchMovies(query: viewModel.searchText)
+                            .onChange(of: viewModel.searchMovies) { oldMovies, newMovies in
+                                if !newMovies.isEmpty {
+                                    path.append(.tabContent(movies: newMovies, title: !viewModel.searchText.isEmpty ? viewModel.searchText.capitalized : viewModel.searchGenre.capitalized))
                                 }
                             }
+
                             .navigationDestination(for: AppNavigation.self) { navigation in
                                 switch navigation {
                                 case .tabContent(let movies, let title):
-                                    TabContent(movies: movies, title: title, path: $path, screenWidth: screenWidth)
+                                    MoviesGridView(movies: movies, title: title, path: $path, screenWidth: screenWidth)
                                 case .movieDetails(let movie):
                                     MovieDetailsView(movie: movie)
                                 }
@@ -63,18 +63,16 @@ struct ContentView: View {
                     TabContentView(
                         title: "Favorites", selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
                     .navigationDestination(for: AppNavigation.self) { navigation in
-                        switch navigation {
-                        case .tabContent(let movies, let title):
-                            TabContent(movies: movies, title: title, path: $path, screenWidth: screenWidth)
-                        case .movieDetails(let movie):
-                            MovieDetailsView(movie: movie)
-                        }
+                        if case .movieDetails(let movie) = navigation {
+                                MovieDetailsView(movie: movie)
+                            }
                     }
                 }
                 .tabItem {
                     Label("Favorites", systemImage: "star")
                 }
                 .tag(1)
+                
             }
             .accentColor(.theme)
             .preferredColorScheme(.dark)

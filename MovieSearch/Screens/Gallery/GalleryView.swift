@@ -33,22 +33,6 @@ struct GalleryView: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: AppSpacing.vertical * 2 ) {
                             
-                            if !viewModel.searchMovies.isEmpty {
-                                VStack(alignment: .leading, spacing: AppSpacing.vertical) {
-                                    
-                                    Text("Search")
-                                        .font(.system(size: 20, weight: .light, design: .default))
-                                        .foregroundColor(.white)
-                                        .multilineTextAlignment(.leading)
-                                        .lineLimit(nil)
-                                        .padding(.horizontal, AppSpacing.horizontal)
-                                        .id("SearchResults")
-                                    
-                                    GridView(movies: viewModel.searchMovies, path: $path, width: screenWidth)
-                                }
-                                .padding(.top, 10)
-                            }
-                            
                             if !viewModel.topRatedMovies.isEmpty {
                                 HStack {
                                     Text("Top Rated")

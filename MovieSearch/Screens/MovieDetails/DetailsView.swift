@@ -15,9 +15,9 @@ struct DetailsView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8){
-            HStack {
-                RatingView(voteAverage: movieDetails.voteAverage, voteCount: movieDetails.voteCount)
-            }
+//            HStack {
+//                RatingView(voteAverage: movieDetails.voteAverage, voteCount: movieDetails.voteCount)
+//            }
             
             HStack(spacing: 8) {
                 Image(systemName: "clock")

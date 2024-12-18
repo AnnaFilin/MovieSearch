@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TabContent: View {
+struct MoviesGridView: View {
     let movies: [Movie]?
     let title: String
     @Binding var path: [AppNavigation]
@@ -26,6 +26,6 @@ struct TabContent: View {
 }
 
 #Preview {
-    TabContent(movies: [.example], title: "Trending", path: .constant([]), screenWidth: UIScreen.main.bounds.width) 
+    MoviesGridView(movies: [.example], title: "Trending", path: .constant([]), screenWidth: UIScreen.main.bounds.width) 
         .environmentObject(Persistence())
 }

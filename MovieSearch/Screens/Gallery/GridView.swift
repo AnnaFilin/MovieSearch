@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GridView: View {
     let movies: [Movie]
+
     @Binding var path: [AppNavigation]
     let width: CGFloat
     

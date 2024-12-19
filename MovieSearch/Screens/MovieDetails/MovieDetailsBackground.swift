@@ -19,7 +19,13 @@ struct MovieDetailsBackground<Content: View>: View {
         var body: some View {
             ZStack {
                 if let posterPath = movie.posterPath {
-                    ImageView(url: posterPath, width: nil, height: nil, opacity: 1.0, fillContentMode: true)
+                    ImageView(
+                        url: posterPath,
+                        width: nil,
+                        height: nil,
+                        opacity: 1.0,
+                        fillContentMode: true
+                    )
                         .ignoresSafeArea()
                 }
                 

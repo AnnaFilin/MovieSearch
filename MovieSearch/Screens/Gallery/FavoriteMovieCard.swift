@@ -14,7 +14,13 @@ struct FavoriteMovieCard: View {
 
         GeometryReader { geometry in
         if let posterPath = movie.posterPath {
-            ImageView(url: posterPath, width: geometry.size.width - AppSpacing.horizontal, height:  geometry.size.width * 1.4 + 60, opacity: 0.9, fillContentMode: true)
+            ImageView(
+                url: posterPath,
+                width: geometry.size.width - AppSpacing.horizontal,
+                height:  geometry.size.width * 1.4 + 60,
+                opacity: 0.9,
+                fillContentMode: true
+            )
                 .frame(width: geometry.size.width - AppSpacing.horizontal, height: geometry.size.width * 1.4)
                 .clipped()
                 .overlay(

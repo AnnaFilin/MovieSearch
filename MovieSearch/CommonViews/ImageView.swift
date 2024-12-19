@@ -22,11 +22,16 @@ struct ImageView: View {
             switch phase {
             case .empty:
                 ProgressView()
-                    .frame(width: width ?? UIScreen.main.bounds.width, height: height ?? UIScreen.main.bounds.height)
+                    .frame(
+                        width: width ?? UIScreen.main.bounds.width,
+                        height: height ?? UIScreen.main.bounds.height
+                    )
             case .success(let image):
                 image
                     .resizable()
-                    .aspectRatio(contentMode: fillContentMode ? .fill: .fit)
+                    .aspectRatio(
+                        contentMode: fillContentMode ? .fill: .fit
+                    )
                     .frame(
                         width: width ?? UIScreen.main.bounds.width,
                         height: height ?? UIScreen.main.bounds.height,
@@ -61,6 +66,6 @@ struct ImageView: View {
         width: 100,
         height: 150,
         opacity: 0.9,
-        fillContentMode:  true
+        fillContentMode: true  
     )
 }

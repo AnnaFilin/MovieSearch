@@ -27,12 +27,12 @@ struct EmptyStateView: View {
 
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(
-            LinearGradient(
-                gradient: Gradient(colors: [.orange.opacity(0.1), .orange.opacity(0.03)]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
+        .background(Color.background
+//            LinearGradient(
+//                gradient: Gradient(colors: [.orange.opacity(0.1), .orange.opacity(0.03)]),
+//                startPoint: .top,
+//                endPoint: .bottom
+//            )
         )
     }
 }

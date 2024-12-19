@@ -16,7 +16,14 @@ struct MovieCard: View {
         VStack(alignment: .leading, spacing: AppSpacing.vertical/4) {
             if let posterPath = movie.posterPath {
                 ZStack(alignment: .topTrailing) {
-                    ImageView(url: posterPath, width: width, height: height - 50, opacity: 0.9, fillContentMode: true)
+                    ImageView(
+                        url: posterPath,
+                        width: width,
+                        height: height - 50,
+                        opacity: 0.9,
+                        fillContentMode: true
+                        
+                    )
                         .clipped()
                         .shadow(radius: 2)
                         .cornerRadius(AppSpacing.cornerRadius)

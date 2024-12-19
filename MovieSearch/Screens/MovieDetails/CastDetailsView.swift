@@ -15,7 +15,13 @@ struct CastDetailsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             if let profilePath = castItem.profilePath {
-                ImageView(url: profilePath, width: 100, height: 130, opacity: 0.8, fillContentMode: true)
+                ImageView(
+                    url: profilePath,
+                          width: 100,
+                          height: 130,
+                          opacity: 0.8,
+                    fillContentMode: true
+                )
                     .clipped()
                     .shadow(radius: 2)
                     .cornerRadius(AppSpacing.cornerRadius)

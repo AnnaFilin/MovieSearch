@@ -35,5 +35,5 @@ struct GenreView: View {
 
 #Preview {
     GenreView(genre: .example)
-            .environmentObject(ViewModel())
+            .environmentObject(ViewModel(movieService: MovieService()))
 }

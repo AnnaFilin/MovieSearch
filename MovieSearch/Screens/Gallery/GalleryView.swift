@@ -129,6 +129,6 @@ struct GalleryView: View {
 
 #Preview {
     GalleryView(genres: [.example], selectedTab: .constant(2), path: .constant([]), screenWidth:UIScreen.main.bounds.width )
-        .environmentObject(ViewModel())
+        .environmentObject(ViewModel(movieService: MovieService()))
         .environmentObject(Persistence())
 }

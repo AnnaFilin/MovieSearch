@@ -17,6 +17,7 @@ struct MovieSearchApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(Persistence())
+                .environmentObject(ViewModel(movieService: MovieService()))
                 .environment(\.font, .custom("SFProDisplay-Regular", size: 16))
         }
     }

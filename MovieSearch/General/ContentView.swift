@@ -15,7 +15,7 @@ enum AppNavigation: Hashable {
 struct ContentView: View {
     @EnvironmentObject private var favorites: Persistence
     let genres: [Genre] = Bundle.main.decode("Genres.json")
-    @StateObject private var viewModel = ViewModel()
+    @StateObject private var viewModel = ViewModel(movieService: MovieService())
     @State private var selectedTab: Int = 0
     @State private var path: [AppNavigation] = []
     
@@ -25,18 +25,19 @@ struct ContentView: View {
             
             TabView(selection: $selectedTab) {
                 NavigationStack(path: $path) {
-                        
-                        GalleryView( genres: genres, selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
-                            .onAppear {
-                                viewModel.searchText = ""
-                                if viewModel.trendingMovies.isEmpty {
-                                    Task {
-                                        await viewModel.loadSavedMovies()
-                                        await viewModel.fetchPopularMovies()
-                                        await viewModel.fetchTopRatedMovies()
-                                    }
+ 
+                    GalleryView(genres: genres, selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
+                        .onAppear {
+                            viewModel.searchText = ""
+                            if viewModel.trendingMovies.isEmpty {
+                                Task {
+                                    await viewModel.loadTrendingMovies()
+                                    await viewModel.loadPopularMovies()
+                                    await viewModel.loadTopRatedMovies()
                                 }
                             }
+                        }
+
                             .environmentObject(viewModel)
                             .onChange(of: viewModel.searchMovies) { oldMovies, newMovies in
                                 if !newMovies.isEmpty {
@@ -82,5 +83,6 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(ViewModel(movieService: MovieService()))
         .environmentObject(Persistence())
 }

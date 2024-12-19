@@ -14,13 +14,9 @@ struct CastResponse: Codable {
 
 struct MovieDetailsView: View {
     @EnvironmentObject var favorites: Persistence
-
+    @EnvironmentObject var viewModel: ViewModel
+    
     var movie: Movie
-    @State var castDetails: [CastMember]?
-    @State var isLoading: Bool = false
-    @State var errorMessage: String?
-    @State var movieDetails: MovieDetail?
-
     @State private var scrollOffset: CGFloat = 0
 
     var body: some View {
@@ -46,7 +42,7 @@ struct MovieDetailsView: View {
                         }
 
                         VStack(alignment: .leading, spacing: AppSpacing.vertical) {
-                            if let genres = movieDetails?.genres {
+                            if let genres = viewModel.movieDetails?.genres {
                                 let genreNames = genres.map { $0.name }
                                 GenresView(movieGenres: genreNames)
                                     .padding(.bottom, AppSpacing.vertical)
@@ -56,7 +52,7 @@ struct MovieDetailsView: View {
                             MovieOverviewView(overview: movie.overview)
                                 .padding(.horizontal, AppSpacing.horizontal)
 
-                            if let castDetails = castDetails {
+                           if !viewModel.castDetails.isEmpty {
                                 Text("Cast")
                                     .font(.title2)
                                     .fontWeight(.bold)
@@ -65,7 +61,7 @@ struct MovieDetailsView: View {
                                     .lineLimit(nil)
                                     .padding(.horizontal, AppSpacing.horizontal)
                                 
-                                HorizontalScroll(items: castDetails) { castMember in
+                                HorizontalScroll(items: viewModel.castDetails) { castMember in
                                     CastDetailsView(castItem: castMember)
                                 }
                             }
@@ -90,78 +86,16 @@ struct MovieDetailsView: View {
         .toolbarBackground(Color.clear, for: .navigationBar) 
                .toolbarBackground(.hidden, for: .navigationBar)
         .onAppear {
-            self.isLoading = true
             Task {
-                await fetchMovieDetails()
-                await fetchCastDetails()
-                self.isLoading = false
+                await viewModel.fetchMovieDetails(movieId: movie.id)
+                await viewModel.fetchCastDetails(movieId: movie.id)
             }
-        }
-    }
-    
-    
-    func fetchMovieDetails() async {
-           print("API Key from Config: \(Config.apiKey)")
-           guard var components = URLComponents(string: "https://api.themoviedb.org/3/movie/\(movie.id)") else {
-                  errorMessage = "Invalid URL."
-                  return
-              }
-   
-           components.queryItems = [
-             URLQueryItem(name: "language", value: "en-US"),
-             URLQueryItem(name: "api_key", value: Config.apiKey)
-           ]
-   
-          guard let url = components.url else {
-              errorMessage = "Failed to construct URL."
-              return
-          }
-   
-           let request = URLRequest(url: url)
-   
-           do {
-               let (data, _) = try await URLSession.shared.data(for: request)
-   
-               let decodedMovieDetails = try JSONDecoder().decode(MovieDetail.self, from: data)
-               self.movieDetails = decodedMovieDetails
-   
-           } catch {
-               errorMessage = "Failed to fetch movies: \(error.localizedDescription)"
-           }
-       }
-   
-    func fetchCastDetails() async {
-        guard var components = URLComponents(string: "https://api.themoviedb.org/3/movie/\(movie.id)/credits") else {
-                errorMessage = "Invalid URL."
-                return
-            }
-
-        components.queryItems = [
-            URLQueryItem(name: "language", value: "en-US"),
-            URLQueryItem(name: "api_key", value: Config.apiKey)
-        ]
-
-        guard let url = components.url else {
-            errorMessage = "Failed to construct URL."
-            return
-        }
-
-        let request = URLRequest(url: url)
-
-        do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-
-            let decodedCastResponse = try JSONDecoder().decode(CastResponse.self, from: data)
-
-            self.castDetails = decodedCastResponse.cast
-        } catch {
-            errorMessage = "Failed to fetch cast details: \(error.localizedDescription)"
-            print(errorMessage ?? "Unknown error")
         }
     }
 }
 
 #Preview {
-    MovieDetailsView(movie: .example, castDetails: [.example], movieDetails: .example)
+    MovieDetailsView(movie: .example)
+        .environmentObject(ViewModel(movieService: MovieService()))
         .environmentObject(Persistence())
 }

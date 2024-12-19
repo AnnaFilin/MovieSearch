@@ -37,7 +37,7 @@ struct BaseView<Content: View>: View {
             title: "Movies"
         ) {
 
-            MovieView(movie: .example)
+            MovieCard(movie: .example)
         }
         .environmentObject(Persistence())
 }

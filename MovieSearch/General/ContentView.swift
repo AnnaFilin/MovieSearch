@@ -25,35 +25,31 @@ struct ContentView: View {
             
             TabView(selection: $selectedTab) {
                 NavigationStack(path: $path) {
- 
-                    GalleryView(genres: genres, selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
+                    
+                    GalleryView(selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
+                    
                         .onAppear {
-                            viewModel.searchText = ""
-                            if viewModel.trendingMovies.isEmpty {
-                                Task {
-                                    await viewModel.loadTrendingMovies()
-                                    await viewModel.loadPopularMovies()
-                                    await viewModel.loadTopRatedMovies()
-                                }
+                            Task {
+                                await viewModel.prepareData()
                             }
                         }
-
-                            .environmentObject(viewModel)
-                            .onChange(of: viewModel.searchMovies) { oldMovies, newMovies in
-                                if !newMovies.isEmpty {
-                                    path.append(.tabContent(movies: newMovies, title: !viewModel.searchText.isEmpty ? viewModel.searchText.capitalized : viewModel.searchGenre.capitalized))
-                                }
+                    
+                        .environmentObject(viewModel)
+                        .onChange(of: viewModel.searchMovies) { oldMovies, newMovies in
+                            if !newMovies.isEmpty {
+                                path.append(.tabContent(movies: newMovies, title: !viewModel.searchText.isEmpty ? viewModel.searchText.capitalized : viewModel.searchGenre.capitalized))
                             }
-
-                            .navigationDestination(for: AppNavigation.self) { navigation in
-                                switch navigation {
-                                case .tabContent(let movies, let title):
-                                    MoviesGridView(movies: movies, title: title, path: $path, screenWidth: screenWidth)
-                                case .movieDetails(let movie):
-                                    MovieDetailsView(movie: movie)
-                                }
+                        }
+                    
+                        .navigationDestination(for: AppNavigation.self) { navigation in
+                            switch navigation {
+                            case .tabContent(let movies, let title):
+                                MoviesGridView(movies: movies, title: title, path: $path, screenWidth: screenWidth)
+                            case .movieDetails(let movie):
+                                MovieDetailsView(movie: movie)
                             }
-                
+                        }
+                    
                 }
                 .tabItem {
                     Label("All movies", systemImage: "film")
@@ -65,8 +61,8 @@ struct ContentView: View {
                         title: "Favorites", selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
                     .navigationDestination(for: AppNavigation.self) { navigation in
                         if case .movieDetails(let movie) = navigation {
-                                MovieDetailsView(movie: movie)
-                            }
+                            MovieDetailsView(movie: movie)
+                        }
                     }
                 }
                 .tabItem {

@@ -16,11 +16,26 @@ struct MovieResponse: Codable {
     let totalResults: Int?
 }
 
+
+struct DataItem {
+    let type: DataType
+    let data: Any
+    let title: String
+}
+
+enum DataType {
+    case movieCard
+    case tag
+}
+
+
+
 @MainActor
 class ViewModel: ObservableObject {
+    @Published var dataItems: [DataItem] = []
+    
     @Published var trendingMovies: [Movie] = []
     @Published var popularMovies: [Movie] = []
-    @Published var topRatedMovies: [Movie] = []
     @Published var searchMovies: [Movie] = []
     @Published var searchText: String = ""
     @Published var searchGenre: String = ""
@@ -53,18 +68,29 @@ class ViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+
     
-    func loadTrendingMovies() async {
-        await fetchMovies { try await self.movieService.fetchTrendingMovies() } update: { self.trendingMovies = $0 }
+    func prepareData() async {
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            let topRatedMovies = try await movieService.fetchTopRatedMovies()
+            let popularMovies = try await movieService.fetchPopularMovies()
+            let genres = Genre.allGenres
+            
+            dataItems = [
+                DataItem(type: .movieCard, data: topRatedMovies, title: "Top Rated"),
+                DataItem(type: .tag, data: genres, title: "Genres"),
+                DataItem(type: .movieCard, data: popularMovies, title: "Popular")
+            ]
+        } catch {
+            errorMessage = "Failed loading movies: \(error.localizedDescription)"
+        }
+        
+        isLoading = false
     }
     
-    func loadPopularMovies() async {
-        await fetchMovies { try await self.movieService.fetchPopularMovies() } update: { self.popularMovies = $0 }
-    }
-    
-    func loadTopRatedMovies() async {
-        await fetchMovies { try await self.movieService.fetchTopRatedMovies() } update: { self.topRatedMovies = $0 }
-    }
     
     func fetchMoviesByGenre(genre: Genre) async {
         isLoading = true

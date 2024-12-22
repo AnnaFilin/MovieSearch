@@ -52,5 +52,6 @@ struct MovieDetailsBackground<Content: View>: View {
     MovieDetailsBackground(movie: .example) {
         MovieDetailsView(movie: .example)
     }
+    .environmentObject(ViewModel(movieService: MovieService()))
     .environmentObject(Persistence())
 }

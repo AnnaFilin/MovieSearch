@@ -102,32 +102,6 @@ struct MovieService: MovieServiceProtocol {
             }
         }
     
-    func fetchMovieImages(movieId: Int) async throws -> [MovieImage] {
-            var components = URLComponents(string: "\(baseURL)/movie/\(movieId)/images")!
-    
-            components.queryItems = [
-                URLQueryItem(name: "include_image_language", value: "en"),
-                URLQueryItem(name: "api_key", value: Config.apiKey)
-            ]
-    
-            guard let url = components.url else {
-                throw URLError(.badURL)
-            }
-    
-            let request = URLRequest(url: url)
-    
-            do {
-                let (data, _) = try await URLSession.shared.data(for: request)
-                let decodedMovieImages = try JSONDecoder().decode(MovieImagesResponse.self, from: data)
-    
-                return decodedMovieImages.posters
-            } catch {
-              
-                print("Failed to fetch cast details: \(error.localizedDescription)")
-                throw error
-            }
-        }
-    
     
     private func fetchMovies(from url: URL) async throws -> [Movie] {
         let (data, response) = try await URLSession.shared.data(from: url)

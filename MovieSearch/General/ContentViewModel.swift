@@ -44,7 +44,6 @@ class ViewModel: ObservableObject {
     
     @Published var movieDetails: MovieDetail? = nil
     @Published var castDetails: [CastMember] = []
-    @Published var movieImages: [MovieImage] = []
     
     let emptyState = ["No Movies Found", "It looks like your list is empty. Start exploring and add your favorite movies!", "film"]
     
@@ -71,7 +70,7 @@ class ViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-
+    
     
     func prepareData() async {
         isLoading = true
@@ -178,7 +177,7 @@ class ViewModel: ObservableObject {
         }
         
         self.isLoading = false
-       
+        
     }
     
     func fetchCastDetails(movieId: Int) async {
@@ -194,23 +193,7 @@ class ViewModel: ObservableObject {
         }
         
         self.isLoading = false
-       
+        
     }
     
-    
-    func fetchMovieImages(movieId: Int) async {
-        self.isLoading = true
-        self.errorMessage = nil
-        
-        do {
-            let images = try await movieService.fetchMovieImages(movieId: movieId)
-            self.movieImages = images
-            
-        } catch {
-            self.errorMessage = "Failed to fetch movie images: \(error.localizedDescription)"
-        }
-        
-        self.isLoading = false
-       
-    }
 }

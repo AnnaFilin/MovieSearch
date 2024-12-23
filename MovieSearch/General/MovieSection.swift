@@ -44,12 +44,14 @@ struct MovieSection: View {
                 }
             }
             .shadow(color: .lilac.opacity(0.2), radius: 20, x: 5, y: 10)
-            .padding(.horizontal, AppSpacing.horizontal)
+//            .padding(.horizontal, AppSpacing.horizontal)
         }
     }
     
 }
 
-//#Preview {
-//    MovieSection(movies: [.example], title: "Popular")
-//}
+#Preview {
+    MovieSection(movies: [.example], title: "Popular", path: .constant([]))
+        .environmentObject(Persistence())
+        .environmentObject(ViewModel(movieService: MovieService()))
+}

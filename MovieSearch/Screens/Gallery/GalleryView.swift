@@ -26,7 +26,7 @@ struct GalleryView: View {
                     CustomSearchBar(searchText: $viewModel.searchText)
                         .padding(.horizontal, AppSpacing.horizontal)
                         .padding(.bottom, AppSpacing.vertical)
-                        .frame(height: 50)
+                        .frame(height: 60)
                     
                     
                     ScrollView {
@@ -60,10 +60,8 @@ struct GalleryView: View {
     }
 }
 
-
-//
-//#Preview {
-//    GalleryView(genres: [.example], selectedTab: .constant(2), path: .constant([]), screenWidth:UIScreen.main.bounds.width )
-//        .environmentObject(ViewModel(movieService: MovieService()))
-//        .environmentObject(Persistence())
-//}
+#Preview {
+    GalleryView( selectedTab: .constant(2), path: .constant([]), screenWidth:UIScreen.main.bounds.width )
+        .environmentObject(ViewModel(movieService: MovieService()))
+        .environmentObject(Persistence())
+}

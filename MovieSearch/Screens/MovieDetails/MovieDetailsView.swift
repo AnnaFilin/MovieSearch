@@ -12,6 +12,12 @@ struct CastResponse: Codable {
     let cast: [CastMember]
 }
 
+struct MovieImagesResponse: Codable {
+    let backdrops: [MovieImage]
+        let id: Int
+            let logos, posters: [MovieImage]
+}
+
 struct MovieDetailsView: View {
     @EnvironmentObject var favorites: Persistence
     @EnvironmentObject var viewModel: ViewModel
@@ -65,7 +71,11 @@ struct MovieDetailsView: View {
                                     CastDetailsView(castItem: castMember)
                                 }
                             }
-                        }
+                            
+//                            if !viewModel.movieImages.isEmpty {
+//                                MovieImagesView(images:viewModel.movieImages)
+//                            }
+                        } 
                         .padding(.bottom, geometry.safeAreaInsets.bottom + AppSpacing.vertical)
                     }
                     .background(
@@ -89,6 +99,7 @@ struct MovieDetailsView: View {
             Task {
                 await viewModel.fetchMovieDetails(movieId: movie.id)
                 await viewModel.fetchCastDetails(movieId: movie.id)
+                await viewModel.fetchMovieImages(movieId: movie.id)
             }
         }
     }

@@ -11,7 +11,6 @@ struct GalleryView: View {
     @EnvironmentObject private var favorites: Persistence
     @EnvironmentObject var viewModel: ViewModel
     
-//    let genres: [Genre]
     @Binding var selectedTab: Int
     @Binding var path: [AppNavigation]
     let screenWidth: CGFloat
@@ -32,86 +31,6 @@ struct GalleryView: View {
                     
                     ScrollView {
                         VStack(alignment: .leading, spacing: AppSpacing.vertical * 2 ) {
-                            //
-                            //                            if !viewModel.topRatedMovies.isEmpty {
-                            //                                HStack {
-                            //                                    Text("Top Rated")
-                            //                                        .font(.system(size: 20, weight: .light, design: .default))
-                            //                                        .foregroundColor(.white)
-                            //                                        .multilineTextAlignment(.leading)
-                            //                                        .lineLimit(nil)
-                            //
-                            //                                    Spacer()
-                            //
-                            //                                    Button("See all") {
-                            //                                        path.append(.tabContent(movies: viewModel.topRatedMovies, title: "Top Rated"))
-                            //                                    }
-                            //                                    .font(.system(size: 16, weight: .medium, design: .default))
-                            //                                    .foregroundColor(.shadow)
-                            //                                    .padding(.trailing, 12)
-                            //                                }
-                            //                                .padding(.horizontal, AppSpacing.horizontal)
-                            //                                .shadow(color: .lilac.opacity(0.4), radius: 20, x: 0, y: 10)
-                            //
-                            //                                HorizontalScroll(items: viewModel.topRatedMovies, horizontalInset: AppSpacing.horizontal)  { movie in
-                            //
-                            //                                    Button {
-                            //                                        path.append(.movieDetails(movie: movie))
-                            //                                    } label: {
-                            //                                        MovieCard(movie: movie)
-                            //                                    }
-                            //                                }
-                            //                                .padding(.bottom, AppSpacing.vertical)
-                            //                                .shadow(color: .lilac.opacity(0.2), radius: 20, x: 5, y: 10)
-                            //                            }
-                            //
-                            //                            Text("Genres")
-                            //                                .font(.system(size: 20, weight: .light, design: .default))
-                            //                                .foregroundColor(.white)
-                            //                                .multilineTextAlignment(.leading)
-                            //                                .lineLimit(nil)
-                            //                                .padding(.horizontal, AppSpacing.horizontal)
-                            //
-                            //                            HorizontalScroll(items: genres, horizontalInset: AppSpacing.horizontal ) { genre in
-                            //                                GenreView(genre: genre)
-                            //                                    .opacity(0.7)
-                            //                            }
-                            //                            .padding(.bottom, AppSpacing.vertical)
-                            //                            .shadow(color: .lilac.opacity(0.2), radius: 20, x: 5, y: 10)
-                            //
-                            //                            if !viewModel.popularMovies.isEmpty {
-                            //                                HStack {
-                            //                                    Text("Popular")
-                            //                                        .font(.system(size: 20, weight: .light, design: .default))
-                            //                                        .foregroundColor(.white)
-                            //                                        .multilineTextAlignment(.leading)
-                            //                                        .lineLimit(nil)
-                            //
-                            //                                    Spacer()
-                            //
-                            //                                    Button("See all") {
-                            //                                        path.append(.tabContent(movies: viewModel.popularMovies, title: "Popular"))
-                            //                                    }
-                            //                                    .font(.system(size: 16, weight: .medium, design: .default))
-                            //                                    .foregroundColor(.shadow)
-                            //                                    .padding(.trailing, 12)
-                            //                                }
-                            //                                .padding(.horizontal, AppSpacing.horizontal)
-                            //
-                            //                                HorizontalScroll(items: viewModel.popularMovies,  horizontalInset: AppSpacing.horizontal)  { movie in
-                            //
-                            //                                    Button {
-                            //                                        path.append(.movieDetails(movie: movie))
-                            //                                    } label: {
-                            //                                        MovieCard(movie: movie)
-                            //                                    }
-                            //                                }
-                            //                                .shadow(color: .lilac.opacity(0.2), radius: 20, x: 5, y: 10)
-                            //                            }
-                            //                        }
-                            
-                            
-                            
                             ForEach(Array(viewModel.dataItems.enumerated()), id: \.offset) { index, dataItem in
                                 switch dataItem.type {
                                 case .movieCard:

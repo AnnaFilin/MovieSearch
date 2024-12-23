@@ -15,4 +15,5 @@ protocol MovieServiceProtocol {
     func fetchMoviesByGenre(genreID: Int) async throws -> [Movie]
     func fetchMovieDetails(movieId: Int) async throws -> MovieDetail
     func fetchCastDetails(movieId: Int) async throws -> [CastMember]
+    func fetchMovieImages(movieId: Int) async throws -> [MovieImage]
 }

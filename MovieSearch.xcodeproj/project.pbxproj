@@ -31,6 +31,8 @@
 				ContentView.swift,
 				ContentViewModel.swift,
 				CustomSearchBar.swift,
+				EmptyStateView.swift,
+				MovieImagesView.swift,
 				MovieSearchApp.swift,
 				MovieSection.swift,
 				TagSection.swift,

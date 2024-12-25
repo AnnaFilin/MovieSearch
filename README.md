@@ -42,7 +42,7 @@
 ---
 ## 📱 Screenshots iPad
 - Main Screen:
-
+![Main Screen](https://github.com/user-attachments/assets/142ea1e5-3f67-41bc-8c11-d16b93874c66)
 
 
 ## 🛠️ Tech Stack

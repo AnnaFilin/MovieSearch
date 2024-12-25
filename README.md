@@ -4,6 +4,24 @@
 
 ---
 
+## 📱 Screenshots
+
+- Main Screen:
+![Main Screen](https://github.com/user-attachments/assets/267b0505-9491-4d0b-b7f3-27cc24235a5e)
+
+- Search Results:
+![Search by Genre](https://github.com/user-attachments/assets/d198c58d-2d04-4639-a461-8a618a787598)
+![Search by Keyword](https://github.com/user-attachments/assets/cfae45f3-96d8-4964-a59c-dde818535b18)
+
+- Details Screen: 
+![Details Screen](https://github.com/user-attachments/assets/ff168ac9-b7af-4c90-b97a-41cb3bfea8b4)
+![Details Screen (expanded)](https://github.com/user-attachments/assets/fa6563d7-9257-4271-8ecc-6d67d25beee2)
+
+- Favorites Screen:
+![Favorites Screen](https://github.com/user-attachments/assets/2f41484c-eaab-465a-9277-2bfb81f66cf7)
+
+---
+
 ## ✨ Features
 
 - **Movie Search**  

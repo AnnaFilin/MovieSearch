@@ -41,7 +41,7 @@ struct MovieCard: View {
                 Text(movie.title)
                     .lineSpacing(0)
                     .font(.headline)
-                       .fontWeight(.bold)
+                    .fontWeight(.bold)
                     .lineLimit(nil)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: 190, alignment: .leading)

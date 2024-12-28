@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct ImageView: View {
+    @EnvironmentObject private var favorites: Persistence
+
     let url: String
     let width: CGFloat?
     let height: CGFloat?
     let opacity: Double
     let fillContentMode: Bool
+    
+    @State private var reloadKey: UUID = UUID()
     
     var body: some View {
         
@@ -40,13 +44,23 @@ struct ImageView: View {
                     .opacity(opacity)
                     .cornerRadius(AppSpacing.cornerRadius)
             case .failure:
+                
                 Text("Failed to load image")
+                    
                     .frame(
                         width: width ?? UIScreen.main.bounds.width,
                         height: height ?? UIScreen.main.bounds.height
                     )
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(AppSpacing.cornerRadius)
+                    .onAppear {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                reloadKey = UUID() // Обновляем ключ для перезагрузки
+                                            }
+                                        }
+//                    .onAppear {
+//                                            logImageLoadError(for: fullUrl)
+//                                        }
             @unknown default:
                 Text("Unknown error")
                     .frame(
@@ -57,7 +71,13 @@ struct ImageView: View {
                     .cornerRadius(AppSpacing.cornerRadius)
             }
         }
+        .id(reloadKey) 
     }
+    
+    private func logImageLoadError(for url: URL?) {
+           let errorMessage = "Image load failed for URL: \(url?.absoluteString ?? "Unknown URL")"
+           print(errorMessage)
+       }
 }
 
 #Preview {
@@ -68,4 +88,5 @@ struct ImageView: View {
         opacity: 0.9,
         fillContentMode: true  
     )
+    .environmentObject(Persistence())
 }

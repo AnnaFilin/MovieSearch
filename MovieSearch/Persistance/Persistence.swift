@@ -29,11 +29,13 @@ class Persistence: ObservableObject {
     }
 
     func add(_ movie: Movie) {
+        objectWillChange.send()
         favoritedMovies.insert(movie)
         save()
     }
 
     func remove(_ movie: Movie) {
+        objectWillChange.send()
         favoritedMovies.remove(movie)
         save()
     }

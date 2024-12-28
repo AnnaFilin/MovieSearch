@@ -40,7 +40,7 @@ struct MovieSection: View {
                 Button {
                     path.append(.movieDetails(movie: movie))
                 } label: {
-                    MovieCard(movie: movie)
+                    MovieCard(movie: movie, path: $path)
                 }
             }
             .shadow(color: .lilac.opacity(0.2), radius: 20, x: 5, y: 10)

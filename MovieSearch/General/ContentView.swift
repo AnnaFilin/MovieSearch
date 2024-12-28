@@ -29,6 +29,8 @@ struct ContentView: View {
                     GalleryView(selectedTab: $selectedTab, path: $path, screenWidth: screenWidth)
                     
                         .onAppear {
+                            viewModel.searchText = ""
+                            viewModel.searchMovies = []
                             Task {
                                 await viewModel.prepareData()
                             }
@@ -65,6 +67,7 @@ struct ContentView: View {
                         }
                     }
                 }
+                
                 .tabItem {
                     Label("Favorites", systemImage: "star")
                 }
@@ -76,6 +79,8 @@ struct ContentView: View {
         }
     }
 }
+
+
 
 #Preview {
     ContentView()

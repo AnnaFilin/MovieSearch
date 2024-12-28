@@ -9,9 +9,10 @@ import SwiftUI
 
 
 struct FavoritesButtonView: View {
-    @EnvironmentObject var favorites: Persistence
+    @EnvironmentObject private var favorites: Persistence
 
     var movie: Movie
+    @Binding var path: [AppNavigation]
     
     var body: some View {
         Button(action: {
@@ -31,6 +32,6 @@ struct FavoritesButtonView: View {
 }
 
 #Preview {
-    FavoritesButtonView(movie: .example)
+    FavoritesButtonView(movie: .example, path: .constant([]))
         .environmentObject(Persistence())
 }

@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct MovieCard: View {
+    @EnvironmentObject private var favorites: Persistence
+
     var movie: Movie
+    @Binding var path: [AppNavigation]
     var width: CGFloat = 190
     var height: CGFloat = 320
     
@@ -28,7 +31,7 @@ struct MovieCard: View {
                         .shadow(radius: 2)
                         .cornerRadius(AppSpacing.cornerRadius)
 
-                    FavoritesButtonView(movie: movie)
+                    FavoritesButtonView(movie: movie, path: $path)
                         .padding()
                 }
             }
@@ -56,6 +59,6 @@ struct MovieCard: View {
 }
 
 #Preview {
-    MovieCard(movie: .example)
+    MovieCard(movie: .example,path: .constant([]))
         .environmentObject(Persistence())
 }

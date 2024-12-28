@@ -39,7 +39,6 @@ struct GalleryView: View {
                                     }
                                 case .tag:
                                     if let genres = dataItem.data as? [Genre] {
-                                        //                                                    TagSection(tags: genres)
                                         TagSection(tags: genres, path: $path,title: dataItem.title )
                                     }
                                 }

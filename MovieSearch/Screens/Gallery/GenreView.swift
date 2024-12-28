@@ -19,7 +19,6 @@ struct GenreView: View {
             
             VStack {
                 Button(genre.name) {
-                    print("Button tapped for genre: \(genre.name)")
                     Task {
                         await viewModel.fetchMoviesByGenre(genre: genre)
                     }

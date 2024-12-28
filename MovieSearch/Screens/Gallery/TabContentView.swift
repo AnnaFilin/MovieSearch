@@ -19,9 +19,13 @@ struct TabContentView: View {
         BaseView(title: title) {
             if !favorites.favoritedMovies.isEmpty {
                 GridView(movies: Array(favorites.favoritedMovies), path: $path, width: screenWidth)
+                    .id(favorites.favoritedMovies.count)
             } else {
                 EmptyStateView()
             }
+        }
+        .onAppear {
+            path = [] 
         }
     }
 }

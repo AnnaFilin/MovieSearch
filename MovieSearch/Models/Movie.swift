@@ -49,6 +49,14 @@ struct Movie: Codable, Identifiable, Hashable {
         self.video = video
     }
     
+    static func == (lhs: Movie, rhs: Movie) -> Bool {
+            lhs.id == rhs.id
+        }
+
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+    
     static let allMovies: [Movie] = Bundle.main.decode("MockMovies.json")
     static let example = allMovies[0]
 }

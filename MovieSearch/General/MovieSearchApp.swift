@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct MovieSearchApp: App {
+    @StateObject private var persistence = Persistence()
+    
     init() {
         setupNavigationBarAppearance()
     }

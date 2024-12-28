@@ -23,7 +23,7 @@ struct GridView: View {
                         path.append(.movieDetails(movie: movie))
                     } label: {
 
-                        MovieCard(movie: movie, width:width / 2.5, height: 280)
+                        MovieCard(movie: movie, path: $path, width:width / 2.5, height: 280)
                             .padding(.vertical, AppSpacing.vertical)
                     }
                 }
@@ -34,7 +34,7 @@ struct GridView: View {
 }
 
 #Preview {
-    GridView(movies: [.example], path: .constant([]), width: UIScreen.main.bounds.width)
+    GridView(movies: [.example], path: .constant([]), width: UIScreen.main.bounds.width )
         .environmentObject(Persistence())
 }
 

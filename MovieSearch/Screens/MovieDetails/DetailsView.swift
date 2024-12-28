@@ -12,6 +12,7 @@ struct DetailsView: View {
     
     var movieDetails: MovieDetail
     var movie: Movie
+    @Binding var path: [AppNavigation]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8){
@@ -28,7 +29,7 @@ struct DetailsView: View {
                 
                 Spacer()
                 
-                FavoritesButtonView(movie: movie)
+                FavoritesButtonView(movie: movie, path: $path)
                     .padding(.horizontal, 4)
                 
             }
@@ -50,6 +51,6 @@ func formatMovieDuration(minutes: Int) -> String {
 
 #Preview {
     
-    DetailsView(movieDetails: .example, movie: .example)
+    DetailsView(movieDetails: .example, movie: .example, path: .constant([]))
         .environmentObject(Persistence())
 }
